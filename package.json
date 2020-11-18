@@ -1,0 +1,29 @@
+{
+  "name": "cs-546-final-project",
+  "version": "1.0.0",
+  "description": "Final project for CS-546",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "seed": "node tasks/seed.js",
+    "test": "node tasks/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JordanH821/CS-546-Final-Project.git"
+  },
+  "author": "Aseda Addai-Deseh, Frank Besson, Jordan Handwerger, Patrick Sommer, Maxwell Schwartz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JordanH821/CS-546-Final-Project/issues"
+  },
+  "homepage": "https://github.com/JordanH821/CS-546-Final-Project#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.2.0",
+    "express-session": "^1.17.1",
+    "handlebars": "^4.7.6",
+    "mongodb": "^3.6.3"
+  }
+}
