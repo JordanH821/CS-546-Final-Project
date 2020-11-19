@@ -1,17 +1,22 @@
+{{#if error}}
+<div id="error">
+    <p>{{error}}</p>
+</div>
+{{/if}}
 <form action="/users/signup" method="POST">
     <label for="firstName">First Name:</label>
-    <input id="firstName" name="firstName" type="text"></input>
+    <input id="firstName" name="firstName" type="text" value="{{user.firstName}}"></input>
     <label for="lastName">Last Name:</label>
-    <input id="lastName" name="lastName" type="text"></input>
+    <input id="lastName" name="lastName" type="text" value="{{user.lastName}}"></input>
     <label for="email">Email Address:</label>
-    <input id="email" name="email" type="email"></input>
+    <input id="email" name="email" type="email" value="{{user.email}}"></input>
     <label for="password">Password:</label>
-    <input id="password" name="password" type="password"></input>
+    <input id="password" name="password" type="password" value="{{user.password}}"></input>
     <label for="mobileNumber">Mobile Phone Number:</label>
-    <input id="mobileNumber" name="mobileNumber" type="text"></input>
+    <input id="mobileNumber" name="mobileNumber" type="text" value="{{user.mobileNumber}}"></input>
     <label for="homeNumber">Home Phone Number:</label>
-    <input id="homeNumber" name="homeNumber" type="text"></input>
+    <input id="homeNumber" name="homeNumber" type="text" value="{{user.homeNumber}}"></input>
     <label for="workNumber">Work Phone Number:</label>
-    <input id="workNumber" name="workNumber" type="text"></input>
+    <input id="workNumber" name="workNumber" type="text" value="{{user.workNumber}}"></input>
     <button type="submit">Create Account</button>
 </form>
