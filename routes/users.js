@@ -22,7 +22,6 @@ router.post('/signup', async (req, res) => {
         validatePhoneNumber(rq.mobileNumber, 'Mobile');
         validatePhoneNumber(rq.homeNumber, 'Home');
         validatePhoneNumber(rq.workNumber, 'Work');
-        console.log('Passed route testing');
         const newUser = await createUser(
             firstName,
             lastName,
@@ -37,14 +36,11 @@ router.post('/signup', async (req, res) => {
         delete req.session.user.tasks; // delete tasks so they are not passed around unnecessarily
         res.redirect('/users/profile');
     } catch (e) {
-        console.log(e);
-        console.log(req.body.workNumber);
         res.render('users/signup', { user: req.body, error: e });
     }
 });
 
 router.get('/profile', async (req, res) => {
-    console.log(req.session.user);
     res.render('users/profile', { user: req.session.user });
 });
 

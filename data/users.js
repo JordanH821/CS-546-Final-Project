@@ -22,9 +22,11 @@ async function createUser(
     validateStringInput(password);
     validatePhoneNumber(mobileNumber, 'Mobile');
     validatePhoneNumber(homeNumber, 'Home');
-    console.log(workNumber);
     validatePhoneNumber(workNumber, 'Work');
     let usersCollection = await users();
+    const emailInUse = await usersCollection.findOne({ email: email });
+    if (emailInUse)
+        throw `There is already an account with that email address (${email})`;
     const insertedInfo = await usersCollection.insertOne({
         firstName: firstName,
         lastName: lastName,
