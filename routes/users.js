@@ -5,7 +5,7 @@ const {
     validateStringInput,
     validatePhoneNumber,
     validateEmail,
-} = require('../validation/serverSide');
+} = require('../inputValidation');
 
 router.get('/signup', async (req, res) => {
     res.render('users/signup');

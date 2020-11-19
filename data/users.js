@@ -5,7 +5,7 @@ const {
     validateStringInput,
     validateEmail,
     validatePhoneNumber,
-} = require('../validation/serverSide');
+} = require('../inputValidation');
 
 async function createUser(
     firstName,
