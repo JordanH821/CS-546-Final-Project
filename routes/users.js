@@ -44,4 +44,13 @@ router.get('/profile', async (req, res) => {
     res.render('users/profile', { user: req.session.user });
 });
 
+router.get('/login', async (req, res) => {
+    res.render('users/login');
+});
+
+router.post('/login', async (req, res) => {
+    console.log(req.body);
+    res.send('login');
+});
+
 module.exports = router;
