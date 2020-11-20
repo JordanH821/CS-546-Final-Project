@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createUser } = require('../data/users');
+const { createUser, authenticateUser } = require('../data/users');
 const {
     validateStringInput,
     validatePhoneNumber,
@@ -49,8 +49,16 @@ router.get('/login', async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
-    console.log(req.body);
-    res.send('login');
+    try {
+        let email = validateEmail(req.body.email);
+        validateStringInput(req.body.password);
+        let user = await authenticateUser(email, req.body.password);
+        req.session.user = user;
+        delete req.session.user.hashedPassword;
+        res.redirect('profile');
+    } catch (e) {
+        res.render('users/login', { error: e, user: req.body });
+    }
 });
 
 module.exports = router;
