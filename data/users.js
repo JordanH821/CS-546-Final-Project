@@ -1,6 +1,6 @@
 const mongoCollections = require('../config/mongoCollections');
 const users = mongoCollections.users;
-const { hashPassword } = require('../auth/auth');
+const { hashPassword, comparePasswordToHash } = require('../auth/auth');
 const {
     validateStringInput,
     validateEmail,
@@ -40,6 +40,7 @@ async function createUser(
 }
 
 async function getUserById(id) {
+    // TODO validate ID
     let usersCollection = await users();
     const user = await usersCollection.findOne({ _id: id });
     if (user) {
@@ -49,4 +50,22 @@ async function getUserById(id) {
     }
 }
 
-module.exports = { createUser };
+async function getUserByEmail(email) {
+    email = validateEmail(email);
+    let usersCollection = await users();
+    const user = await usersCollection.findOne({ email: email });
+    if (user) {
+        return user;
+    } else {
+        // TODO change to generic invalid username / password
+        throw `no use exists with email (${email})`;
+    }
+}
+
+async function authenticateUser(email, password) {
+    let user = await getUserByEmail(email);
+    if (comparePasswordToHash(password, user.hashedPassword)) return user;
+    throw 'Invalid username or password';
+}
+
+module.exports = { createUser, getUserByEmail, authenticateUser };
