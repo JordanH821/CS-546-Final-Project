@@ -188,7 +188,7 @@ let exportedMethods = {
       comments: comments
     };
 
-    validateTask(newTask);
+    validateFullTask(newTask);
 
     const taskCollection = await tasks();
     const newInsertInformation = await taskCollection.insertOne(newTask);
@@ -199,7 +199,7 @@ let exportedMethods = {
 
   // PATCH /task/{id}
   async updateTask(id, updatedTask) {
-    validateTask(updatedTask);
+    validatePartialTask(updatedTask);
     
     if (!id || typeof id != "string" || !mongoDB.ObjectID.isValid(id)) {
       throw 'You must provide valid id';
