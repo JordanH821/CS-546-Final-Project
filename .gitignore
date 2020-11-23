@@ -105,3 +105,6 @@ dist
 
 # Test files
 test.js
+
+#vscode debug scripts
+.vscode
