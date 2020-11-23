@@ -6,10 +6,15 @@ const {
     validatePhoneNumber,
     validateEmail,
 } = require('../inputValidation');
+const { authenticationCheckRedirect } = require('./middleware');
 
-router.get('/signup', async (req, res) => {
-    res.render('users/signup');
-});
+router.get(
+    '/signup',
+    authenticationCheckRedirect('/users/profile', false),
+    async (req, res) => {
+        res.render('users/signup');
+    }
+);
 
 router.post('/signup', async (req, res) => {
     try {
@@ -40,13 +45,21 @@ router.post('/signup', async (req, res) => {
     }
 });
 
-router.get('/profile', async (req, res) => {
-    res.render('users/profile', { user: req.session.user });
-});
+router.get(
+    '/profile',
+    authenticationCheckRedirect('/users/login', true),
+    async (req, res) => {
+        res.render('users/profile', { user: req.session.user });
+    }
+);
 
-router.get('/login', async (req, res) => {
-    res.render('users/login');
-});
+router.get(
+    '/login',
+    authenticationCheckRedirect('/users/profile', false),
+    async (req, res) => {
+        res.render('users/login');
+    }
+);
 
 router.post('/login', async (req, res) => {
     try {
