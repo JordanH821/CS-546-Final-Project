@@ -14,9 +14,5 @@ module.exports = [
     {
         datePosted: new Date('2020-12-12T09:00:00Z'),
         comment: 'Reach out if you need any assistance with this!',
-    },
-    {
-        datePosted: new Date('2020-12-10T09:00:00Z'),
-        comment: 'Reach out if you need any assistance with this!',
-    },
+    }
 ];

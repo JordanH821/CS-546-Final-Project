@@ -9,21 +9,20 @@ const validateFullTask = function (task) {
 
     if (
         !task.creatorId ||
-        typeof task.creatorId != 'string' ||
-        !mongoDB.ObjectID.isValid(task.creatorId)
+        !mongoDB.ObjectID.isValid(String(task.creatorId))
     ) {
         throw 'You must provide valid creatorId';
     }
 
-    if (!task.dueDate || typeof task.dueDate != 'Date') {
+    if (!task.dueDate || typeof task.dueDate != 'object' || !Date.parse(task.dueDate)) {
         throw 'You must provide a valid dueDate';
     }
 
-    if (!task.priority || typeof task.priority != 'Number') {
+    if (!task.priority || typeof task.priority != 'number') {
         throw 'You must provide a valid priority';
     }
 
-    if (!task.title || typeof task.title != 'String') {
+    if (!task.title || typeof task.title != 'string') {
         throw 'You must provide a valid title';
     }
 
@@ -31,61 +30,64 @@ const validateFullTask = function (task) {
         throw 'You must provide a valid description';
     }
 
-    if (!task.reminderDate || typeof task.reminderDate != 'Date') {
+    if (
+        !task.reminderDate || 
+        typeof task.reminderDate != 'object' || 
+        !Date.parse(task.reminderDate)
+    ) {
         throw 'You must provide a valid reminderDate';
     }
 
-    if (!task.status || typeof task.status != 'String') {
+    if (!task.status || typeof task.status != 'string') {
         throw 'You must provide a valid status';
     }
 
     if (
         !task.assignee ||
-        typeof task.assignee != 'string' ||
-        !mongoDB.ObjectID.isValid(task.assignee)
+        !mongoDB.ObjectID.isValid(String(task.assignee))
     ) {
         throw 'You must provide a valid assignee';
     }
 
-    if (!task.subTasks || !Array.isArray(task.subTasks)) {
-        throw 'You must provide valid subTasks';
-    } else {
-        task.subTasks.forEach((subTask) => {
-            if (!mongoDB.ObjectID.isValid(subTask)) {
-                throw 'You must provide valid subTasks';
-            }
-        });
-    }
+    // if (!task.subTasks || !Array.isArray(task.subTasks)) {
+    //     throw 'You must provide valid subTasks';
+    // } else {
+    //     task.subTasks.forEach((subTask) => {
+    //         if (!mongoDB.ObjectID.isValid(subTask)) {
+    //             throw 'You must provide valid subTasks';
+    //         }
+    //     });
+    // }
 
-    if (!task.dependencies || !Array.isArray(task.dependencies)) {
-        throw 'You must provide valid dependencies';
-    } else {
-        task.dependencies.forEach((dependency) => {
-            if (!mongoDB.ObjectID.isValid(dependency)) {
-                throw 'You must provide valid dependencies';
-            }
-        });
-    }
+    // if (!task.dependencies || !Array.isArray(task.dependencies)) {
+    //     throw 'You must provide valid dependencies';
+    // } else {
+    //     task.dependencies.forEach((dependency) => {
+    //         if (!mongoDB.ObjectID.isValid(dependency)) {
+    //             throw 'You must provide valid dependencies';
+    //         }
+    //     });
+    // }
 
-    if (!task.tags || !Array.isArray(task.tags)) {
-        throw 'You must provide valid tags';
-    } else {
-        task.tags.forEach((tag) => {
-            if (typeof tag != 'string') {
-                throw 'You must provide valid tags';
-            }
-        });
-    }
+    // if (!task.tags || !Array.isArray(task.tags)) {
+    //     throw 'You must provide valid tags';
+    // } else {
+    //     task.tags.forEach((tag) => {
+    //         if (typeof tag != 'string') {
+    //             throw 'You must provide valid tags';
+    //         }
+    //     });
+    // }
 
-    if (!task.comments || !Array.isArray(task.comments)) {
-        throw 'You must provide valid tags';
-    } else {
-        task.comments.forEach((comment) => {
-            if (!mongoDB.ObjectID.isValid(comment)) {
-                throw 'You must provide valid tags';
-            }
-        });
-    }
+    // if (!task.comments || !Array.isArray(task.comments)) {
+    //     throw 'You must provide valid tags';
+    // } else {
+    //     task.comments.forEach((comment) => {
+    //         if (!mongoDB.ObjectID.isValid(comment)) {
+    //             throw 'You must provide valid tags';
+    //         }
+    //     });
+    // }
 };
 
 const validatePartialTask = function (task) {
@@ -95,8 +97,7 @@ const validatePartialTask = function (task) {
 
     if (task.creatorId) {
         if (
-            typeof task.creatorId != 'string' ||
-            !mongoDB.ObjectID.isValid(task.creatorId)
+            !mongoDB.ObjectID.isValid(String(task.creatorId))
         ) {
             throw 'You must provide valid creatorId';
         }
@@ -140,8 +141,7 @@ const validatePartialTask = function (task) {
 
     if (task.assignee) {
         if (
-            typeof task.assignee != 'string' ||
-            !mongoDB.ObjectID.isValid(task.assignee)
+            !mongoDB.ObjectID.isValid(String(task.assignee))
         ) {
             throw 'You must provide a valid assignee';
         }
@@ -173,7 +173,7 @@ let exportedMethods = {
 
     // GET /task/{id}
     async getTaskById(id) {
-        if (!id || typeof id != 'string' || !mongoDB.ObjectID.isValid(id)) {
+        if (!id || !mongoDB.ObjectID.isValid(String(id))) {
             throw 'You must provide valid id';
         }
 
@@ -205,10 +205,10 @@ let exportedMethods = {
             reminderDate: reminderDate,
             status: status,
             assignee: assignee,
-            subTasks: subTasks,
-            dependencies: dependencies,
-            tags: tags,
-            comments: comments,
+            subTasks: [],
+            dependencies: [],
+            tags: [],
+            comments: [],
         };
 
         validateFullTask(newTask);
@@ -224,7 +224,7 @@ let exportedMethods = {
     async updateTask(id, updatedTask) {
         validatePartialTask(updatedTask);
 
-        if (!id || typeof id != 'string' || !mongoDB.ObjectID.isValid(id)) {
+        if (!id || !mongoDB.ObjectID.isValid(String(id))) {
             throw 'You must provide valid id';
         }
 
@@ -258,7 +258,7 @@ let exportedMethods = {
 
     // DELETE /task/{id}
     async removeTask(id) {
-        if (!id || typeof id != 'string' || !mongoDB.ObjectID.isValid(id)) {
+        if (!id || !mongoDB.ObjectID.isValid(String(id))) {
             throw 'You must provide valid id';
         }
 
@@ -275,16 +275,14 @@ let exportedMethods = {
     async addSubTaskToTask(taskId, subtaskId) {
         if (
             !taskId ||
-            typeof taskId != 'string' ||
-            !mongoDB.ObjectID.isValid(taskId)
+            !mongoDB.ObjectID.isValid(String(taskId))
         ) {
             throw 'You must provide valid taskId';
         }
 
         if (
             !subtaskId ||
-            typeof subtaskId != 'string' ||
-            !mongoDB.ObjectID.isValid(subtaskId)
+            !mongoDB.ObjectID.isValid(String(subtaskId))
         ) {
             throw 'You must provide valid subtaskId';
         }
@@ -306,16 +304,14 @@ let exportedMethods = {
     async addDependencyToTask(taskId, dependencyId) {
         if (
             !taskId ||
-            typeof taskId != 'string' ||
-            !mongoDB.ObjectID.isValid(taskId)
+            !mongoDB.ObjectID.isValid(String(taskId))
         ) {
             throw 'You must provide valid taskId';
         }
 
         if (
             !dependencyId ||
-            typeof dependencyId != 'string' ||
-            !mongoDB.ObjectID.isValid(dependencyId)
+            !mongoDB.ObjectID.isValid(String(dependencyId))
         ) {
             throw 'You must provide valid subtaskId';
         }
@@ -337,8 +333,7 @@ let exportedMethods = {
     async addTagToTask(taskId, tag) {
         if (
             !taskId ||
-            typeof taskId != 'string' ||
-            !mongoDB.ObjectID.isValid(taskId)
+            !mongoDB.ObjectID.isValid(String(taskId))
         ) {
             throw 'You must provide valid taskId';
         }
@@ -362,16 +357,14 @@ let exportedMethods = {
     async addCommentToTask(taskId, commentId) {
         if (
             !taskId ||
-            typeof taskId != 'string' ||
-            !mongoDB.ObjectID.isValid(taskId)
+            !mongoDB.ObjectID.isValid(String(taskId))
         ) {
             throw 'You must provide valid taskId';
         }
 
         if (
             !commentId ||
-            typeof commentId != 'string' ||
-            !mongoDB.ObjectID.isValid(commentId)
+            !mongoDB.ObjectID.isValid(String(commentId))
         ) {
             throw 'You must provide valid commentId';
         }

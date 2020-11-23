@@ -43,11 +43,7 @@ async function main() {
                 task.description,
                 task.reminderDate,
                 task.status,
-                createdUsers[i + 1]._id,
-                task.subTasks,
-                task.dependencies,
-                task.tags,
-                task.comments
+                createdUsers[i + 1]._id
             );
             createdTasks.push(t);
             i = i + 1;
@@ -61,7 +57,7 @@ async function main() {
     let createdComments = [];
     i = 0;
     for (const comment of commentList) {
-        let c = await data.comments.addComment(
+        let c = await comments.addComment(
             createdUsers[i]._id,
             comment.datePosted,
             createdTasks[i]._id,
@@ -72,26 +68,26 @@ async function main() {
     }
 
     // add subTasks to tasks
-    for (const task of taskList.slice(1)) {
-        await data.tasks.addSubTaskToTask(createdTasks[0]._id, task._id);
+    for (const task of createdTasks.slice(1)) {
+        await tasks.addSubTaskToTask(createdTasks[0]._id, task._id);
     }
 
     // add dependencies to tasks
-    for (const task of taskList.slice(1)) {
-        await data.tasks.addDependencyToTask(createdTasks[0]._id, task._id);
+    for (const task of createdTasks.slice(1)) {
+        await tasks.addDependencyToTask(createdTasks[0]._id, task._id);
     }
 
     // add tags to tasks
-    for (const task of taskList.slice(1)) {
-        await data.tasks.addTagToTask(task._id, 'Important');
-        await data.tasks.addTagToTask(task._id, 'CS546');
-        await data.tasks.addTagToTask(task._id, 'TaskTrack');
+    for (const task of createdTasks) {
+        await tasks.addTagToTask(task._id, 'Important');
+        await tasks.addTagToTask(task._id, 'CS546');
+        await tasks.addTagToTask(task._id, 'TaskTrack');
     }
 
     // add comments to tasks
     i = 0;
-    for (const task of taskList) {
-        await data.tasks.addCommentToTask(task._id, createdComments[i]._id);
+    for (const task of createdTasks) {
+        await tasks.addCommentToTask(task._id, createdComments[i]._id);
         i = i + 1;
     }
 

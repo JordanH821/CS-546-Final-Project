@@ -8,19 +8,19 @@ const validateComment = function(comment) {
     throw 'You must provide valid comment';
   }
 
-  if (!comment.userId || typeof comment.userId != "string" || !mongoDB.ObjectID.isValid(comment.userId)) {
+  if (!comment.userId || !mongoDB.ObjectID.isValid(String(comment.userId))) {
     throw 'You must provide valid userId';
   }
 
-  if (!comment.datePosted || typeof comment.datePosted != "Date") {
+  if (!comment.datePosted || typeof comment.datePosted != 'object' || !Date.parse(comment.datePosted)) {
     throw 'You must provide a valid datePosted';
   }
 
-  if (!comment.taskId || typeof comment.taskId != "string" || !mongoDB.ObjectID.isValid(comment.taskId)) {
+  if (!comment.taskId || !mongoDB.ObjectID.isValid(String(comment.taskId))) {
     throw 'You must provide valid taskId';
   }
 
-  if (!comment.comment || typeof comment.comment != "String") {
+  if (!comment.comment || typeof comment.comment != "string") {
     throw 'You must provide a valid comment';
   }
 
@@ -36,7 +36,7 @@ let exportedMethods = {
 
   // GET /comment/{id}
   async getCommentById(id) {
-    if (!id || typeof id != "string" || !mongoDB.ObjectID.isValid(id)) {
+    if (!id || !mongoDB.ObjectID.isValid(String(id))) {
       throw 'You must provide valid id';
     }
 
