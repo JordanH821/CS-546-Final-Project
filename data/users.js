@@ -19,7 +19,7 @@ async function createUser(
     firstName = validateStringInput(firstName, 'First Name');
     lastName = validateStringInput(lastName, 'Last Name');
     email = validateEmail(email);
-    validateStringInput(password);
+    validateStringInput(password, 'Password');
     validatePhoneNumber(mobileNumber, 'Mobile');
     validatePhoneNumber(homeNumber, 'Home');
     validatePhoneNumber(workNumber, 'Work');
