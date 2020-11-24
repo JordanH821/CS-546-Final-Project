@@ -6,6 +6,8 @@ const configRoutes = require('./routes');
 const exphbs = require('express-handlebars');
 const session = require('express-session');
 
+const seed = require('./tasks/seed/seed');
+
 app.use('/public', staticRoutes);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
