@@ -1,0 +1,52 @@
+
+/* Default margin class sizes  */
+/* 8 px margin */
+.marginLeft8 {
+    margin-left: 8px;
+}
+
+.marginRight8 {
+    margin-right: 8px;
+}
+
+.marginTop8 {
+    margin-top: 8px;
+}
+
+.marginBottom8 {
+    margin-bottom: 8px;
+}
+
+/* 12 px margins*/
+.marginLeft12 {
+    margin-left: 12px;
+}
+
+.marginRight12 {
+    margin-right: 12px;
+}
+
+.marginTop12 {
+    margin-top: 12px;
+}
+
+.marginBottom12 {
+    margin-bottom: 12px;
+}
+
+/* 16 px margins */
+.marginLeft16 {
+    margin-left: 16px;
+}
+
+.marginRight16 {
+    margin-right: 16px;
+}
+
+.marginTop16 {
+    margin-top: 16px;
+}
+
+.marginBottom16 {
+    margin-bottom: 16px;
+}

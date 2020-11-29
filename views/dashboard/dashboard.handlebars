@@ -1,0 +1,65 @@
+<div id="dashboardBackground">
+    <link rel="stylesheet" href="/public/css/dashboard.css" />
+    <div id='dashboardHeader'>
+        <h1 id="dashboardTitle" class="marginLeft12">Task Track</h1>
+        <div class="dashboardNav_V_Divider marginLeft12 marginRight12"></div>
+        <a href="/dashboard" class='headerLink'>Dashboard</a>
+        <div class="dashboardNav_H_Divider marginLeft12 marginRight12"></div>
+        <a href="/users/signup" class='headerLink'>Create Task</a>
+        <div class="dashboardNav_H_Divider"></div>
+        <a href="/users/signup" class='headerLink'>Archive</a>
+        <div class="dashboardNav_H_Divider"></div>
+        <a href="/users/signup" class='headerLink'>Archive</a>
+    </div>
+
+    <div id='dashboardNotificationContainer'>
+        <p id='notificationTitle' class="marginLeft12 marginRight12">Upcoming Due Dates:</p>
+        <p id='notificationBody'>Notifications will be displayed here</p>
+        {{!-- placeholder for notification panel --}}
+    </div>
+
+    <div id='tagsContainer'>
+        <a id='tagsTitle'>Tags:</a>
+        <button class="tagButton">DummyTag</button>
+        <button class="tagButton">DummyTag1</button>
+    </div>
+    <div id="columnsContainer">
+        <div class="row">
+            <div class="column c1" id="toDoColumn" ondragover="dashboardAllowDrop(event)"
+                ondrop="dashboardOnDrop(event)">
+                <h3 class="columnHeader">To Do:</h3>
+                {{#each toDoCards}}
+                <div draggable="true" ondragstart="dashboardOnDrag(event)">
+                    {{> 'taskCard' this}}
+                </div>
+                {{/each}}
+            </div>
+            <div class="column c2" ondragover="dashboardAllowDrop(event)" ondrop="dashboardOnDrop(event)">
+                <h3 class="columnHeader">In Progress:</h3>
+                {{#each inProgressCards}}
+                <div draggable="true" ondragstart="dashboardOnDrag(event)">
+                    {{> 'taskCard' this}}
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        <div class="column c3" ondragover="dashboardAllowDrop(event)" ondrop="dashboardOnDrop(event)">
+            <h3 class="columnHeader">Done:</h3>
+            {{#each doneCards}}
+            <div draggable="true" ondragstart="dashboardOnDrag(event)">
+                {{> 'taskCard' this}}
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+<script src="public/js/dashboard.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $('#toDoColumn').load("taskCard.html");
+
+    });
+</script>
+</div>
