@@ -44,5 +44,6 @@ function dashboardOnDrop(ev) {
     // move task to column
     if (column) {
         column.appendChild(cardCurrentlyDragging);
+        cardCurrentlyDragging.scrollIntoView();
     }
 }
