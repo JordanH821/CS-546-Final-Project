@@ -3,13 +3,17 @@
     <div id='dashboardHeader'>
         <h1 id="dashboardTitle" class="marginLeft12">Task Track</h1>
         <div class="dashboardNav_V_Divider marginLeft12 marginRight12"></div>
+
         <a href="/dashboard" class='headerLink'>Dashboard</a>
         <div class="dashboardNav_H_Divider marginLeft12 marginRight12"></div>
-        <a href="/users/signup" class='headerLink'>Create Task</a>
+
+        <a href="/createTask" class='headerLink'>Create Task</a>
         <div class="dashboardNav_H_Divider"></div>
-        <a href="/users/signup" class='headerLink'>Archive</a>
+
+        <a href="/archive" class='headerLink'>Archive</a>
         <div class="dashboardNav_H_Divider"></div>
-        <a href="/users/signup" class='headerLink'>Archive</a>
+
+        <a href="/users/profile" class='headerLink'>Profile</a>
     </div>
 
     <div id='dashboardNotificationContainer'>
@@ -27,7 +31,7 @@
         <div class="row">
             <div class="column c1" id="toDoColumn" ondragover="dashboardAllowDrop(event)"
                 ondrop="dashboardOnDrop(event)">
-                <h3 class="columnHeader">To Do:</h3>
+                <h3 class="columnHeader marginLeft12 marginRight12">To Do:</h3>
                 {{#each toDoCards}}
                 <div draggable="true" ondragstart="dashboardOnDrag(event)">
                     {{> 'taskCard' this}}
@@ -35,7 +39,7 @@
                 {{/each}}
             </div>
             <div class="column c2" ondragover="dashboardAllowDrop(event)" ondrop="dashboardOnDrop(event)">
-                <h3 class="columnHeader">In Progress:</h3>
+                <h3 class="columnHeader marginLeft12 marginRight12">In Progress:</h3>
                 {{#each inProgressCards}}
                 <div draggable="true" ondragstart="dashboardOnDrag(event)">
                     {{> 'taskCard' this}}
@@ -44,7 +48,7 @@
             </div>
         </div>
         <div class="column c3" ondragover="dashboardAllowDrop(event)" ondrop="dashboardOnDrop(event)">
-            <h3 class="columnHeader">Done:</h3>
+            <h3 class="columnHeader marginLeft12 marginRight12">Done:</h3>
             {{#each doneCards}}
             <div draggable="true" ondragstart="dashboardOnDrag(event)">
                 {{> 'taskCard' this}}

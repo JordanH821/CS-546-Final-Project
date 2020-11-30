@@ -101,7 +101,7 @@
   }
 
   .card {
-      height: 200px;
+      position: relative;
       background-color: white;
       margin:12px;
       border: lightslategray;
@@ -111,15 +111,12 @@
       box-shadow: 5px 5px 10px rgba(0,0,0,.2);
   }
 
-  .columnHeader {
-      margin-left: 12px;
-  }
-
   .cardTitle {
     font-size: 32px;
     font-weight: bold;
+    min-height: 64px;
   }
 
   .cardTagContainer {
-
+    height: 42px;
   }
