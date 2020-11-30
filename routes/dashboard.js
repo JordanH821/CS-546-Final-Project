@@ -46,7 +46,27 @@ router.get('/', async (req, res) => {
             {
                 title: "done card one",
                 tags: [
-                    "tag 1"
+                    "tag 1",
+                    "tag 2",
+                    "tag 3",
+                    "tag 5",
+                    "tag 6",
+                    "tag 7",
+                    "tag 8",
+                    "tag 1",
+                    "tag 2",
+                    "tag 3",
+                    "tag 5",
+                    "tag 6",
+                    "tag 7",
+                    "tag 8",
+                    "tag 1",
+                    "tag 2",
+                    "tag 3",
+                    "tag 5",
+                    "tag 6",
+                    "tag 7",
+                    "tag 8"   
                 ]
             },
             {
@@ -79,7 +99,10 @@ router.get('/', async (req, res) => {
                     "tag 1",
                     "tag 2",
                     "tag 3",
-                    "tag 5"
+                    "tag 5",
+                    "tag 6",
+                    "tag 7",
+                    "tag 8" 
                 ]                
             }
         ]
