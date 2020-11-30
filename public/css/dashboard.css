@@ -1,43 +1,55 @@
 
 /* Dashboard Styles */
+
+
+#dashboardHeader {
+    background-color:#212121;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+}
+
 #dashboardTitle {
     display: inline-block;
 }
 
+#headerLogo {
+    height: 30px;
+}
+
 .dashboardNav_V_Divider {
-    background-color: black;
+    background-color: white;
     width: 1px;
     height: 14px;
     display: inline-block;
 }
 
 .dashboardNav_H_Divider {
-    background-color: black;
+    background-color: white;
     width: 14px;
     height: 1px;
-    margin-bottom: 3px;
+    margin-top: 5px;
     display: inline-block;
 }
 
 .headerLink {
-    color: black;
-    font-size: 16px;
+    color: white;
+    font-size: 20px;
 }
 
 #dashboardNotificationContainer {
-    background-color: #CC3300;
+    background-color: #b00020;
     min-height: 70px;
     margin-left: 48px;
     margin-right: 48px;
-    border-width: 1px;
-    border:rgb(75, 19, 19);
-    border-style: solid;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 #notificationTitle {
     color: white;
     font-weight: bold;
     margin-bottom: 6px;
+    margin-top: 12px;
 }
 
 #notificationBody {
@@ -53,12 +65,15 @@
 #tagsTitle {
     padding-left: 24px;
     font-size: 18px;
+    color: black;
+    font-weight: bold;
 }
 
 .tagButton {
     background-color: rgba(0,0,0,0);
     display: inline-block;
     color: black;
+    background-color: white;
     padding-top: 4px;
     padding-bottom: 4px;
     padding-left: 12px;
@@ -68,21 +83,31 @@
     outline: none;
 }
 
+.clearPageDivider {
+    height: 1px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
 #columnsContainer {
     margin-left: 48px;
     margin-right: 48px;
     margin-top: 24px;
 }
 
+.columnHeader {
+    font-size: 24px;
+    margin-bottom: 0;
+}
+
 .column {
     width: 32%;
-    height: 100vh;
-    background-color: rgb(250, 250, 250);
-    border: rgb(201, 201, 201);
-    border-width: 1px;
-    border-style: solid;
-    box-sizing: border-box;
-    box-shadow: 0px 0px 2px rgba(0,0,0,.3);
+    color: black;
+    background-color: rgb(230, 230, 230);
+    border: rgb(58, 58, 58);
+    box-shadow: 0px 0px 10px rgba(0,0,0,.3);
+  }
+
+  .columnScrollView {
     overflow-y: scroll;
     scroll-behavior: smooth;
   }
@@ -102,22 +127,25 @@
   .card {
       background-color: white;
       margin:12px;
-      border: lightslategray;
-      border-width: 1px;
-      border-style: solid;
+      color: black;
       box-sizing: border-box;
-      box-shadow: 5px 5px 10px rgba(0,0,0,.2);
+      box-shadow: 0px 0px 5px rgba(0,0,0,.2);
   }
 
   .cardTitle {
-    font-size: 32px;
+    font-size: 24px;
     font-weight: bold;
     min-height: 64px;
     display: flex;
     align-items: center;
+    padding-top: 8px;
   }
 
   .cardTagContainer {
     height: 42px;
     display: table;
   }
+  
+  .displayTable {
+    display: table;
+}

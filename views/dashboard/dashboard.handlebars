@@ -1,24 +1,29 @@
-<div id="dashboardBackground">
+<div id="dashboardBackground" class="back">
     <link rel="stylesheet" href="/public/css/dashboard.css" />
     <div id='dashboardHeader'>
-        <h1 id="dashboardTitle" class="marginLeft12">Task Track</h1>
+        {{!-- <h1 id="dashboardTitle" class="marginLeft12">Task Track</h1> --}}
+        <img id="headerLogo" src="public/img/header_logo.png" class="marginLeft12 marginRight12 marginTop12 marginBottom12">
         <div class="dashboardNav_V_Divider marginLeft12 marginRight12"></div>
 
-        <a href="/dashboard" class='headerLink'>Dashboard</a>
+        <a href="/dashboard" class='headerLink marginLeft12'>Dashboard</a>
         <div class="dashboardNav_H_Divider marginLeft12 marginRight12"></div>
 
         <a href="/createTask" class='headerLink'>Create Task</a>
-        <div class="dashboardNav_H_Divider"></div>
+        <div class="dashboardNav_H_Divider marginLeft12 marginRight12"></div>
 
         <a href="/archive" class='headerLink'>Archive</a>
-        <div class="dashboardNav_H_Divider"></div>
+        <div class="dashboardNav_H_Divider marginLeft12 marginRight12"></div>
 
         <a href="/users/profile" class='headerLink'>Profile</a>
     </div>
+        <div class="clearPageDivider marginTop16 marginLeft16 marginRight16 marginBottom16"></div>
 
     <div id='dashboardNotificationContainer'>
+        <div class="displayTable">
         <p id='notificationTitle' class="marginLeft12 marginRight12">Upcoming Due Dates:</p>
         <p id='notificationBody'>Notifications will be displayed here</p>
+                    
+        </div>
         {{!-- placeholder for notification panel --}}
     </div>
 
@@ -27,33 +32,42 @@
         <button class="tagButton">DummyTag</button>
         <button class="tagButton">DummyTag1</button>
     </div>
-    <div id="columnsContainer">
+
+    <div class="clearPageDivider marginTop16 marginLeft16 marginRight16"></div>
+
+    <div id="columnsContainer" class="marginBottom16">
         <div class="row">
             <div class="column c1" id="toDoColumn" ondragover="dashboardAllowDrop(event)"
                 ondrop="dashboardOnDrop(event)">
                 <h3 class="columnHeader marginLeft12 marginRight12">To Do:</h3>
-                {{#each toDoCards}}
-                <div draggable="true" ondragstart="dashboardOnDrag(event)">
-                    {{> 'taskCard' this}}
+                <div class="columnScrollView">
+                    {{#each toDoCards}}
+                    <div draggable="true" ondragstart="dashboardOnDrag(event)">
+                        {{> 'taskCard' this}}
+                    </div>
+                    {{/each}}
                 </div>
-                {{/each}}
             </div>
             <div class="column c2" ondragover="dashboardAllowDrop(event)" ondrop="dashboardOnDrop(event)">
                 <h3 class="columnHeader marginLeft12 marginRight12">In Progress:</h3>
-                {{#each inProgressCards}}
-                <div draggable="true" ondragstart="dashboardOnDrag(event)">
-                    {{> 'taskCard' this}}
+                <div class="columnScrollView">
+                    {{#each toDoCards}}
+                    <div draggable="true" ondragstart="dashboardOnDrag(event)">
+                        {{> 'taskCard' this}}
+                    </div>
+                    {{/each}}
                 </div>
-                {{/each}}
             </div>
         </div>
         <div class="column c3" ondragover="dashboardAllowDrop(event)" ondrop="dashboardOnDrop(event)">
             <h3 class="columnHeader marginLeft12 marginRight12">Done:</h3>
-            {{#each doneCards}}
-            <div draggable="true" ondragstart="dashboardOnDrag(event)">
-                {{> 'taskCard' this}}
+            <div class="columnScrollView">
+                {{#each doneCards}}
+                <div draggable="true" ondragstart="dashboardOnDrag(event)">
+                    {{> 'taskCard' this}}
+                </div>
+                {{/each}}
             </div>
-            {{/each}}
         </div>
     </div>
 </div>

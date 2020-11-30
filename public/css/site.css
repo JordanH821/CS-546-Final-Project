@@ -2,5 +2,12 @@
 /* global */
 html {
     background-color: white;
+    color: rgb(255, 255, 255);
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
 }
 

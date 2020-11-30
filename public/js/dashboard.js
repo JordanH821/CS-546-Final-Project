@@ -6,14 +6,14 @@ sizeColumns();
 
 function sizeColumns() {
     // get position of column container
-    const columnsContainer = document.getElementById("columnsContainer");
-    const positionPercent = columnsContainer.getBoundingClientRect().bottom / (window.innerHeight - 24);
+    const scrollView = document.getElementsByClassName("columnScrollView")[0];
+    const positionPercent = scrollView.getBoundingClientRect().top / (window.innerHeight - 50);
 
     // set the column height to fill in the bottom half the of viewport
-    const columnHeight = (1 - positionPercent) * 100;
-    var columns = document.getElementsByClassName('column');
+    const scrollViewHeight = (1 - positionPercent) * 100;
+    var columns = document.getElementsByClassName('columnScrollView');
     for (let i = 0; i < columns.length; i++) {
-        columns[i].style.height = columnHeight + "vh";
+        columns[i].style.height = scrollViewHeight + "vh";
     };
 }
 
@@ -42,12 +42,13 @@ function dashboardOnDrop(ev) {
 }
 
 function findColumnForTaskCard(taskCard) {
+
     // find column
     let current = taskCard;
 
     // continue to traverse up until we find a column or there is no parent node
     while (true) {
-        if (current.classList.contains("column")) {
+        if (current.classList.contains("columnScrollView")) {
             return current;
         } else {
             if (current.parentNode) {
