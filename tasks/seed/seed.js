@@ -6,6 +6,7 @@ const taskList = require('./tasks');
 const commentList = require('./comments');
 
 async function main() {
+    console.log('Starting seed task...');
     const db = await dbConnection();
     await db.dropDatabase();
 
@@ -92,6 +93,7 @@ async function main() {
     }
 
     await db.serverConfig.close();
+    console.log('Seed task completed');
 }
 
 main();
