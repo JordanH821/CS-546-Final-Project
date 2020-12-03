@@ -20,6 +20,7 @@
   "homepage": "https://github.com/JordanH821/CS-546-Final-Project#readme",
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "express-handlebars": "^5.2.0",
     "express-session": "^1.17.1",
