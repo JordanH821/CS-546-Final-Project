@@ -6,12 +6,14 @@ router.get('/', async (req, res) => {
         title: 'Dashboard',
         toDoCards: [
             {
-                title: "to do card one longer name two lines and now lets make it 3 lines",
+                _id: 0,
+                title: "to do card one ",
                 tags: [
                     "tag 1"
                 ]
             },
             {
+                _id: 1,
                 title: "to do cardTwo",
                 tags: [
                     "tag 1",
@@ -19,6 +21,7 @@ router.get('/', async (req, res) => {
                 ]
             },
             {
+                _id: 2,
                 title: "to do cardThree",
                 tags: [
                     "tag 1",
@@ -29,12 +32,14 @@ router.get('/', async (req, res) => {
         ],
         inProgressCards: [
             {
+                _id: 3,
                 title: "in progress card one",
                 tags: [
                     "tag 1"
                 ]
             },
             {
+                _id: 4,
                 title: "in progress cardTwo",
                 tags: [
                     "tag 1",
@@ -44,32 +49,17 @@ router.get('/', async (req, res) => {
         ],
         doneCards: [
             {
+                _id: 5,
                 title: "done card one",
                 tags: [
                     "tag 1",
                     "tag 2",
                     "tag 3",
-                    "tag 5",
-                    "tag 6",
-                    "tag 7",
-                    "tag 8",
-                    "tag 1",
-                    "tag 2",
-                    "tag 3",
-                    "tag 5",
-                    "tag 6",
-                    "tag 7",
-                    "tag 8",
-                    "tag 1",
-                    "tag 2",
-                    "tag 3",
-                    "tag 5",
-                    "tag 6",
-                    "tag 7",
-                    "tag 8"   
+                    "tag 4" 
                 ]
             },
             {
+                _id: 6,
                 title: "done cardTwo",
                 tags: [
                     "tag 1",
@@ -77,6 +67,7 @@ router.get('/', async (req, res) => {
                 ]
             },
             {
+                _id: 7,
                 title: "done cardThree",
                 tags: [
                     "tag 1",
@@ -85,6 +76,7 @@ router.get('/', async (req, res) => {
                 ]                
             },
             {
+                _id: 8,
                 title: "done cardFour",
                 tags: [
                     "tag 1",
@@ -94,6 +86,7 @@ router.get('/', async (req, res) => {
                 ]                
             },
             {
+                _id: 9,
                 title: "done cardFive",
                 tags: [
                     "tag 1",

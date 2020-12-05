@@ -2,8 +2,6 @@
 let columnCurrentlyDragging;
 let cardCurrentlyDragging;
 
-sizeColumns();
-
 function sizeColumns() {
     // get position of column container
     const scrollView = document.getElementsByClassName("columnScrollView")[0];
@@ -59,3 +57,4 @@ function findColumnForTaskCard(taskCard) {
         }
     }
 }
+
