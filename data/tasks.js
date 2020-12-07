@@ -206,6 +206,7 @@ let exportedMethods = {
             reminderDate: reminderDate,
             status: status,
             assignee: assignee,
+            dateModified: Date.now(),
             subTasks: [],
             dependencies: [],
             tags: [],
@@ -240,6 +241,7 @@ let exportedMethods = {
             reminderDate: updatedTask.reminderDate,
             status: updatedTask.status,
             assignee: updatedTask.assignee,
+            dateModified: Date.now(),
             subTasks: task.subTasks,
             dependencies: task.dependencies,
             tags: task.tags,
@@ -400,6 +402,12 @@ let exportedMethods = {
         // update task in DB
         return this.updateTask(taskId, task);
         
+    },
+
+    sortTasksByDate(tasks, status) {
+        return tasks.sort(function (a, b) {
+            return new Date(a.dateModified) - new Date(b.dateModified);
+        });
     }
 };
 

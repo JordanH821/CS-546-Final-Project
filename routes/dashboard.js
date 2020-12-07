@@ -10,12 +10,13 @@ router.get(
     authenticationCheckRedirect('/users/login', true),
     async (req, res) => {
         const tasks = await usersData.getAllTasksForUser(req.session.user._id);
+
         res.render('dashboard/dashboard', {
             title: 'Dashboard',
             user: req.session.user,
-            toDoCards: tasks.filter(task => task.status == 'To Do'),
-            inProgressCards: tasks.filter(task => task.status == 'In Progress'),
-            doneCards: tasks.filter(task => task.status == 'Done')
+            toDoCards: tasksData.sortTasksByDate(tasks.filter(task => task.status == 'To Do')),
+            inProgressCards: tasksData.sortTasksByDate(tasks.filter(task => task.status == 'In Progress')),
+            doneCards: tasksData.sortTasksByDate(tasks.filter(task => task.status == 'Done'))
         });
     }
 );
