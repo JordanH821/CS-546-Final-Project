@@ -1,6 +1,7 @@
 const mongoDB = require('mongodb');
 const mongoCollections = require('../config/mongoCollections');
 const tasks = mongoCollections.tasks;
+const users = require('./users');
 
 const validateFullTask = function (task) {
     if (!task || typeof task != 'object') {
@@ -31,8 +32,8 @@ const validateFullTask = function (task) {
     }
 
     if (
-        !task.reminderDate || 
-        typeof task.reminderDate != 'object' || 
+        !task.reminderDate ||
+        typeof task.reminderDate != 'object' ||
         !Date.parse(task.reminderDate)
     ) {
         throw 'You must provide a valid reminderDate';
@@ -104,19 +105,19 @@ const validatePartialTask = function (task) {
     }
 
     if (task.dueDate) {
-        if (typeof task.dueDate != 'Date') {
+        if (!task.dueDate || typeof task.dueDate != 'object' || !Date.parse(task.dueDate)) {
             throw 'You must provide a valid dueDate';
         }
     }
 
     if (task.priority) {
-        if (typeof task.priority != 'Number') {
+        if (typeof task.priority != 'number') {
             throw 'You must provide a valid priority';
         }
     }
 
     if (task.title) {
-        if (typeof task.title != 'String') {
+        if (typeof task.title != 'string') {
             throw 'You must provide a valid title';
         }
     }
@@ -128,13 +129,13 @@ const validatePartialTask = function (task) {
     }
 
     if (task.reminderDate) {
-        if (typeof task.reminderDate != 'Date') {
+        if (!task.dueDate || typeof task.dueDate != 'object' || !Date.parse(task.dueDate)) {
             throw 'You must provide a valid reminderDate';
         }
     }
 
     if (task.status) {
-        if (typeof task.status != 'String') {
+        if (typeof task.status != 'string') {
             throw 'You must provide a valid status';
         }
     }
@@ -147,21 +148,21 @@ const validatePartialTask = function (task) {
         }
     }
 
-    if (task.subTasks) {
-        throw 'cannot patch subTasks, please use "addSubTaskToTask"';
-    }
+    // if (task.subTasks) {
+    //     throw 'cannot patch subTasks, please use "addSubTaskToTask"';
+    // }
 
-    if (task.dependencies) {
-        throw 'cannot patch dependencies, please use "addDependencyToTask"';
-    }
+    // if (task.dependencies) {
+    //     throw 'cannot patch dependencies, please use "addDependencyToTask"';
+    // }
 
-    if (task.tags) {
-        throw 'cannot patch tags, please use "addTagToTask"';
-    }
+    // if (task.tags) {
+    //     throw 'cannot patch tags, please use "addTagToTask"';
+    // }
 
-    if (task.comments) {
-        throw 'cannot patch comments, please use "addCommentToTask"';
-    }
+    // if (task.comments) {
+    //     throw 'cannot patch comments, please use "addCommentToTask"';
+    // }
 };
 
 let exportedMethods = {
@@ -380,6 +381,26 @@ let exportedMethods = {
 
         return await this.getTaskById(taskId);
     },
+
+    async updateTaskStatus(taskId, status) {
+        if (!taskId || !mongoDB.ObjectID.isValid(String(taskId))) {
+            throw 'You must provide valid taskId';
+        }
+
+        if (!status || typeof status != 'string') {
+            throw 'Invalid update status';
+        }
+
+        // get task
+        let task = await this.getTaskById(taskId);
+
+        // update status
+        task.status = status;
+
+        // update task in DB
+        return this.updateTask(taskId, task);
+        
+    }
 };
 
 module.exports = exportedMethods;

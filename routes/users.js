@@ -39,7 +39,7 @@ router.post('/signup', async (req, res) => {
         req.session.user = newUser;
         delete req.session.user.hashedPassword; // remove hashedPassword for security
         delete req.session.user.tasks; // delete tasks so they are not passed around unnecessarily
-        res.redirect('/users/profile');
+        res.redirect('/dashboard');
     } catch (e) {
         res.render('users/signup', { user: req.body, error: e });
     }
@@ -68,7 +68,7 @@ router.post('/login', async (req, res) => {
         let user = await authenticateUser(email, req.body.password);
         req.session.user = user;
         delete req.session.user.hashedPassword;
-        res.redirect('profile');
+        res.redirect('/dashboard');
     } catch (e) {
         res.render('users/login', { error: e, user: req.body });
     }

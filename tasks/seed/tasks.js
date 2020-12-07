@@ -1,34 +1,74 @@
 module.exports = [
-    {
-        dueDate: new Date('2020-12-31T09:15:00Z'),
-        priority: 1,
-        title: 'CS546 Final Project',
-        description: 'Complete our CS546 final project - TaskTrack',
-        reminderDate: new Date('2020-12-20T09:15:00Z'),
-        status: 'To Do',
-    },
-    {
-        dueDate: new Date('2020-12-20'),
-        priority: 1,
-        title: 'Complete DB Code',
-        description: 'Complete our CS546 final project DB code',
-        reminderDate: new Date('2020-12-15T09:00:00Z'),
-        status: 'To Do',
-    },
-    {
-        dueDate: new Date('2020-12-20T12:00:00Z'),
-        priority: 1,
-        title: 'Complete routes',
-        description: 'Complete our CS546 final project routes',
-        reminderDate: new Date('2020-12-15T09:00:00Z'),
-        status: 'To Do',
-    },
-    {
-        dueDate: new Date('2020-12-20T12:00:00Z'),
-        priority: 1,
-        title: 'Complete UI',
-        description: 'Complete our CS546 final project UI',
-        reminderDate: new Date('2020-12-15T09:00:00Z'),
-        status: 'To Do',
-    },
+    [
+        {
+            dueDate: new Date('2020-12-11T09:15:00Z'),
+            priority: 1,
+            title: 'TO DO Task 1',
+            description: 'Description of TO DO task 1',
+            reminderDate: new Date('2020-12-01T09:15:00Z'),
+            status: 'To Do',
+            tags: [
+                "tag 1"
+            ]
+        },
+        {
+            dueDate: new Date('2020-12-12T09:15:00Z'),
+            priority: 1,
+            title: 'TO DO Task 2',
+            description: 'Description of TO DO task 2',
+            reminderDate: new Date('2020-12-02T09:15:00Z'),
+            status: 'To Do',
+            tags: [
+                "tag 1",
+                "tag 2"
+            ]
+        },
+        {
+            dueDate: new Date('2020-12-13T09:15:00Z'),
+            priority: 1,
+            title: 'TO DO Task 3',
+            description: 'Description of TO DO task 3',
+            reminderDate: new Date('2020-12-03T09:15:00Z'),
+            status: 'To Do',
+            tags: [
+                "tag 1",
+                "tag 2",
+                "tag 3"
+            ]
+        },
+        {
+            dueDate: new Date('2020-12-11T09:15:00Z'),
+            priority: 1,
+            title: 'IN PROGRESS Task 1',
+            description: 'Description of IN PROGRESS task 1',
+            reminderDate: new Date('2020-12-01T09:15:00Z'),
+            status: 'In Progress',
+            tags: [
+                "tag 1",
+                "tag 2"
+            ]
+        },
+        {
+            dueDate: new Date('2020-12-12T09:15:00Z'),
+            priority: 1,
+            title: 'IN PROGRESS Task 2',
+            description: 'Description of IN PROGRESS task 2',
+            reminderDate: new Date('2020-12-02T09:15:00Z'),
+            status: 'In Progress',
+            tags: [
+                "tag 2"
+            ]
+        },
+        {
+            dueDate: new Date('2020-12-12T09:15:00Z'),
+            priority: 1,
+            title: 'DONE Task 1',
+            description: 'Description of DONE task 1',
+            reminderDate: new Date('2020-12-02T09:15:00Z'),
+            status: 'Done',
+            tags: [
+                "tag 1",
+            ]
+        },
+    ]
 ];

@@ -1,4 +1,10 @@
 
+const columnMapping = {
+    toDoColumn: "To Do",
+    inProgressColumn: "In Progress",
+    doneColumn: "Done"
+}
+
 let columnCurrentlyDragging;
 let cardCurrentlyDragging;
 
@@ -37,6 +43,20 @@ function dashboardOnDrop(ev) {
         column.appendChild(cardCurrentlyDragging);
         cardCurrentlyDragging.scrollIntoView();
     }
+
+    const params = {status: columnMapping[column.id], taskId: cardCurrentlyDragging.id};
+
+    // update service with moving card
+    var requestConfig = {
+        method: 'POST',
+        url: '/dashboard/updateTaskStatus',
+        data:params
+    }
+
+    $.ajax(requestConfig).then(function(responseMessage) {
+        var newElement = $(responseMessage);
+        console.log(newElement);
+    }) 
 }
 
 function findColumnForTaskCard(taskCard) {
