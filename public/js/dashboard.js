@@ -44,7 +44,7 @@ function dashboardOnDrop(ev) {
         cardCurrentlyDragging.scrollIntoView();
     }
 
-    const params = {status: columnMapping[column.id], taskId: cardCurrentlyDragging.id};
+    const params = {status: columnMapping[column.id], taskId: cardCurrentlyDragging.dataset.taskid};
 
     // update service with moving card
     var requestConfig = {

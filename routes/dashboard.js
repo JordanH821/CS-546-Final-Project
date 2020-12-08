@@ -26,7 +26,7 @@ router.post(
     authenticationCheckRedirect('/users/login', true),
     async (req, res) => {
         // update task with status
-        const taskId = req.body.taskId.split('-')[1];
+        const taskId = req.body.taskId;
         const updatedTask = tasksData.updateTaskStatus(taskId, req.body.status);
         if (!updatedTask) {
             // TO DO : Alert user that moving task failed
