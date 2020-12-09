@@ -42,10 +42,10 @@ async function main() {
 
                 // add tags // TODO: probably add tags when creating task
                 for (const tag of task.tags) {
-                    tasks.addTagToTask(t._id, tag);
+                    await tasks.addTagToTask(t._id, tag);
                 }
 
-                users.addTaskToUser(u._id, t._id);
+                await users.addTaskToUser(u._id, t._id);
             }
         }
     } catch (e) {
