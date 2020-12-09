@@ -1,4 +1,5 @@
 const mongoCollections = require('../config/mongoCollections');
+const mongoDB = require('mongodb');
 const users = mongoCollections.users;
 const { hashPassword, comparePasswordToHash } = require('../auth/auth');
 const {
@@ -6,6 +7,8 @@ const {
     validateEmail,
     validatePhoneNumber,
 } = require('../inputValidation');
+const { ObjectID } = require('mongodb');
+const tasks = require('./tasks');
 
 async function createUser(
     firstName,
@@ -42,7 +45,8 @@ async function createUser(
 async function getUserById(id) {
     // TODO validate ID
     let usersCollection = await users();
-    const user = await usersCollection.findOne({ _id: id });
+    let allUsers = await usersCollection.find({}).toArray();
+    const user = await usersCollection.findOne({ _id: ObjectID(id) });
     if (user) {
         return user;
     } else {
@@ -68,4 +72,36 @@ async function authenticateUser(email, password) {
     throw 'Invalid username or password';
 }
 
-module.exports = { createUser, getUserByEmail, authenticateUser };
+async function addTaskToUser(userId, taskId) {
+    let user = await getUserById(userId);
+    user.tasks.push(taskId);
+
+    let usersCollection = await users();
+    const updateUser = await usersCollection.replaceOne({ _id: userId }, user);
+
+    if (updateUser.modifiedCount === 0) throw 'could not update user!';
+
+    return await getUserById(userId);
+}
+
+
+async function getAllTasksForUser(userId) {
+    if (!userId || !mongoDB.ObjectID.isValid(String(userId))) {
+        throw 'You must provide a valid user id'
+    }
+
+    const user = await this.getUserById(userId);
+
+    // get all tasks for user
+    let allTasks = [];
+    for (let i = 0; i < user.tasks.length; i++) {
+        const task = await tasks.getTaskById(user.tasks[i]);
+        if (task) {
+            allTasks.push(task);
+        }
+    };
+
+    return allTasks;
+}
+
+module.exports = { createUser, getUserByEmail, getUserById, authenticateUser, getAllTasksForUser, addTaskToUser };

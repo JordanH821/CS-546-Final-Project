@@ -1,91 +1,37 @@
 const express = require('express');
 const router = express.Router();
 const { authenticationCheckRedirect } = require('./middleware');
+const usersData = require('../data/users');
+const tasksData = require('../data/tasks');
+const { updateTask } = require('../data/tasks');
 
 router.get(
     '/',
     authenticationCheckRedirect('/users/login', true),
     async (req, res) => {
+        const tasks = await usersData.getAllTasksForUser(req.session.user._id);
+
         res.render('dashboard/dashboard', {
             title: 'Dashboard',
-            toDoCards: [
-                {
-                    title:
-                        'to do card one longer name two lines and now lets make it 3 lines',
-                    tags: ['tag 1'],
-                },
-                {
-                    title: 'to do cardTwo',
-                    tags: ['tag 1', 'tag 2'],
-                },
-                {
-                    title: 'to do cardThree',
-                    tags: ['tag 1', 'tag 2', 'tag 3'],
-                },
-            ],
-            inProgressCards: [
-                {
-                    title: 'in progress card one',
-                    tags: ['tag 1'],
-                },
-                {
-                    title: 'in progress cardTwo',
-                    tags: ['tag 1', 'tag 2'],
-                },
-            ],
-            doneCards: [
-                {
-                    title: 'done card one',
-                    tags: [
-                        'tag 1',
-                        'tag 2',
-                        'tag 3',
-                        'tag 5',
-                        'tag 6',
-                        'tag 7',
-                        'tag 8',
-                        'tag 1',
-                        'tag 2',
-                        'tag 3',
-                        'tag 5',
-                        'tag 6',
-                        'tag 7',
-                        'tag 8',
-                        'tag 1',
-                        'tag 2',
-                        'tag 3',
-                        'tag 5',
-                        'tag 6',
-                        'tag 7',
-                        'tag 8',
-                    ],
-                },
-                {
-                    title: 'done cardTwo',
-                    tags: ['tag 1', 'tag 2'],
-                },
-                {
-                    title: 'done cardThree',
-                    tags: ['tag 1', 'tag 2', 'tag 3'],
-                },
-                {
-                    title: 'done cardFour',
-                    tags: ['tag 1', 'tag 2', 'tag 3', 'tag 4'],
-                },
-                {
-                    title: 'done cardFive',
-                    tags: [
-                        'tag 1',
-                        'tag 2',
-                        'tag 3',
-                        'tag 5',
-                        'tag 6',
-                        'tag 7',
-                        'tag 8',
-                    ],
-                },
-            ],
+            user: req.session.user,
+            toDoCards: tasksData.sortTasksByDate(tasks.filter(task => task.status == 'To Do')),
+            inProgressCards: tasksData.sortTasksByDate(tasks.filter(task => task.status == 'In Progress')),
+            doneCards: tasksData.sortTasksByDate(tasks.filter(task => task.status == 'Done'))
         });
+    }
+);
+
+router.post(
+    '/updateTaskStatus',
+    authenticationCheckRedirect('/users/login', true),
+    async (req, res) => {
+        // update task with status
+        const taskId = req.body.taskId;
+        const updatedTask = tasksData.updateTaskStatus(taskId, req.body.status);
+        if (!updatedTask) {
+            // TO DO : Alert user that moving task failed
+            res.status(500).redirect('/dashboard');
+        }
     }
 );
 
