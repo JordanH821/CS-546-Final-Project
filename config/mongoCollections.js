@@ -9,6 +9,13 @@ const getCollectionFn = (collection) => {
         if (!_col) {
             const db = await dbConnection();
             _col = await db.collection(collection);
+            if (collection === 'tasks') {
+                _col.createIndex({
+                    title: 'text',
+                    description: 'text',
+                    tags: 'text',
+                });
+            }
         }
 
         return _col;

@@ -1,9 +1,7 @@
-
 /* Dashboard Styles */
 
-
 #dashboardHeader {
-    background-color:#212121;
+    background-color: #212121;
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
     display: flex;
     align-items: center;
@@ -70,7 +68,7 @@
 }
 
 .tagButton {
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
     display: inline-block;
     color: black;
     background-color: white;
@@ -104,32 +102,37 @@
     color: black;
     background-color: rgb(230, 230, 230);
     border: rgb(58, 58, 58);
-    box-shadow: 0px 0px 10px rgba(0,0,0,.3);
-  }
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
 
-  .columnScrollView {
+.columnScrollView {
     overflow-y: scroll;
     scroll-behavior: smooth;
-  }
+}
 
-  .c1 {
-      float: left;
-  }
+.c1 {
+    float: left;
+}
 
-  .c2 {
-      float: left;
-      margin-left: 2%;
-  }
-  .c3 {
-      float: right;
-  }
+.c2 {
+    float: left;
+    margin-left: 2%;
+}
+.c3 {
+    float: right;
+}
 
-
-  .cardTagContainer {
+.cardTagContainer {
     height: 42px;
     display: table;
-  }
-  
-  .displayTable {
+}
+
+.displayTable {
     display: table;
+}
+
+.invalidInput {
+    outline-color: red;
+    outline-style: solid;
+    outline-width: 3px;
 }

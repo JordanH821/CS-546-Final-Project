@@ -31,4 +31,8 @@ function validatePhoneNumber(phoneNumber, type) {
     }
 }
 
-module.exports = { validateStringInput, validateEmail, validatePhoneNumber };
+module.exports = {
+    validateStringInput,
+    validateEmail,
+    validatePhoneNumber,
+};

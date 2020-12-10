@@ -84,10 +84,9 @@ async function addTaskToUser(userId, taskId) {
     return await getUserById(userId);
 }
 
-
 async function getAllTasksForUser(userId) {
     if (!userId || !mongoDB.ObjectID.isValid(String(userId))) {
-        throw 'You must provide a valid user id'
+        throw 'You must provide a valid user id';
     }
 
     const user = await this.getUserById(userId);
@@ -99,9 +98,25 @@ async function getAllTasksForUser(userId) {
         if (task) {
             allTasks.push(task);
         }
-    };
+    }
 
     return allTasks;
 }
 
-module.exports = { createUser, getUserByEmail, getUserById, authenticateUser, getAllTasksForUser, addTaskToUser };
+async function searchUsersTasks(userId, searchTerm) {
+    validateStringInput(searchTerm);
+    if (!mongoDB.ObjectID.isValid(String(userId)))
+        throw `User ID (${userId}) is not valid`;
+    await getUserById(userId); // will automatically throw
+    return await tasks.searchUsersTasks(userId, searchTerm);
+}
+
+module.exports = {
+    createUser,
+    getUserByEmail,
+    getUserById,
+    authenticateUser,
+    getAllTasksForUser,
+    addTaskToUser,
+    searchUsersTasks,
+};
