@@ -57,9 +57,6 @@ router.post(
     '/profile/update',
     authenticationCheckRedirect('/users/login', true),
     async (req, res) => {
-        console.log(req.body);
-        console.log(req.session.user);
-        console.log(req.session.user._id);
         const rq = req.body;
         try {
             const firstName = validateStringInput(rq.firstName, 'First Name');

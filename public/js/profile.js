@@ -56,7 +56,6 @@ function handleAJAXError(error) {
     $('#errorDiv').append(
         `<p>There was an error while updating your profile. Please try again later.</p>`
     );
-    $('#errorDiv').append(`<p>Error: ${JSON.stringify(error)}</p>`);
     $('#errorDiv').show();
 }
 
