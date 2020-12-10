@@ -1,4 +1,5 @@
 let firstName, lastName, mobileNumber, homeNumber, workNumber;
+
 function disableForm() {
     $('input[type="text"]').attr('disabled', true);
     $('#updateProfileButton').hide();
@@ -27,6 +28,7 @@ function cancelProfileUpdate() {
     $('#mobileNumber').val(mobileNumber);
     $('#homeNumber').val(homeNumber);
     $('#workNumber').val(workNumber);
+    clearErrors();
     disableForm();
 }
 
@@ -40,7 +42,42 @@ function validateProfileUpdates() {
     validatePhoneNumber($('#workNumber').val().trim(), 'Work');
 }
 
-function updateProfileWithAJAX() {}
+function getFormValues() {
+    return {
+        firstName: $('#firstName').val().trim(),
+        lastName: $('#lastName').val().trim(),
+        mobileNumber: $('#mobileNumber').val().trim(),
+        homeNumber: $('#homeNumber').val().trim(),
+        workNumber: $('#workNumber').val().trim(),
+    };
+}
+
+function handleAJAXError(error) {
+    $('#errorDiv').append(
+        `<p>There was an error while updating your profile. Please try again later.</p>`
+    );
+    $('#errorDiv').append(`<p>Error: ${e}</p>`);
+    $('#errorDiv').show();
+}
+
+function clearErrors() {
+    $('#errorDiv').empty();
+    $('#errorDiv').hide();
+}
+
+function updateProfileWithAJAX() {
+    const requestConfig = {
+        method: 'POST',
+        url: '/users/profile/update',
+        data: JSON.stringify(getFormValues()),
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: disableForm,
+        error: handleAJAXError,
+    };
+
+    $.ajax(requestConfig);
+}
 
 $(disableForm);
 

@@ -53,6 +53,17 @@ router.get(
     }
 );
 
+router.post(
+    '/profile/update',
+    authenticationCheckRedirect('/users/login', true),
+    async (req, res) => {
+        console.log(req.body);
+        // const updated = await updateUser();
+        const updated = false;
+        res.json({ updated: updated });
+    }
+);
+
 router.get(
     '/login',
     authenticationCheckRedirect('/users/profile', false),
