@@ -1,3 +1,5 @@
+const ObjectID = require('mongodb').ObjectID;
+
 function validateStringInput(input, name) {
     if (input === undefined || input === null)
         throw `${name} is null or undefined, but must be a non-empty string`;
@@ -31,8 +33,20 @@ function validatePhoneNumber(phoneNumber, type) {
     }
 }
 
+function validateObjectId(id) {
+    if (id === null || id === undefined)
+        throw `id was null or undefined, but must be a valid ObjectId`;
+    if (typeof id !== 'string')
+        throw `id (${id}) was of type (${typeof id}), but must be a valid ObjectId in string form`;
+    if (id.length === 0)
+        throw `id is an empty string, but must be a valid ObjectId in string form`;
+    if (!ObjectID.isValid(id)) throw `id (${id}) is not a valid ObjectId`;
+    return ObjectID(id);
+}
+
 module.exports = {
     validateStringInput,
     validateEmail,
     validatePhoneNumber,
+    validateObjectId,
 };

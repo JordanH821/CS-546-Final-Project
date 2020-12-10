@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createUser, authenticateUser } = require('../data/users');
+const { createUser, authenticateUser, updateUser } = require('../data/users');
 const {
     validateStringInput,
     validatePhoneNumber,
@@ -58,9 +58,32 @@ router.post(
     authenticationCheckRedirect('/users/login', true),
     async (req, res) => {
         console.log(req.body);
-        // const updated = await updateUser();
-        const updated = false;
-        res.json({ updated: updated });
+        console.log(req.session.user);
+        console.log(req.session.user._id);
+        const rq = req.body;
+        try {
+            const firstName = validateStringInput(rq.firstName, 'First Name');
+            const lastName = validateStringInput(rq.lastName, 'Last Name');
+            validatePhoneNumber(rq.mobileNumber, 'Mobile');
+            validatePhoneNumber(rq.homeNumber, 'Home');
+            validatePhoneNumber(rq.workNumber, 'Work');
+            const updatedUser = await updateUser(
+                req.session.user._id,
+                firstName,
+                lastName,
+                rq.mobileNumber,
+                rq.homeNumber,
+                rq.workNumber
+            );
+            // update session
+            req.session.user = updatedUser;
+            delete req.session.user.hashedPassword; // remove hashedPassword for security
+            delete req.session.user.tasks; // delete tasks so they are not passed around unnecessarily
+            res.json({ updated: true });
+        } catch (e) {
+            console.log(e);
+            res.status(500).json({ updated: false, error: e });
+        }
     }
 );
 
