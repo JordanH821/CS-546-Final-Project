@@ -1,24 +1,24 @@
-
 const columnMapping = {
-    toDoColumn: "To Do",
-    inProgressColumn: "In Progress",
-    doneColumn: "Done"
-}
+    toDoColumn: 'To Do',
+    inProgressColumn: 'In Progress',
+    doneColumn: 'Done',
+};
 
 let columnCurrentlyDragging;
 let cardCurrentlyDragging;
 
 function sizeColumns() {
     // get position of column container
-    const scrollView = document.getElementsByClassName("columnScrollView")[0];
-    const positionPercent = scrollView.getBoundingClientRect().top / (window.innerHeight - 50);
+    const scrollView = document.getElementsByClassName('columnScrollView')[0];
+    const positionPercent =
+        scrollView.getBoundingClientRect().top / (window.innerHeight - 50);
 
     // set the column height to fill in the bottom half the of viewport
     const scrollViewHeight = (1 - positionPercent) * 100;
     var columns = document.getElementsByClassName('columnScrollView');
     for (let i = 0; i < columns.length; i++) {
-        columns[i].style.height = scrollViewHeight + "vh";
-    };
+        columns[i].style.height = scrollViewHeight + 'vh';
+    }
 }
 
 function dashboardAllowDrop(ev) {
@@ -44,37 +44,49 @@ function dashboardOnDrop(ev) {
         cardCurrentlyDragging.scrollIntoView();
     }
 
-    const params = {status: columnMapping[column.id], taskId: cardCurrentlyDragging.dataset.taskid};
+    const params = {
+        status: columnMapping[column.id],
+        taskId: cardCurrentlyDragging.dataset.taskid,
+    };
 
     // update service with moving card
     var requestConfig = {
         method: 'POST',
         url: '/dashboard/updateTaskStatus',
-        data:params
-    }
+        data: params,
+    };
 
-    $.ajax(requestConfig).then(function(responseMessage) {
+    $.ajax(requestConfig).then(function (responseMessage) {
         var newElement = $(responseMessage);
         console.log(newElement);
-    }) 
+    });
 }
 
 function findColumnForTaskCard(taskCard) {
-
     // find column
     let current = taskCard;
 
     // continue to traverse up until we find a column or there is no parent node
     while (true) {
-        if (current.classList.contains("columnScrollView")) {
+        if (current.classList.contains('columnScrollView')) {
             return current;
         } else {
             if (current.parentNode) {
-                current = current.parentNode
+                current = current.parentNode;
             } else {
                 return null;
             }
         }
     }
 }
+// calls sizeColumns() on page load
+$(sizeColumns);
 
+$('#search_form').on('submit', (event) => {
+    try {
+        validateStringInput($('#search_term').val().trim(), 'Search Term');
+    } catch (e) {
+        event.preventDefault();
+        $('#search_term').addClass('invalid_input');
+    }
+});
