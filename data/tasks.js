@@ -332,14 +332,6 @@ function sortTasksByDate(tasks, status) {
     });
 }
 
-async function createTextIndex() {
-    const taskCollection = await tasks();
-    await taskCollection.ensureIndex({
-        title: 'text',
-        description: 'text',
-    });
-}
-
 async function searchUsersTasks(userId, searchTerm) {
     const tasksCollection = await tasks();
     return await tasksCollection.find({
@@ -349,10 +341,6 @@ async function searchUsersTasks(userId, searchTerm) {
             $caseSensitive: false,
         },
     });
-}
-async function getTaskIndexes() {
-    const tasksCollection = await tasks();
-    return await tasksCollection.dropIndexes('*');
 }
 
 module.exports = {
@@ -367,7 +355,7 @@ module.exports = {
     addCommentToTask,
     updateTaskStatus,
     sortTasksByDate,
-    createTextIndex,
+    // createTextIndex,
     searchUsersTasks,
-    getTaskIndexes,
+    // getTaskIndexes,
 };

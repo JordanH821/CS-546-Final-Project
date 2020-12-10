@@ -13,6 +13,7 @@ const getCollectionFn = (collection) => {
                 _col.createIndex({
                     title: 'text',
                     description: 'text',
+                    tags: 'text',
                 });
             }
         }

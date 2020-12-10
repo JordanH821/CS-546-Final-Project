@@ -5,7 +5,10 @@ const usersData = require('../data/users');
 const tasksData = require('../data/tasks');
 const { updateTask } = require('../data/tasks');
 const users = require('../data/users');
-const { validateStringInput } = require('../inputValidation');
+const {
+    validateStringInput,
+    replaceQueryStringSpaces,
+} = require('../inputValidation');
 
 router.get(
     '/',
@@ -16,13 +19,14 @@ router.get(
         if (req.query && req.query.searchTerm) {
             searchTerm = req.query.searchTerm;
             try {
-                validateStringInput(searchTerm);
+                searchTerm = validateStringInput(searchTerm);
                 tasks = await usersData.searchUsersTasks(
                     req.session.user._id,
                     searchTerm
                 );
                 tasks = await tasks.toArray();
             } catch (e) {
+                console.log(`Error searching tasks: ${e}`);
                 tasks = await usersData.getAllTasksForUser(
                     req.session.user._id
                 );
