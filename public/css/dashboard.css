@@ -131,7 +131,7 @@
     display: table;
 }
 
-.invalid_input {
+.invalidInput {
     outline-color: red;
     outline-style: solid;
     outline-width: 3px;

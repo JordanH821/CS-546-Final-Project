@@ -4,19 +4,46 @@ const { authenticationCheckRedirect } = require('./middleware');
 const usersData = require('../data/users');
 const tasksData = require('../data/tasks');
 const { updateTask } = require('../data/tasks');
+const users = require('../data/users');
+const { validateStringInput } = require('../inputValidation');
 
 router.get(
     '/',
     authenticationCheckRedirect('/users/login', true),
     async (req, res) => {
-        const tasks = await usersData.getAllTasksForUser(req.session.user._id);
+        let tasks;
+        let searchTerm;
+        if (req.query && req.query.searchTerm) {
+            searchTerm = req.query.searchTerm;
+            try {
+                validateStringInput(searchTerm);
+                tasks = await usersData.searchUsersTasks(
+                    req.session.user._id,
+                    searchTerm
+                );
+                tasks = await tasks.toArray();
+            } catch (e) {
+                tasks = await usersData.getAllTasksForUser(
+                    req.session.user._id
+                );
+            }
+        } else {
+            tasks = await usersData.getAllTasksForUser(req.session.user._id);
+        }
 
         res.render('dashboard/dashboard', {
             title: 'Dashboard',
             user: req.session.user,
-            toDoCards: tasksData.sortTasksByDate(tasks.filter(task => task.status == 'To Do')),
-            inProgressCards: tasksData.sortTasksByDate(tasks.filter(task => task.status == 'In Progress')),
-            doneCards: tasksData.sortTasksByDate(tasks.filter(task => task.status == 'Done'))
+            toDoCards: tasksData.sortTasksByDate(
+                tasks.filter((task) => task.status == 'To Do')
+            ),
+            inProgressCards: tasksData.sortTasksByDate(
+                tasks.filter((task) => task.status == 'In Progress')
+            ),
+            doneCards: tasksData.sortTasksByDate(
+                tasks.filter((task) => task.status == 'Done')
+            ),
+            searchTerm: searchTerm,
         });
     }
 );

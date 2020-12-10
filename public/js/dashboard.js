@@ -82,11 +82,11 @@ function findColumnForTaskCard(taskCard) {
 // calls sizeColumns() on page load
 $(sizeColumns);
 
-$('#search_form').on('submit', (event) => {
+$('#searchForm').on('submit', (event) => {
     try {
-        validateStringInput($('#search_term').val().trim(), 'Search Term');
+        validateStringInput($('#searchTerm').val().trim(), 'Search Term');
     } catch (e) {
         event.preventDefault();
-        $('#search_term').addClass('invalid_input');
+        $('#searchTerm').addClass('invalidInput');
     }
 });
