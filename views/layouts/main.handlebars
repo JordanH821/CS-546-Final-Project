@@ -3,11 +3,29 @@
 
 <head>
     <title>{{title}}</title>
-    <link rel="stylesheet" href="/public/css/site.css"/>
-    <link rel="stylesheet" href="/public/css/sizeDefaults.css"/>
+    <link rel="stylesheet" href="/public/css/site.css" />
+    <link rel="stylesheet" href="/public/css/sizeDefaults.css" />
 </head>
 
 <body>
+    <link rel="stylesheet" href="../../public/css/dashboard.css" />
+    <div id='dashboardHeader'>
+        {{!-- <h1 id="dashboardTitle" class="marginLeft12">Task Track</h1> --}}
+        <img id="headerLogo" src="../../public/img/header_logo.png" class="marginLeft12 marginRight12 marginTop12 marginBottom12">
+        <div class="dashboardNav_V_Divider marginLeft12 marginRight12"></div>
+
+        <a href="/dashboard" class='headerLink marginLeft12'>Dashboard</a>
+        <div class="dashboardNav_H_Divider marginLeft12 marginRight12"></div>
+
+        <a href="/tasks" class='headerLink'>Create Task</a>
+        <div class="dashboardNav_H_Divider marginLeft12 marginRight12"></div>
+
+        <a href="/archive" class='headerLink'>Archive</a>
+        <div class="dashboardNav_H_Divider marginLeft12 marginRight12"></div>
+
+        <a href="/users/profile" class='headerLink'>Profile</a>
+    </div>
+
     {{{body}}}
 </body>
 
