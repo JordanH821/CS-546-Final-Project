@@ -32,9 +32,15 @@
         <div class="displayTable">
             <p id='notificationTitle' class="marginLeft12 marginRight12">Upcoming Due Dates:</p>
             <p id='notificationBody'>Notifications will be displayed here</p>
-
         </div>
-        {{!-- placeholder for notification panel --}}
+        <div class="notificationLinks">
+            {{#each taskNotifications }}
+            <a href="" class="notificationLink">
+                <p>{{title}}</p>
+                <p>{{dueDate}}</p>
+            </a>
+            {{/each}}
+        </div>
     </div>
 
     <div id='tagsContainer'>

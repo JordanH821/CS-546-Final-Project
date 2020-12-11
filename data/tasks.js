@@ -343,6 +343,16 @@ async function searchUsersTasks(userId, searchTerm) {
     });
 }
 
+async function getTaskNotificationsForUser(userId) {
+    const tasksCollection = await tasks();
+    const today = new Date();
+    return await tasksCollection.find({
+        assignee: mongoDB.ObjectID(userId),
+        reminderDate: { $lt: today },
+        status: { $ne: 'Done' },
+    });
+}
+
 module.exports = {
     getAlltasks,
     getTaskById,
@@ -355,7 +365,6 @@ module.exports = {
     addCommentToTask,
     updateTaskStatus,
     sortTasksByDate,
-    // createTextIndex,
     searchUsersTasks,
-    // getTaskIndexes,
+    getTaskNotificationsForUser,
 };
