@@ -38,8 +38,6 @@ router.get(
         let taskNotifications = await getTaskNotificationsForUser(
             req.session.user._id
         );
-        taskNotifications = await taskNotifications.toArray();
-        console.log(taskNotifications);
 
         res.render('dashboard/dashboard', {
             title: 'Dashboard',
