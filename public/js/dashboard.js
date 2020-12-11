@@ -8,6 +8,7 @@ let columnCurrentlyDragging;
 let cardCurrentlyDragging;
 
 function sizeColumns() {
+    console.log("hello");
     // get position of column container
     const scrollView = document.getElementsByClassName('columnScrollView')[0];
     const positionPercent =
