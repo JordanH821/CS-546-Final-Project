@@ -1,0 +1,68 @@
+<header>New Task</header>
+
+<main>
+    <div id="errorDiv" {{#unless error}} hidden{{/unless}}> {{#if error}} <p>{{error}}</p>
+        {{/if}}
+    </div>
+
+    <form action="/tasks/createTask" method="POST" id="createTaskForm">
+        <label for="title">Title:</label>
+        <text id="title" name="title" type="text" value=""></input><br><br>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" type="text" rows="4" columns="50" value=""></textarea><br><br>
+
+            <label for="priority">Priority:</label>
+
+            <select name="priority" id="priority">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+            <br><br>
+
+            <!--Check if due date is in the future-->
+            <label for="dueDate">Due Date:</label>
+            <input id="dueDate" name="dueDate" type="date" value="}"></input><br><br>
+
+            <!--Check if reminder date is in the future-->
+            <label for="reminderDate">Reminder Date:</label>
+            <input id="reminderDate" name="reminderDate" type="date" value=""></input><br><br>
+
+            <label for="status">Status:</label>
+            <select name="status" id="status">
+                <option value="todo">To Do</option>
+                <option value="in-progress">In Progress</option>
+                <option value="done">Done</option>
+            </select>
+            <br><br>
+
+            <label for="assignee">Assignee:(For multiple assignees, separate names with commas)</label>
+            <input id="assignee" name="assignee" type="text" value=""></input><br><br>
+
+            <div id="comments-div">
+                <div id="comment-block" hidden>
+                    <ul id="comments-list">
+                        <li></li>
+                    </ul>
+                </div>
+                <textarea id="comment-text" rows="4" cols="50"></textarea>
+                <button id="comment">Add comment</button>
+
+            </div>
+
+            <!--creatorId, subtasks, dependencies, tags, comments, -->
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <!--After task is created, do an ajax call to display it on this page-->
+            <!--After task is created, it should appear on dashboard-->
+
+
+    </form>
+</main>
