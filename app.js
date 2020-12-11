@@ -21,6 +21,12 @@ app.use(
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
+const hbs = exphbs.create({});
+
+hbs.handlebars.registerHelper('prettyPrintDate', function (date) {
+    return `${date.toLocaleDateString()} @ ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+});
+
 configRoutes(app);
 
 app.listen(3000, () => {
