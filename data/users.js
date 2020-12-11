@@ -6,6 +6,7 @@ const {
     validateStringInput,
     validateEmail,
     validatePhoneNumber,
+    validateObjectId,
 } = require('../inputValidation');
 const { ObjectID } = require('mongodb');
 const tasks = require('./tasks');
@@ -40,6 +41,42 @@ async function createUser(
     });
     if (insertedInfo.insertedCount === 0) throw 'Could not create user';
     return await getUserById(insertedInfo.insertedId);
+}
+
+async function updateUser(
+    userId,
+    firstName,
+    lastName,
+    mobileNumber,
+    homeNumber,
+    workNumber
+) {
+    userId = validateObjectId(userId);
+    firstName = validateStringInput(firstName, 'First Name');
+    lastName = validateStringInput(lastName, 'Last Name');
+    validatePhoneNumber(mobileNumber, 'Mobile');
+    validatePhoneNumber(homeNumber, 'Home');
+    validatePhoneNumber(workNumber, 'Work');
+    let usersCollection = await users();
+    const userExists = await usersCollection.findOne({ _id: userId });
+    if (!userExists)
+        throw `There is no user with the given id (${userId.toString()})`;
+    const updatedInfo = await usersCollection.updateOne(
+        { _id: userId },
+        {
+            $set: {
+                firstName: firstName,
+                lastName: lastName,
+                phone: {
+                    mobile: mobileNumber,
+                    home: homeNumber,
+                    work: workNumber,
+                },
+            },
+        }
+    );
+    if (updatedInfo.insertedCount === 0) throw 'Could not create user';
+    return await getUserById(userId.toString());
 }
 
 async function getUserById(id) {
@@ -119,4 +156,5 @@ module.exports = {
     getAllTasksForUser,
     addTaskToUser,
     searchUsersTasks,
+    updateUser,
 };
