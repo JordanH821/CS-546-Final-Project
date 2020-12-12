@@ -9,6 +9,7 @@ const {
     validateStringInput,
     replaceQueryStringSpaces,
 } = require('../inputValidation');
+const { request } = require('express');
 
 router.get(
     '/',
@@ -16,6 +17,9 @@ router.get(
     async (req, res) => {
         let tasks;
         let searchTerm;
+        let tagSet = new Set();
+        let tags;
+        let tag;
         if (req.query && req.query.searchTerm) {
             searchTerm = req.query.searchTerm;
             try {
@@ -24,16 +28,24 @@ router.get(
                     req.session.user._id,
                     searchTerm
                 );
-                tasks = await tasks.toArray();
             } catch (e) {
                 console.log(`Error searching tasks: ${e}`);
                 tasks = await usersData.getAllTasksForUser(
                     req.session.user._id
                 );
             }
+        } else if (req.query && req.query.tag) {
+            tag = validateStringInput(req.query.tag);
+            tasks = await usersData.getTasksForUserWithTag(
+                req.session.user._id,
+                tag
+            );
         } else {
             tasks = await usersData.getAllTasksForUser(req.session.user._id);
         }
+
+        tasks.map((task) => task.tags.map((t) => tagSet.add(t)));
+        tags = Array.from(tagSet);
 
         res.render('dashboard/dashboard', {
             title: 'Dashboard',
@@ -48,6 +60,8 @@ router.get(
                 tasks.filter((task) => task.status == 'Done')
             ),
             searchTerm: searchTerm,
+            tag: tag,
+            tags: tags,
         });
     }
 );

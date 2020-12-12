@@ -39,8 +39,9 @@
 
     <div id='tagsContainer'>
         <a id='tagsTitle'>Tags:</a>
-        <button class="tagButton">DummyTag</button>
-        <button class="tagButton">DummyTag1</button>
+        {{#each tags}}
+        <button class="tagButton"><a href="/dashboard?tag={{this}}">{{this}}</a></button>
+        {{/each}}
     </div>
 
     <div class="clearPageDivider marginTop16 marginLeft16 marginRight16"></div>
