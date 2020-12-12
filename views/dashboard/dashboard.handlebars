@@ -34,10 +34,16 @@
     <div id='dashboardNotificationContainer'>
         <div class="displayTable">
             <p id='notificationTitle' class="marginLeft12 marginRight12">Upcoming Due Dates:</p>
-            <p id='notificationBody'>Notifications will be displayed here</p>
-
+            <div class="notificationLinks">
+                {{#each taskNotifications }}
+                <a href="#TODO" class="notificationLink">
+                    <p>{{title}}</p>
+                    <p>{{prettyPrintDate dueDate}}</p>
+                </a>
+                {{/each}}
+            </div>
         </div>
-        {{!-- placeholder for notification panel --}}
+
     </div>
 
     <div id='tagsContainer'>
