@@ -31,18 +31,27 @@
     <div id='dashboardNotificationContainer'>
         <div class="displayTable">
             <p id='notificationTitle' class="marginLeft12 marginRight12">Upcoming Due Dates:</p>
-            <p id='notificationBody'>Notifications will be displayed here</p>
-
+            <div class="notificationLinks">
+                {{#each taskNotifications }}
+                <a href="#TODO" class="notificationLink">
+                    <p>{{title}}</p>
+                    <p>{{prettyPrintDate dueDate}}</p>
+                </a>
+                {{/each}}
+            </div>
         </div>
-        {{!-- placeholder for notification panel --}}
+
     </div>
 
     <div id='tagsContainer'>
         <a id='tagsTitle'>Tags:</a>
         {{#each tags}}
-        <button class="tagButton {{#ifEquals this tag}}selected{{/ifEquals}}"><a
-                href="/dashboard?tag={{this}}">{{this}}</a></button>
+        <button class="tagButton" id="{{this}}"><a class="tagLink" href="/dashboard?tag={{this}}">{{this}}</a></button>
         {{/each}}
+        {{#with tag}}
+        |
+        <button class="tagButton"><a class="tagLink" href="/dashboard">Back To All Tags</a></button>
+        {{/with}}
     </div>
 
     <div class="clearPageDivider marginTop16 marginLeft16 marginRight16"></div>

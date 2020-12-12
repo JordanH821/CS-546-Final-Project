@@ -3,6 +3,7 @@ const router = express.Router();
 const { authenticationCheckRedirect } = require('./middleware');
 const usersData = require('../data/users');
 const tasksData = require('../data/tasks');
+const { getTaskNotificationsForUser } = require('../data/tasks');
 const {
     validateStringInput,
     replaceQueryStringSpaces,
@@ -45,6 +46,10 @@ router.get(
         tasks.map((task) => task.tags.map((t) => tagSet.add(t)));
         tags = Array.from(tagSet);
 
+        let taskNotifications = await getTaskNotificationsForUser(
+            req.session.user._id
+        );
+
         res.render('dashboard/dashboard', {
             title: 'Dashboard',
             user: req.session.user,
@@ -60,6 +65,7 @@ router.get(
             searchTerm: searchTerm,
             tag: tag,
             tags: tags,
+            taskNotifications: taskNotifications,
         });
     }
 );

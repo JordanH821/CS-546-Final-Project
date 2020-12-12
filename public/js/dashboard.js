@@ -79,8 +79,19 @@ function findColumnForTaskCard(taskCard) {
         }
     }
 }
+
+function highlightSelectedTag() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('tag')) {
+        const selectedTag = $(`#${urlParams.get('tag')}`);
+        selectedTag.addClass('selected');
+    }
+}
+
 // calls sizeColumns() on page load
 $(sizeColumns);
+
+$(highlightSelectedTag);
 
 $('#searchForm').on('submit', (event) => {
     try {
