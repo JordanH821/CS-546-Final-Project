@@ -355,7 +355,5 @@ module.exports = {
     addCommentToTask,
     updateTaskStatus,
     sortTasksByDate,
-    // createTextIndex,
     searchUsersTasks,
-    // getTaskIndexes,
 };

@@ -24,6 +24,9 @@
             <label for="searchTerm" class='headerLink marginLeft12'>Search:</label>
             <input type="text" name="searchTerm" id="searchTerm" value="{{searchTerm}}">
             <button type="submit" id="submitButton">Search</button>
+            {{#with searchTerm}}
+            <button id="clearSearchResults"><a href="/dashboard">Back To All Tasks</a></button>
+            {{/with}}
         </form>
     </div>
     <div class="clearPageDivider marginTop16 marginLeft16 marginRight16 marginBottom16"></div>

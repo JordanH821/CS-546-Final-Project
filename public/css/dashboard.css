@@ -136,3 +136,8 @@
     outline-style: solid;
     outline-width: 3px;
 }
+
+#clearSearchResults a {
+    color: black;
+    text-decoration: none;
+}
