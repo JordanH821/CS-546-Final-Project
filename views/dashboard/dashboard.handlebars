@@ -40,7 +40,8 @@
     <div id='tagsContainer'>
         <a id='tagsTitle'>Tags:</a>
         {{#each tags}}
-        <button class="tagButton"><a href="/dashboard?tag={{this}}">{{this}}</a></button>
+        <button class="tagButton {{#ifEquals this tag}}selected{{/ifEquals}}"><a
+                href="/dashboard?tag={{this}}">{{this}}</a></button>
         {{/each}}
     </div>
 

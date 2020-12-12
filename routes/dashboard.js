@@ -3,8 +3,6 @@ const router = express.Router();
 const { authenticationCheckRedirect } = require('./middleware');
 const usersData = require('../data/users');
 const tasksData = require('../data/tasks');
-const { updateTask } = require('../data/tasks');
-const users = require('../data/users');
 const {
     validateStringInput,
     replaceQueryStringSpaces,
@@ -36,7 +34,7 @@ router.get(
             }
         } else if (req.query && req.query.tag) {
             tag = validateStringInput(req.query.tag);
-            tasks = await usersData.getTasksForUserWithTag(
+            tasks = await usersData.getUsersTasksByTag(
                 req.session.user._id,
                 tag
             );

@@ -148,6 +148,14 @@ async function searchUsersTasks(userId, searchTerm) {
     return await tasks.searchUsersTasks(userId, searchTerm);
 }
 
+async function getUsersTasksByTag(userId, tag) {
+    validateStringInput(tag);
+    if (!mongoDB.ObjectID.isValid(String(userId)))
+        throw `User ID (${userId}) is not valid`;
+    await getUserById(userId); // will automatically throw
+    return await tasks.getUsersTasksByTag(userId, tag);
+}
+
 module.exports = {
     createUser,
     getUserByEmail,
@@ -157,4 +165,5 @@ module.exports = {
     addTaskToUser,
     searchUsersTasks,
     updateUser,
+    getUsersTasksByTag,
 };
