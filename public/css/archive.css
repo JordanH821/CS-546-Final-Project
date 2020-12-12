@@ -1,0 +1,138 @@
+/* Dashboard Styles */
+
+#dashboardHeader {
+    background-color: #212121;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+}
+
+#dashboardTitle {
+    display: inline-block;
+}
+
+#headerLogo {
+    height: 30px;
+}
+
+.dashboardNav_V_Divider {
+    background-color: white;
+    width: 1px;
+    height: 14px;
+    display: inline-block;
+}
+
+.dashboardNav_H_Divider {
+    background-color: white;
+    width: 14px;
+    height: 1px;
+    margin-top: 5px;
+    display: inline-block;
+}
+
+.headerLink {
+    color: white;
+    font-size: 20px;
+}
+
+#dashboardNotificationContainer {
+    background-color: #b00020;
+    min-height: 70px;
+    margin-left: 48px;
+    margin-right: 48px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+#notificationTitle {
+    color: white;
+    font-weight: bold;
+    margin-bottom: 6px;
+    margin-top: 12px;
+}
+
+#notificationBody {
+    color: white;
+    margin-left: 24px;
+    margin-top: 0px;
+}
+
+#tagsContainer {
+    margin-top: 24px;
+}
+
+#tagsTitle {
+    padding-left: 24px;
+    font-size: 18px;
+    color: black;
+    font-weight: bold;
+}
+
+.tagButton {
+    background-color: rgba(0, 0, 0, 0);
+    display: inline-block;
+    color: black;
+    background-color: white;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    outline: none;
+}
+
+.clearPageDivider {
+    height: 1px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+#columnsContainer {
+    margin-left: 48px;
+    margin-right: 48px;
+    margin-top: 24px;
+}
+
+.columnHeader {
+    font-size: 24px;
+    margin-bottom: 0;
+}
+
+.column {
+    width: 100%;
+    color: black;
+    background-color: rgb(230, 230, 230);
+    border: rgb(58, 58, 58);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.columnScrollView {
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+.c1 {
+    float: left;
+}
+
+.c2 {
+    float: left;
+    margin-left: 2%;
+}
+.c3 {
+    float: right;
+}
+
+.cardTagContainer {
+    height: 42px;
+    display: table;
+}
+
+.displayTable {
+    display: table;
+}
+
+.invalidInput {
+    outline-color: red;
+    outline-style: solid;
+    outline-width: 3px;
+}
