@@ -136,3 +136,29 @@
     outline-style: solid;
     outline-width: 3px;
 }
+
+.notifcationList {
+    margin: 0 auto;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.notificationLinks {
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.notificationLink {
+    margin: 20px;
+    display: inline-block;
+    background-color: white;
+    border-radius: 25px;
+    color: black;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+}
+
+.notificationLink:hover {
+    background-color: silver;
+}

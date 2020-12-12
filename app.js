@@ -5,6 +5,11 @@ const staticRoutes = express.static(__dirname + '/public');
 const configRoutes = require('./routes');
 const exphbs = require('express-handlebars');
 const session = require('express-session');
+const hbs = exphbs.create({});
+
+hbs.handlebars.registerHelper('prettyPrintDate', function (date) {
+    return `${date.toLocaleDateString()} @ ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+});
 
 app.use('/public', staticRoutes);
 app.use(express.json());
@@ -21,6 +26,7 @@ app.use(
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
+
 configRoutes(app);
 
 app.listen(3000, () => {
