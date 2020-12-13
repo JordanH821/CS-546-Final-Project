@@ -8,7 +8,7 @@ module.exports = [
             home: '7325530291',
             work: '9084232949',
         },
-        password: 'JH123',
+        password: '$2a$16$hwYeX0iSF5mj3T0CotIaHuTd/5x9dnR6UdlOrgJb7MUBx98UU4gwK',
     },
     {
         firstName: 'Frank',
@@ -19,7 +19,7 @@ module.exports = [
             home: '7325530281',
             work: '9084132949',
         },
-        password: 'FB456',
+        password: '$2a$16$.m/46z1HULoPFxQaaOfF6.Jr22S3lDqcOyKLVAFbnJ4UXyC4NMA.6',
     },
     {
         firstName: 'Aseda',
@@ -30,7 +30,7 @@ module.exports = [
             home: '3955302811',
             work: '8084132949',
         },
-        password: 'AA789',
+        password: '$2a$16$HUgcDGRRzSFYH/FKaW49feCClziwDqY79fTqrbsvrTCu0hZuIwg9W',
     },
     {
         firstName: 'Patrick',
@@ -41,7 +41,7 @@ module.exports = [
             home: '3955302912',
             work: '8094132949',
         },
-        password: 'PS123',
+        password: '$2a$16$QtvYDySu3Tl2ag7bpZlehOVj9wHWVfIQtG2WibNirqdahQKkDU2d6',
     },
     {
         firstName: 'Max',
@@ -52,6 +52,6 @@ module.exports = [
             home: '3955402911',
             work: '8093132949',
         },
-        password: 'MS456',
+        password: '$2a$16$egP609RvO3HNPmzVly5eU..EEDAaLz57ekht0xmDKa5sxFqNfvtwa',
     },
 ];

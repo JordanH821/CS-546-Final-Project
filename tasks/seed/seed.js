@@ -14,7 +14,7 @@ async function main() {
     let createdUsers = [];
     try {
         for (const user of userList) {
-            let u = await users.createUser(
+            let u = await users.seedUser(
                 user.firstName,
                 user.lastName,
                 user.email,

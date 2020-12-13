@@ -43,6 +43,38 @@ async function createUser(
     return await getUserById(insertedInfo.insertedId);
 }
 
+async function seedUser(
+    firstName,
+    lastName,
+    email,
+    password,
+    mobileNumber,
+    homeNumber,
+    workNumber
+) {
+    firstName = validateStringInput(firstName, 'First Name');
+    lastName = validateStringInput(lastName, 'Last Name');
+    email = validateEmail(email);
+    validateStringInput(password, 'Password');
+    validatePhoneNumber(mobileNumber, 'Mobile');
+    validatePhoneNumber(homeNumber, 'Home');
+    validatePhoneNumber(workNumber, 'Work');
+    let usersCollection = await users();
+    const emailInUse = await usersCollection.findOne({ email: email });
+    if (emailInUse)
+        throw `There is already an account with that email address (${email})`;
+    const insertedInfo = await usersCollection.insertOne({
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        hashedPassword: password, // TODO hash
+        phone: { mobile: mobileNumber, home: homeNumber, work: workNumber },
+        tasks: [],
+    });
+    if (insertedInfo.insertedCount === 0) throw 'Could not create user';
+    return await getUserById(insertedInfo.insertedId);
+}
+
 async function updateUser(
     userId,
     firstName,
@@ -152,8 +184,17 @@ async function searchUsersTasks(userId, searchTerm) {
     return await tasks.searchUsersTasks(userId, searchTerm);
 }
 
+async function getUsersTasksByTag(userId, tag) {
+    validateStringInput(tag);
+    if (!mongoDB.ObjectID.isValid(String(userId)))
+        throw `User ID (${userId}) is not valid`;
+    await getUserById(userId); // will automatically throw
+    return await tasks.getUsersTasksByTag(userId, tag);
+}
+
 module.exports = {
     createUser,
+    seedUser,
     getUserByEmail,
     getUserById,
     authenticateUser,
@@ -161,4 +202,5 @@ module.exports = {
     addTaskToUser,
     searchUsersTasks,
     updateUser,
+    getUsersTasksByTag,
 };
