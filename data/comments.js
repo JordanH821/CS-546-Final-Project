@@ -1,7 +1,6 @@
 const mongoDB = require('mongodb');
 const mongoCollections = require('../config/mongoCollections');
 const comments = mongoCollections.comments;
-const commentData = require('./comments')
 
 const validateComment = function(comment) {
   if (!comment || typeof comment != 'object') {
@@ -12,7 +11,11 @@ const validateComment = function(comment) {
     throw 'You must provide valid userId';
   }
 
-  if (!comment.datePosted || typeof comment.datePosted != 'object' || !Date.parse(comment.datePosted)) {
+  if (
+    !comment.datePosted ||
+    typeof comment.datePosted != 'object' ||
+    !Date.parse(comment.datePosted)
+  ) {
     throw 'You must provide a valid datePosted';
   }
 
@@ -20,14 +23,12 @@ const validateComment = function(comment) {
     throw 'You must provide valid taskId';
   }
 
-  if (!comment.comment || typeof comment.comment != "string") {
+  if (!comment.comment || typeof comment.comment != 'string') {
     throw 'You must provide a valid comment';
   }
-
 };
 
 let exportedMethods = {
-
   // GET /comment
   async getAllcomments() {
     const commentCollection = await comments();
@@ -41,7 +42,9 @@ let exportedMethods = {
     }
 
     const commentCollection = await comments();
-    let comment = await commentCollection.findOne({ _id: mongoDB.ObjectID(String(id)) });
+    let comment = await commentCollection.findOne({
+      _id: mongoDB.ObjectID(String(id))
+    });
     if (!comment) throw 'comment not found';
     return comment;
   },
@@ -52,7 +55,7 @@ let exportedMethods = {
       userId: userId,
       datePosted: datePosted,
       taskId: taskId,
-      comment: comment,
+      comment: comment
     };
 
     validateComment(newComment);
@@ -63,7 +66,6 @@ let exportedMethods = {
 
     return await this.getCommentById(newInsertInformation.insertedId);
   }
-  
 };
 
 module.exports = exportedMethods;
