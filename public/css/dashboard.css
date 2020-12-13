@@ -129,10 +129,6 @@
     height: 42px;
     display: table;
 }
-/* 
-.displayTable {
-    display: table;
-} */
 
 .invalidInput {
     outline-color: red;
