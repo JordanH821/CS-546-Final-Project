@@ -337,7 +337,7 @@ async function searchUsersTasks(userId, searchTerm) {
     return await tasksCollection.find({
         creatorId: mongoDB.ObjectID(userId),
         $text: {
-            $search: searchTerm,
+            $search: `\"${searchTerm}\"`,
             $caseSensitive: false,
         },
     });

@@ -137,6 +137,11 @@
     outline-width: 3px;
 }
 
+#clearSearchResults a {
+    color: black;
+    text-decoration: none;
+}
+
 .notifcationList {
     margin: 0 auto;
     overflow: auto;
