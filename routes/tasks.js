@@ -247,7 +247,7 @@ const validateFullTask = function(task) {
   }
 
   if (!task.title || typeof task.title != 'string' || task.title.trim() == '') {
-    throw 'You must provide a valid title';
+    throw 'You must provide a valid title3';
   }
   if (
     !task.description ||

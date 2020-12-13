@@ -3,7 +3,6 @@
 
 <div id="dashboardBackground" class="back">
     <div id='dashboardHeader'>
-        {{!-- <h1 id="dashboardTitle" class="marginLeft12">Task Track</h1> --}}
         <img id="headerLogo" src="public/img/header_logo.png" class="marginLeft12 marginRight12 marginTop12 marginBottom12">
         <div class="dashboardNav_V_Divider marginLeft12 marginRight12"></div>
 
@@ -17,24 +16,8 @@
         <div class="dashboardNav_H_Divider marginLeft12 marginRight12"></div>
 
         <a href="/users/profile" class='headerLink'>Profile</a>
-        <div class="dashboardNav_H_Divider marginLeft12 marginRight12"></div>
-
-        <form id="searchForm">
-            <label for="searchTerm" class='headerLink marginLeft12'>Search:</label>
-            <input type="text" name="searchTerm" id="searchTerm" value="{{searchTerm}}">
-            <button type="submit" id="submitButton">Search</button>
-        </form>
     </div>
-    <div class="clearPageDivider marginTop16 marginLeft16 marginRight16 marginBottom16"></div>
 
-    <div id='dashboardNotificationContainer'>
-        <div class="displayTable">
-            <p id='notificationTitle' class="marginLeft12 marginRight12">Upcoming Due Dates:</p>
-            <p id='notificationBody'>Notifications will be displayed here</p>
-
-        </div>
-        {{!-- placeholder for notification panel --}}
-    </div>
     <div id="errorDiv" {{#unless error}} hidden{{/unless}}> {{#if error}} <p>{{error}}</p>
         {{/if}}
     </div>
@@ -58,7 +41,7 @@
 
             <button id="comment-task-btn">Add Comments</button> &nbsp;&nbsp;
             <button id="edit-task-btn">Edit Task</button> &nbsp;&nbsp;
-            <button id="archive-task-btn">Archive Task</button>
+            <button id="view-dashboard-btn">View Dashboard</button>
             {{/if}}
         </div>
     </main>
