@@ -31,14 +31,14 @@ async function main() {
             for (const task of tasksForUser) {
                 let t = await tasks.addTask(
                     u._id,
-                    task.dueDate,
-                    task.priority,
                     task.title,
                     task.description,
+                    task.priority,
+                    task.dueDate,
                     task.reminderDate,
                     task.status,
-                    u._id
-                );
+                    u._id,
+                    task.tags)
 
                 // add tags // TODO: probably add tags when creating task
                 for (const tag of task.tags) {

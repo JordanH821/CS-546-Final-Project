@@ -1,0 +1,32 @@
+.create-task {
+  margin: auto;
+  width: 50%;
+}
+
+input,
+select,
+textarea {
+  width: 300px;
+}
+
+main {
+  padding: 20px;
+}
+
+button {
+  width: 200px;
+}
+
+.task-item {
+  font-weight: bold;
+}
+
+.pop-error {
+  color: red;
+  font-size: 20px;
+  border: 2px solid red;
+}
+
+.error {
+  color: red;
+}

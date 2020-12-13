@@ -145,6 +145,10 @@ async function addTaskToUser(userId, taskId) {
     let user = await getUserById(userId);
     user.tasks.push(taskId);
 
+    if (typeof userId == 'string') {
+        userId = ObjectID(userId);
+    }
+
     let usersCollection = await users();
     const updateUser = await usersCollection.replaceOne({ _id: userId }, user);
 
