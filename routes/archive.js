@@ -3,7 +3,7 @@ const router = express.Router();
 const { authenticationCheckRedirect } = require('./middleware');
 const usersData = require('../data/users');
 const tasksData = require('../data/tasks');
-const { updateTask, getTaskNotificationsForUser } = require('../data/tasks');
+const { updateTask } = require('../data/tasks');
 const users = require('../data/users');
 const {
     validateStringInput,
@@ -35,24 +35,13 @@ router.get(
             tasks = await usersData.getAllTasksForUser(req.session.user._id);
         }
 
-        let taskNotifications = await getTaskNotificationsForUser(
-            req.session.user._id
-        );
-
-        res.render('dashboard/dashboard', {
-            title: 'Dashboard',
+        res.render('archive/archive', {
+            title: 'Archive',
             user: req.session.user,
-            toDoCards: tasksData.sortTasksByDate(
-                tasks.filter((task) => task.status == 'To Do')
-            ),
-            inProgressCards: tasksData.sortTasksByDate(
-                tasks.filter((task) => task.status == 'In Progress')
-            ),
-            doneCards: tasksData.sortTasksByDate(
-                tasks.filter((task) => task.status == 'Done')
+            archiveCards: tasksData.sortTasksByDate(
+                tasks.filter((task) => task.status == 'Archived')
             ),
             searchTerm: searchTerm,
-            taskNotifications: taskNotifications,
         });
     }
 );
@@ -66,7 +55,7 @@ router.post(
         const updatedTask = tasksData.updateTaskStatus(taskId, req.body.status);
         if (!updatedTask) {
             // TO DO : Alert user that moving task failed
-            res.status(500).redirect('/dashboard');
+            res.status(500).redirect('/archive');
         }
     }
 );

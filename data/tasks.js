@@ -340,14 +340,27 @@ function sortTasksByDate(tasks, status) {
 }
 
 async function searchUsersTasks(userId, searchTerm) {
-  const tasksCollection = await tasks();
-  return await tasksCollection.find({
-    creatorId: mongoDB.ObjectID(userId),
-    $text: {
-      $search: searchTerm,
-      $caseSensitive: false
-    }
-  });
+    const tasksCollection = await tasks();
+    return await tasksCollection.find({
+        creatorId: mongoDB.ObjectID(userId),
+        $text: {
+            $search: `\"${searchTerm}\"`,
+            $caseSensitive: false,
+        },
+    });
+}
+
+async function getTaskNotificationsForUser(userId) {
+    const tasksCollection = await tasks();
+    const today = new Date();
+    return await tasksCollection
+        .find({
+            assignee: mongoDB.ObjectID(userId),
+            reminderDate: { $lt: today },
+            status: { $ne: 'Done' },
+        })
+        .sort({ dueDate: 1 })
+        .toArray();
 }
 
 module.exports = {
@@ -365,4 +378,5 @@ module.exports = {
   // createTextIndex,
   searchUsersTasks
   // getTaskIndexes,
+  getTaskNotificationsForUser,
 };

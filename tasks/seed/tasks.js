@@ -70,5 +70,16 @@ module.exports = [
                 "tag 1",
             ]
         },
+        {
+            dueDate: new Date('2020-12-12T09:15:00Z'),
+            priority: 1,
+            title: 'ARCHIVED Task 1',
+            description: 'Description of ARCHIVED task 1',
+            reminderDate: new Date('2020-12-02T09:15:00Z'),
+            status: 'Archived',
+            tags: [
+                "tag 1",
+            ]
+        },
     ]
 ];
