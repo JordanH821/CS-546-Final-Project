@@ -4,6 +4,8 @@ const { authenticationCheckRedirect } = require('./middleware');
 const tasksData = require('../data/tasks');
 const userData = require('../data/users');
 const { ObjectID } = require('mongodb');
+const tasks = require('../data/tasks');
+const users = require('../data/users');
 
 router.get(
   '/',
@@ -79,6 +81,17 @@ router.post(
       let user = await userData.getUserById(newTask.creatorId);
       newTask.creatorName = `${user.firstName} ${user.lastName}`;
       console.log(newTask);
+
+      // add task to user's tasks list
+      let addingToUser = await users.addTaskToUser(newTask.creatorId,newTask._id);
+
+      if (!addingToUser) {
+        throw 'Unable to add task to user.';
+      }
+
+      // if the asignee is an email address, add the task to the assignee also
+      
+
 
       res.render('tasks/viewSingleTask', { task: newTask });
     } catch (e) {
