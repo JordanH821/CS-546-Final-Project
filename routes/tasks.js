@@ -89,10 +89,6 @@ router.post(
         throw 'Unable to add task to user.';
       }
 
-      // if the asignee is an email address, add the task to the assignee also
-      
-
-
       res.render('tasks/viewSingleTask', { task: newTask });
     } catch (e) {
       console.log(`error ${e}`);
