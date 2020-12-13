@@ -358,6 +358,7 @@ async function getTaskNotificationsForUser(userId) {
             assignee: mongoDB.ObjectID(userId),
             reminderDate: { $lt: today },
             status: { $ne: 'Done' },
+            status: { $ne: 'Archived' },
         })
         .sort({ dueDate: 1 })
         .toArray();
