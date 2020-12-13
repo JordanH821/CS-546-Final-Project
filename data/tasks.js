@@ -334,13 +334,24 @@ function sortTasksByDate(tasks, status) {
 
 async function searchUsersTasks(userId, searchTerm) {
     const tasksCollection = await tasks();
-    return await tasksCollection.find({
-        creatorId: mongoDB.ObjectID(userId),
-        $text: {
-            $search: `\"${searchTerm}\"`,
-            $caseSensitive: false,
-        },
-    });
+    return await tasksCollection
+        .find({
+            creatorId: mongoDB.ObjectID(userId),
+            $text: {
+                $search: `\"${searchTerm}\"`,
+                $caseSensitive: false,
+            },
+        })
+        .toArray();
+}
+async function getUsersTasksByTag(userId, tag) {
+    const tasksCollection = await tasks();
+    return await tasksCollection
+        .find({
+            creatorId: mongoDB.ObjectID(userId),
+            tags: tag,
+        })
+        .toArray();
 }
 
 async function getTaskNotificationsForUser(userId) {
@@ -370,5 +381,6 @@ module.exports = {
     updateTaskStatus,
     sortTasksByDate,
     searchUsersTasks,
+    getUsersTasksByTag,
     getTaskNotificationsForUser,
 };
