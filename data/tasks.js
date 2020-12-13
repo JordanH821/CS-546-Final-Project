@@ -338,7 +338,7 @@ async function searchUsersTasks(userId, searchTerm) {
         .find({
             creatorId: mongoDB.ObjectID(userId),
             $text: {
-                $search: searchTerm,
+                $search: `\"${searchTerm}\"`,
                 $caseSensitive: false,
             },
         })
@@ -362,6 +362,7 @@ async function getTaskNotificationsForUser(userId) {
             assignee: mongoDB.ObjectID(userId),
             reminderDate: { $lt: today },
             status: { $ne: 'Done' },
+            status: { $ne: 'Archived' },
         })
         .sort({ dueDate: 1 })
         .toArray();

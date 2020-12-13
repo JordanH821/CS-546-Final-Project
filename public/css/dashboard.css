@@ -40,6 +40,8 @@
     min-height: 70px;
     margin-left: 48px;
     margin-right: 48px;
+    padding-left: 8px;
+    padding-right: 8px;
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
@@ -103,8 +105,9 @@
 }
 
 .columnScrollView {
-    overflow-y: scroll;
+    overflow-y: auto;
     scroll-behavior: smooth;
+    min-height: 450px;
 }
 
 .c1 {
@@ -124,14 +127,15 @@
     display: table;
 }
 
-.displayTable {
-    display: table;
-}
-
 .invalidInput {
     outline-color: red;
     outline-style: solid;
     outline-width: 3px;
+}
+
+#clearSearchResults a {
+    color: black;
+    text-decoration: none;
 }
 
 .notifcationList {
@@ -143,17 +147,25 @@
 .notificationLinks {
     overflow: auto;
     white-space: nowrap;
+    padding-bottom: 8px;
 }
 
 .notificationLink {
     margin: 20px;
     display: inline-block;
     background-color: white;
-    border-radius: 25px;
+    border-radius: 8px;
     color: black;
     text-align: center;
-    padding: 14px;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 4px;
+    padding-bottom: 4px;
     text-decoration: none;
+}
+
+.notificationLink, p {
+    margin: 0;
 }
 
 .notificationLink:hover {
