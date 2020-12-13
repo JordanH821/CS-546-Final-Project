@@ -376,7 +376,7 @@ module.exports = {
   updateTaskStatus,
   sortTasksByDate,
   // createTextIndex,
-  searchUsersTasks
+  searchUsersTasks,
   // getTaskIndexes,
   getTaskNotificationsForUser,
 };
