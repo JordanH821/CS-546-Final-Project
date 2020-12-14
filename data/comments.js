@@ -4,11 +4,11 @@ const comments = mongoCollections.comments;
 
 const validateComment = function(comment) {
   if (!comment || typeof comment != 'object') {
-    throw 'You must provide valid comment';
+    throw 'You must provide a valid comment';
   }
 
   if (!comment.userId || !mongoDB.ObjectID.isValid(String(comment.userId))) {
-    throw 'You must provide valid userId';
+    throw 'You must provide a valid userId';
   }
 
   if (
@@ -20,7 +20,7 @@ const validateComment = function(comment) {
   }
 
   if (!comment.taskId || !mongoDB.ObjectID.isValid(String(comment.taskId))) {
-    throw 'You must provide valid taskId';
+    throw 'You must provide a valid taskId';
   }
 
   if (!comment.comment || typeof comment.comment != 'string') {
@@ -38,14 +38,14 @@ let exportedMethods = {
   // GET /comment/{id}
   async getCommentById(id) {
     if (!id || !mongoDB.ObjectID.isValid(String(id))) {
-      throw 'You must provide valid id';
+      throw 'You must provide a valid comment id';
     }
 
     const commentCollection = await comments();
     let comment = await commentCollection.findOne({
       _id: mongoDB.ObjectID(String(id))
     });
-    if (!comment) throw 'comment not found';
+    if (!comment) throw 'Comment cannot be found';
     return comment;
   },
 
@@ -62,7 +62,8 @@ let exportedMethods = {
 
     const commentCollection = await comments();
     const newInsertInformation = await commentCollection.insertOne(newComment);
-    if (newInsertInformation.insertedCount === 0) throw 'Insert failed!';
+    if (newInsertInformation.insertedCount === 0)
+      throw 'Insert comment failed!';
 
     return await this.getCommentById(newInsertInformation.insertedId);
   }

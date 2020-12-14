@@ -5,7 +5,8 @@ function validateStringInput(input, name) {
     throw `${name} is null or undefined, but must be a non-empty string`;
   if (typeof input !== 'string')
     throw `${name} is of type ${typeof input}, but must be a string`;
-  if (!input) throw `${name} cannot be an empty string`;
+  if (!input)
+    throw `${name} cannot be empty. Please type in a title for this task`;
   // check for all whitespace
   // https://stackoverflow.com/questions/6623231/remove-all-white-spaces-from-text
   if (input.replace(/\s/g, '').length === 0)
@@ -45,7 +46,7 @@ function validateObjectId(id) {
 }
 
 function validateDate(date, name) {
-  const error = `${name} is not a valid date`;
+  const error = `Please select a valid date for${name} is not a valid date`;
   try {
     validateStringInput(date, name);
   } catch (e) {
