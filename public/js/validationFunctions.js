@@ -30,3 +30,11 @@ function validatePhoneNumber(phoneNumber, type) {
         throw `${type} Phone Number (${phoneNumber}) is not valid. Please enter a valid 10-digit phone number without separators or separated by spaces, dashes, or periods`;
     }
 }
+
+function validateDate(date) {
+    validateStringInput(date, 'Date');
+    date = Date.parse(date);
+    if (Number.isNaN(date)) {
+        throw `Date is invalid`;
+    }
+}
