@@ -137,7 +137,8 @@ async function getUserByEmail(email) {
 
 async function authenticateUser(email, password) {
     let user = await getUserByEmail(email);
-    if (comparePasswordToHash(password, user.hashedPassword)) return user;
+    let compare = await comparePasswordToHash(password, user.hashedPassword);
+    if (compare) return user;
     throw 'Invalid username or password';
 }
 
