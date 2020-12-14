@@ -10,7 +10,6 @@ const {
     replaceQueryStringSpaces,
 } = require('../inputValidation');
 const { request } = require('express');
-const { default: xss } = require('xss');
 
 router.get(
     '/',
