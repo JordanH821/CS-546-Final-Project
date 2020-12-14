@@ -40,30 +40,28 @@
     </select><br><br>
 
     <label for="assignee">Assignee:</label><br>
-    <<<<<<< HEAD <input class="wideInput" id="assignee" name="assignee" type="text" value="{{task.assignee}}"><br><br>
+    <input class="wideInput" id="assignee" name="assignee" type="text" value="{{task.assignee}}"><br><br>
 
-        <div id="subtasksDiv">
-            <p>Subtasks: (Click to delete when editing)</p>
-            <ul id="subtaskList">
-                {{#each task.subtasks}}
-                <li>{{this}}</li>
-                {{/each}}
-            </ul>
-        </div>
-        <div id="subtaskCreation">
-            <label for="subtask">Subtask:</label><br>
-            <input type="text" name="subtask" id="subtask"><br>
-            <button id="addSubtaskButton" type="button">Add Subtask</button><br><br>
-        </div>
+    <div id="subtasksDiv">
+        <p>Subtasks: (Click to delete when editing)</p>
+        <ul id="subtaskList">
+            {{#each task.subtasks}}
+            <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </div>
+    <div id="subtaskCreation">
+        <label for="subtask">Subtask:</label><br>
+        <input type="text" name="subtask" id="subtask"><br>
+        <button id="addSubtaskButton" type="button">Add Subtask</button><br><br>
+    </div>
 
-        <input id="subtasks" name="subtasks" type="text" value="" hidden>
+    <label for="tags">Tags: (Single words separated with commas)</label><br>
+    <input class="wideInput" id="tags" name="tags" type="text" value="{{task.tags}}"><br><br>
 
-        <label for="tags">Tags: (Single words separated with commas)</label><br>
-        <input class="wideInput" id="tags" name="tags" type="text" value="{{task.tags}}"><br><br>
-
-        {{#ifEquals title "Create Task"}}
-        <button id="submitButton" type="submit" class="btn btn-primary">Create Task</button>
-        {{/ifEquals}}
+    {{#ifEquals title "Create Task"}}
+    <button id="submitButton" type="submit" class="btn btn-primary">Create Task</button>
+    {{/ifEquals}}
 </form>
 {{#ifEquals title "Task Details"}}
 <button id="editTaskButton">Edit Task</button>

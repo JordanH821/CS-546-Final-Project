@@ -9,12 +9,13 @@ function displayError(e) {
 }
 
 function addSubtasksToForm() {
-    let subtasks = [];
+    let form = $('#taskForm');
     $('#subtaskList li').each((index, subtask) => {
-        subtasks.push($(subtask).text());
+        form.append(
+            `<input type="text" name="subtasks" value="${$(subtask).text()}">`
+        );
     });
     $('#subtask').remove();
-    $('#subtasks').val(subtasks.join(';'));
 }
 
 $('#taskForm').on('submit', (event) => {
