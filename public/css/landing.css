@@ -41,6 +41,7 @@ a {
 input {
     margin: 12px;
     padding: 4px;
+    border-style: solid;
 }
 
 .loginProfileButton {
