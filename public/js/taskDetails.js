@@ -61,7 +61,8 @@ function validateTaskUpdates() {
     validateDate($('#reminderDate').val().trim(), 'Reminder Date');
     validateSelect($('#status').val().trim(), 'Status');
     validateStringInput($('#assignee').val().trim(), 'Assignee');
-    validateTags($('#tags').val().trim());
+    let strippedTags = validateTags($('#tags').val().trim());
+    $('#tags').val(strippedTags.join(', '));
 }
 
 function getFormValues() {

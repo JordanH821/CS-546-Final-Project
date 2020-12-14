@@ -49,9 +49,10 @@ function validateSelect(field, name) {
 function validateTags(tags) {
     const tagList = tags.split(',');
     try {
-        for (let tag of tagList) {
-            validateStringInput(tag, 'Tag');
-        }
+        tagList.forEach((tag, index) => {
+            tagList[index] = validateStringInput(tag, 'Tag');
+        });
+        return tagList;
     } catch (e) {
         throw `Invalid Tag String. You must provide at least one tag, with additional tags separated by a comma.`;
     }
