@@ -13,7 +13,7 @@ hbs.handlebars.registerHelper('prettyPrintDate', function (date) {
 
 // https://stackoverflow.com/questions/34252817/handlebarsjs-check-if-a-string-is-equal-to-a-value
 hbs.handlebars.registerHelper('ifEquals', function (arg1, arg2, options) {
-    console.log(`${arg1} === ${arg2}`);
+    // console.log(`${arg1} === ${arg2}`);
     return arg1 == arg2 ? options.fn(this) : options.inverse(this);
 });
 
