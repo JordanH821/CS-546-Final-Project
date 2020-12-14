@@ -67,3 +67,7 @@ h1 {
 main {
     overflow-y: auto;
 }
+
+#newTaskText, #updatedTaskText {
+    text-align: center;
+}

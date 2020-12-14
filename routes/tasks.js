@@ -53,7 +53,7 @@ router.post(
                 xss(rq.tags)
             );
             await users.addTaskToUser(req.session.user._id, newTask._id);
-            res.redirect(`/tasks/${newTask._id}`);
+            res.redirect(`/tasks/${newTask._id}?newTask=true`);
         } catch (e) {
             console.log(`error ${e}`);
             res.render('tasks/taskView', {
@@ -80,7 +80,8 @@ router.get(
             }
 
             // if task is found, render details
-            res.render('tasks/taskView', { title: 'Task Details', task: task });
+            const newTask = req.query.newTask ? req.query.newTask : false;
+            res.render('tasks/taskView', { title: 'Task Details', task: task, newTask: newTask});
         } catch (e) {
             res.status(404).json({ error: `${e}: Task not found` });
         }
