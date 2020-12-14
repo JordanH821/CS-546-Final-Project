@@ -37,18 +37,18 @@ router.post(
             validateStringInput(xss(rq.assignee), 'Assignee');
             for (let i = 0; i < rq.tags.length; i++) {
                 rq.tags[i] = xss(rq.tags[i]);
-            };
+            }
             validateTags(rq.tags);
             const newTask = await tasksData.addTask(
-                req.session.user._id,
-                rq.title,
-                rq.description,
-                rq.priority,
-                rq.dueDate,
-                rq.reminderDate,
-                rq.status,
-                rq.assignee,
-                rq.tags
+                xss(req.session.user._id),
+                xss(rq.title),
+                xss(rq.description),
+                xss(rq.priority),
+                xss(rq.dueDate),
+                xss(rq.reminderDate),
+                xss(rq.status),
+                xss(rq.assignee),
+                xss(rq.tags)
             );
             await users.addTaskToUser(req.session.user._id, newTask._id);
             res.redirect(`/tasks/${newTask._id}`);
@@ -68,7 +68,7 @@ router.get(
     authenticationCheckRedirect('/users/login', true),
     async (req, res) => {
         try {
-            const task = await tasksData.getTaskById(req.params.id);
+            const task = await tasksData.getTaskById(xss(req.params.id));
             res.render('tasks/taskView', { title: 'Task Details', task: task });
         } catch (e) {
             res.status(404).json({ error: `${e}: Task not found` });
@@ -92,19 +92,19 @@ router.post(
             validateStringInput(xss(rq.assignee), 'Assignee');
             for (let i = 0; i < rq.tags.length; i++) {
                 rq.tags[i] = xss(rq.tags[i]);
-            };
+            }
             validateTags(rq.tags);
             const newTask = await tasksData.updateTask(
-                req.session.user._id,
-                req.params.id,
-                rq.title,
-                rq.description,
-                rq.priority,
-                rq.dueDate,
-                rq.reminderDate,
-                rq.status,
-                rq.assignee,
-                rq.tags
+                xss(req.session.user._id),
+                xss(req.params.id),
+                xss(rq.title),
+                xss(rq.description),
+                xss(rq.priority),
+                xss(rq.dueDate),
+                xss(rq.reminderDate),
+                xss(rq.status),
+                xss(rq.assignee),
+                xss(rq.tags)
             );
             res.json({ updated: true });
         } catch (e) {
