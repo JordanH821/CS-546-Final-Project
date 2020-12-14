@@ -1,4 +1,7 @@
 <form method="POST" id="taskForm">
+    {{#ifEquals title "Task Details"}}
+    <input name="id" valuue="{{task._id}}" hidden>
+    {{/ifEquals}}
     <label for="title">Title:</label><br>
     <input id="title" name="title" type="text" value="{{task.title}}"><br><br>
 
@@ -41,12 +44,12 @@
     <label for="tags">Tags:(For tags, separate names with commas)</label><br>
     <input id="tags" name="tags" type="text" value="{{task.tags}}"><br><br>
 
-    <button id="submitButton" type="submit" class="btn btn-primary">
-        {{#ifEquals title "Create Task"}}
-        Create Task
-        {{/ifEquals}}
-        {{#ifEquals title "Task Details"}}
-        Edit Task
-        {{/ifEquals}}
-    </button>
+    {{#ifEquals title "Create Task"}}
+    <button id="submitButton" type="submit" class="btn btn-primary"></button>Create Task</button>
+    {{/ifEquals}}
 </form>
+{{#ifEquals title "Task Details"}}
+<button id="editTaskButton">Edit Task</button>
+<button id="updateTaskButton">Update Task</button>
+<button id="cancelEditButton">Cancel</button>
+{{/ifEquals}}
