@@ -105,5 +105,13 @@ $('#searchForm').on('submit', (event) => {
 
 function taskClicked(event) {
     event.stopPropagation();
-    window.open("http://localhost:3000/tasks/" + event.target.dataset.taskid);
+    window.open('http://localhost:3000/tasks/' + event.target.dataset.taskid,'_self',false);
+}
+
+function taskOnMouseOver(event) {
+    event.target.classList.add('taskOnMouse');
+}
+
+function taskOnMouseExit(event) {
+    event.target.classList.remove('taskOnMouse')
 }

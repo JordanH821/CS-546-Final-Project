@@ -182,3 +182,7 @@
     -webkit-box-shadow: none;
     box-shadow: none;
 }
+
+.taskOnMouse {
+    background-color:darkgray;
+}
