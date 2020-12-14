@@ -11,6 +11,7 @@ const {
     validatePriority,
     validateTags,
     validateObjectId,
+    validateSubtasks,
 } = require('../inputValidation');
 const { raw } = require('express');
 
@@ -37,7 +38,7 @@ router.post(
             validateStatus(rq.status);
             validateStringInput(rq.assignee, 'Assignee');
             validateTags(rq.tags);
-            validateSubtasks(rq.validateSubtasks);
+            validateSubtasks(rq.subtasks);
             const newTask = await tasksData.addTask(
                 req.session.user._id,
                 rq.title,

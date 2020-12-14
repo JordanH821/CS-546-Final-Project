@@ -96,13 +96,17 @@ function validateTags(tags) {
 function validateSubtasks(subtasks) {
     if (subtasks === null || subtasks === undefined)
         throw `Subtasks cannot be null or undefined`;
-    if (typeof subtaks !== 'string')
+    if (typeof subtasks !== 'string')
         throw `Subtasks must be a string of comma separated subtasks`;
-    const subtaskList = subtasks.split(', ');
-    for (let subtask of subtaskList) {
-        validateStringInput(subtask, 'Subtask');
-    }
+    if (subtasks === '') return [];
+    const subtaskList = subtasks.split(',');
+    console.log(subtaskList);
+    subtaskList.forEach((subtask, index) => {
+        subtaskList[index] = validateStringInput(subtask, 'Subtask');
+    });
+    return subtaskList;
 }
+
 module.exports = {
     validateStringInput,
     validateEmail,

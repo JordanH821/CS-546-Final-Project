@@ -38,7 +38,8 @@ async function main() {
                     task.reminderDate,
                     task.status,
                     u.firstName,
-                    task.tags.join(', ')
+                    task.tags.join(', '),
+                    task.subtasks.join(', ')
                 );
 
                 // add tags // TODO: probably add tags when creating task

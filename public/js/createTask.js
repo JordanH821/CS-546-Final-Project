@@ -13,10 +13,8 @@ function addSubtasksToForm() {
     $('#subtaskList li').each((index, subtask) => {
         subtasks.push($(subtask).text());
     });
-    console.log(subtasks.join(','));
+    $('#subtask').remove();
     $('#subtasks').val(subtasks.join(','));
-    $('subtask').remove();
-    // alert('added to from');
 }
 
 $('#taskForm').on('submit', (event) => {

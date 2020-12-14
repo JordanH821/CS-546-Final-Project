@@ -9,6 +9,7 @@ const {
     validatePriority,
     validateTags,
     validateObjectId,
+    validateSubtasks,
 } = require('../inputValidation');
 
 const validateFullTask = function (task) {
@@ -159,7 +160,8 @@ async function addTask(
     reminderDate,
     status,
     assignee,
-    tags
+    tags,
+    subtasks
 ) {
     validateObjectId(creatorId);
     title = validateStringInput(title, 'Title');
@@ -170,6 +172,7 @@ async function addTask(
     validateStatus(status);
     assignee = validateStringInput(assignee, 'Assignee');
     tags = validateTags(tags);
+    subtasks = validateSubtasks(subtasks);
     let newTask = {
         dateModified: new Date(Date.now()),
         creatorId: new mongoDB.ObjectID(creatorId),
@@ -181,7 +184,7 @@ async function addTask(
         status: status,
         assignee: assignee,
         tags: tags,
-        subTasks: [],
+        subTasks: subtasks,
         dependencies: [],
         comments: [],
     };
