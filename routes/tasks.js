@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const { authenticationCheckRedirect } = require('./middleware');
 const tasksData = require('../data/tasks');
-const userData = require('../data/users');
 const users = require('../data/users');
+
 const {
     validateStringInput,
     validateDate,
@@ -64,7 +64,14 @@ router.get(
     authenticationCheckRedirect('/users/login', true),
     async (req, res) => {
         try {
-            const task = await tasksData.getTaskById(req.params.id);
+            // check if task belongs to logged in user
+            const tasksForUser = await users.getAllTasksForUser(req.session.user._id);
+            const task = tasksForUser.find(t => t._id.toString() === req.params.id);
+            if (!task) {
+                throw "Invalid Task Id";
+            }
+
+            // if task is found, render details
             res.render('tasks/taskView', { title: 'Task Details', task: task });
         } catch (e) {
             res.status(404).json({ error: `${e}: Task not found` });
