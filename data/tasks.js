@@ -227,7 +227,6 @@ async function updateTask(
         assignee: assignee,
         tags: tags,
     };
-    console.log('there in updatedtask');
     const taskCollection = await tasks();
     const updateInfo = await taskCollection.updateOne(
         { _id: mongoDB.ObjectID(taskId) },

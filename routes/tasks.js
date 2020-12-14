@@ -46,7 +46,6 @@ router.post(
                 rq.assignee,
                 rq.tags
             );
-            await userData.getUserById(req.session.user._id);
             await users.addTaskToUser(req.session.user._id, newTask._id);
             res.redirect(`/tasks/${newTask._id}`);
         } catch (e) {
@@ -100,8 +99,6 @@ router.post(
                 rq.assignee,
                 rq.tags
             );
-            await userData.getUserById(req.session.user._id);
-            await users.addTaskToUser(req.session.user._id, newTask._id);
             res.json({ updated: true });
         } catch (e) {
             console.log(`error ${e}`);
