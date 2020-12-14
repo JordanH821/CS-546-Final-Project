@@ -3,8 +3,7 @@
 
 <div id="dashboardBackground" class="back">
     <div id='dashboardHeader'>
-        <img id="headerLogo" src="/public/img/header_logo.png"
-            class="marginLeft12 marginRight12 marginTop12 marginBottom12">
+        <img id="headerLogo" src="/public/img/header_logo.png" class="marginLeft12 marginRight12 marginTop12 marginBottom12">
         <div class="dashboardNav_V_Divider marginLeft12 marginRight12"></div>
 
         <a href="/dashboard" class='headerLink marginLeft12'>Dashboard</a>
@@ -21,13 +20,12 @@
     <main>
         <div class="taskForm">
             <h1>{{title}}</h1>
-            <div id="errorDiv" {{#unless error}}hidden{{/unless}}>
-                {{#if error}}
-                <p>{{error}}</p>
+            <div id="errorDiv" {{#unless error}} hidden{{/unless}}> {{#if error}} <p>{{error}}</p>
                 {{/if}}
             </div>
             {{> 'taskForm' task=task title=title}}
         </div>
+
     </main>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>

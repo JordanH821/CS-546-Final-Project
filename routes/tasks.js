@@ -12,6 +12,7 @@ const {
   validateTags,
   validateObjectId
 } = require('../inputValidation');
+//const alert = require('alert');
 
 router.get(
   '/new',
@@ -65,7 +66,10 @@ router.get(
   async (req, res) => {
     try {
       const task = await tasksData.getTaskById(req.params.id);
-      res.render('tasks/taskView', { title: 'Task Details', task: task });
+      res.render('tasks/taskView', {
+        title: 'Task Details',
+        task: task
+      });
     } catch (e) {
       res.status(404).json({ error: `${e}: Task not found` });
     }
@@ -99,6 +103,7 @@ router.post(
         rq.assignee,
         rq.tags
       );
+      alert('Task successuly updated!');
       res.json({ updated: true });
     } catch (e) {
       console.log(`error ${e}`);
