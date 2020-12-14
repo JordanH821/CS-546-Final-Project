@@ -64,18 +64,18 @@
                 <h3 class="columnHeader marginLeft12 marginRight12">To Do:</h3>
                 <div id="toDoColumn" class="columnScrollView">
                     {{#each toDoCards}}
-                    <div data-taskid="{{this._id}}" draggable="true" ondragstart="dashboardOnDrag(event)">
+                    <div data-taskid="{{this._id}}" draggable="true" ondragstart="dashboardOnDrag(event)" onclick="taskClicked(event)">
                         {{> 'taskCard' this}}
                     </div>
                     {{/each}}
                 </div>
-            </div>
-            <div class="column c2" ondragover="dashboardAllowDrop(event)" ondrop="dashboardOnDrop(event)">
-                <h3 class="columnHeader marginLeft12 marginRight12">In Progress:</h3>
-                <div id="inProgressColumn" class="columnScrollView">
-                    {{#each inProgressCards}}
-                    <div data-taskid="{{this._id}}" draggable="true" ondragstart="dashboardOnDrag(event)">
-                        {{> 'taskCard' this}}
+                </div>
+                <div class="column c2" ondragover="dashboardAllowDrop(event)" ondrop="dashboardOnDrop(event)">
+                    <h3 class="columnHeader marginLeft12 marginRight12">In Progress:</h3>
+                    <div id="inProgressColumn" class="columnScrollView">
+                        {{#each inProgressCards}}
+                        <div data-taskid="{{this._id}}" draggable="true" ondragstart="dashboardOnDrag(event)">
+                            {{> 'taskCard' this}}
                     </div>
                     {{/each}}
                 </div>
@@ -97,3 +97,5 @@
     crossorigin="anonymous"></script>
 <script src="public/js/validationFunctions.js"></script>
 <script src="public/js/dashboard.js"></script>
+
+<script>sizeColumns();</script>
