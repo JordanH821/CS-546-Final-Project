@@ -54,13 +54,16 @@ router.get(
             title: 'Dashboard',
             user: req.session.user,
             toDoCards: tasksData.sortTasksByDate(
-                tasks.filter((task) => task.status == 'To Do')
+                tasks.filter((task) => task.status == 'To Do'),
+                false
             ),
             inProgressCards: tasksData.sortTasksByDate(
-                tasks.filter((task) => task.status == 'In Progress')
+                tasks.filter((task) => task.status == 'In Progress'),
+                false
             ),
             doneCards: tasksData.sortTasksByDate(
-                tasks.filter((task) => task.status == 'Done')
+                tasks.filter((task) => task.status == 'Done'),
+                false
             ),
             searchTerm: searchTerm,
             tag: tag,
