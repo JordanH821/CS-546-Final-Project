@@ -391,7 +391,7 @@ async function getTaskNotificationsForUser(userId) {
     const today = new Date();
     return await tasksCollection
         .find({
-            assignee: mongoDB.ObjectID(userId),
+            creatorId: mongoDB.ObjectID(userId),
             reminderDate: { $lt: today },
             status: { $ne: 'Done' },
             status: { $ne: 'Archived' },
