@@ -48,6 +48,12 @@
     {{#ifEquals title "Create Task"}}
     <button id="submitButton" type="submit" class="btn btn-primary">Create Task</button>
     {{/ifEquals}}
+
+    {{#if newTask}}
+    <p id="newTaskText">New task created successfully!</p>
+    {{/if}}
+
+    <p id="updatedTaskText" hidden>Updated task created successfully!</p>
 </form>
 {{#ifEquals title "Task Details"}}
 <button id="editTaskButton">Edit Task</button>
