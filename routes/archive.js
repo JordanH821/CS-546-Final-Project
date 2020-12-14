@@ -39,7 +39,8 @@ router.get(
             title: 'Archive',
             user: req.session.user,
             archiveCards: tasksData.sortTasksByDate(
-                tasks.filter((task) => task.status == 'Archived')
+                tasks.filter((task) => task.status == 'Archived'),
+                true
             ),
             searchTerm: searchTerm,
         });
