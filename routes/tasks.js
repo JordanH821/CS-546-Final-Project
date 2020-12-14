@@ -12,6 +12,7 @@ const {
     validateTags,
     validateObjectId,
 } = require('../inputValidation');
+const { raw } = require('express');
 
 router.get(
     '/new',
@@ -25,6 +26,7 @@ router.post(
     '/new',
     authenticationCheckRedirect('/users/login', true),
     async (req, res) => {
+        console.log(req.body);
         try {
             const rq = req.body;
             validateStringInput(rq.title, 'Title');
@@ -35,6 +37,7 @@ router.post(
             validateStatus(rq.status);
             validateStringInput(rq.assignee, 'Assignee');
             validateTags(rq.tags);
+            validateSubtasks(rq.validateSubtasks);
             const newTask = await tasksData.addTask(
                 req.session.user._id,
                 rq.title,
@@ -44,7 +47,8 @@ router.post(
                 rq.reminderDate,
                 rq.status,
                 rq.assignee,
-                rq.tags
+                rq.tags,
+                rq.subtasks
             );
             await users.addTaskToUser(req.session.user._id, newTask._id);
             res.redirect(`/tasks/${newTask._id}`);

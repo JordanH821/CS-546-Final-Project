@@ -42,7 +42,19 @@
     <label for="assignee">Assignee:(For multiple assignees, separate names with commas)</label><br>
     <input id="assignee" name="assignee" type="text" value="{{task.assignee}}"><br><br>
 
-    <label for="tags">Tags:(For tags, separate names with commas)</label><br>
+    <div id="subtasksDiv">
+        <ul id="subtaskList"></ul>
+    </div>
+    <div id="subtaskCreation">
+        <label for="subtask">Subtask:</label><br>
+        <input type="text" name="subtask" id="subtask"><br>
+        <button id="addSubtaskButton" type="button">Add Subtask</button><br><br>
+    </div>
+
+    <input id="subtasks" name="subtasks" type="text" value="" hidden>
+
+    <label for="tags">Tags:(For tags, separate names with
+        commas)</label><br>
     <input id="tags" name="tags" type="text" value="{{task.tags}}"><br><br>
 
     {{#ifEquals title "Create Task"}}
