@@ -51,6 +51,7 @@
     font-weight: bold;
     margin-bottom: 6px;
     margin-top: 12px;
+    padding-top: 8px;
 }
 
 #notificationBody {
@@ -146,7 +147,7 @@
     background-color: white;
     border-radius: 8px;
     color: black;
-    text-align: center;
+    font-weight: bold;
     padding-left: 12px;
     padding-right: 12px;
     padding-top: 4px;
