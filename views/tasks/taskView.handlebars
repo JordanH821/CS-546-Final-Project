@@ -38,3 +38,9 @@
     {{#ifEquals title "Task Details"}}
     <script src="/public/js/taskDetails.js"></script>
     {{/ifEquals}}
+
+    <script>
+        const headerHeight = $('#dashboardHeader').height();
+        const windowHeight = $(window).height();
+        $('main').height(windowHeight - headerHeight);
+    </script>
