@@ -48,7 +48,7 @@ function validateDate(date, name) {
     const error = `${name} is not a valid date`;
     try {
         validateStringInput(date, name);
-    } catch {
+    } catch (e) {
         throw error;
     }
     date = new Date(date);
@@ -59,7 +59,7 @@ function validateStatus(status) {
     const error = `Status: (${status}) is not a valid status (To Do, In Progress, Done).`;
     try {
         validateStringInput(status);
-    } catch {
+    } catch (e) {
         throw error;
     }
     if (['To Do', 'In Progress', 'Done', 'Archived'].indexOf(status) < 0)
@@ -70,7 +70,7 @@ function validatePriority(priority) {
     const error = `Priority: (${priority}) is not a valid priority (1-10 inclusive).`;
     try {
         validateStringInput(priority);
-    } catch {
+    } catch (e) {
         throw error;
     }
     priority = Number(priority);
@@ -88,7 +88,7 @@ function validateTags(tags) {
             tagList[index] = validateStringInput(tag, 'Tag');
         });
         return tagList;
-    } catch {
+    } catch (e) {
         throw error;
     }
 }

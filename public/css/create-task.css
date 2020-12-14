@@ -3,18 +3,36 @@
     width: 50%;
 }
 
-input,
-select,
 textarea {
-    width: 300px;
+    width: 90%;
+    margin-top: 4px;
 }
 
-main {
-    padding: 20px;
+input {
+    padding: 4px;
+    margin-top: 4px;
+}
+
+.wideInput {
+    width: 50%;
+}
+
+select {
+    padding: 4px;
+    margin-top: 4px;
 }
 
 button {
     width: 200px;
+    display: block;
+    margin:auto;
+    padding: 4px 24px 4px 24px;
+    font-size: 18px;
+    margin-top: 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    outline: none;
+    background-color: white;
 }
 
 .task-item {
@@ -29,4 +47,23 @@ button {
 
 .error {
     color: red;
+}
+
+h1 {
+    padding: 0;
+    margin-top: 0;
+    text-align: center;
+}
+
+
+.taskForm {
+    margin-top: 28px;
+    margin-bottom: 28px;
+    background-color: rgb(230, 230, 230);
+    padding: 48px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+main {
+    overflow-y: auto;
 }

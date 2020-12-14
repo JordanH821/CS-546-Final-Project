@@ -1,4 +1,5 @@
 const express = require('express');
+const xss = require('xss');
 const router = express.Router();
 const { authenticationCheckRedirect } = require('./middleware');
 const usersData = require('../data/users');
@@ -20,7 +21,7 @@ router.get(
         let tags;
         let tag;
         if (req.query && req.query.searchTerm) {
-            searchTerm = req.query.searchTerm;
+            searchTerm = xss(req.query.searchTerm);
             try {
                 searchTerm = validateStringInput(searchTerm);
                 tasks = await usersData.searchUsersTasks(
@@ -54,13 +55,16 @@ router.get(
             title: 'Dashboard',
             user: req.session.user,
             toDoCards: tasksData.sortTasksByDate(
-                tasks.filter((task) => task.status == 'To Do')
+                tasks.filter((task) => task.status == 'To Do'),
+                false
             ),
             inProgressCards: tasksData.sortTasksByDate(
-                tasks.filter((task) => task.status == 'In Progress')
+                tasks.filter((task) => task.status == 'In Progress'),
+                false
             ),
             doneCards: tasksData.sortTasksByDate(
-                tasks.filter((task) => task.status == 'Done')
+                tasks.filter((task) => task.status == 'Done'),
+                false
             ),
             searchTerm: searchTerm,
             tag: tag,

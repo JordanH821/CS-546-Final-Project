@@ -1,5 +1,6 @@
 let firstName, lastName, mobileNumber, homeNumber, workNumber;
 
+
 function disableForm() {
     $('input[type="text"]').attr('disabled', true);
     $('#updateProfileButton').hide();
@@ -35,11 +36,31 @@ function cancelProfileUpdate() {
 function validateProfileUpdates() {
     $('#errorDiv').hide();
     $('#errorDiv').empty();
-    validateStringInput($('#firstName').val().trim(), 'First Name');
-    validateStringInput($('#lastName').val().trim(), 'Last Name');
-    validatePhoneNumber($('#mobileNumber').val().trim(), 'Mobile');
-    validatePhoneNumber($('#homeNumber').val().trim(), 'Home');
-    validatePhoneNumber($('#workNumber').val().trim(), 'Work');
+    try {
+        validateStringInput($('#firstName').val().trim(), 'First Name');
+    } catch {
+        throw 'Please enter your first name.';
+    }
+    try {
+        validateStringInput($('#lastName').val().trim(), 'Last Name');
+    } catch {
+        throw 'Please enter your last name.';
+    }
+    try {
+        validatePhoneNumber($('#mobileNumber').val().trim(), 'Mobile');
+    } catch {
+        throw 'Please enter your mobile number.';
+    }
+    try {
+        validatePhoneNumber($('#homeNumber').val().trim(), 'Home');
+    } catch {
+        throw 'Please enter your home number.';
+    }
+    try {
+        validatePhoneNumber($('#workNumber').val().trim(), 'Work');
+    } catch {
+        'Please enter your work number.';
+    }
 }
 
 function getFormValues() {
