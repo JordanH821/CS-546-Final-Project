@@ -90,7 +90,7 @@ function clearErrors() {
 }
 
 function updateTaskWithAJAX() {
-    const id = $('#id').val().trim();
+    const id = $('#taskId').val().trim();
     const requestConfig = {
         method: 'POST',
         url: `/tasks/${id}`,

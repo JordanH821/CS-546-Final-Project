@@ -44,9 +44,61 @@ function validateObjectId(id) {
     return ObjectID(id);
 }
 
+function validateDate(date, name) {
+    const error = `${name} is not a valid date`;
+    try {
+        validateStringInput(date, name);
+    } catch {
+        throw error;
+    }
+    date = new Date(date);
+    if (Number.isNaN(date)) throw error;
+}
+
+function validateStatus(status) {
+    const error = `Status: (${status}) is not a valid status (To Do, In Progress, Done).`;
+    try {
+        validateStringInput(status);
+    } catch {
+        throw error;
+    }
+    if (['To Do', 'In Progress', 'Done'].indexOf(status) < 0) throw error;
+}
+
+function validatePriority(priority) {
+    const error = `Priority: (${priority}) is not a valid priority (1-10 inclusive).`;
+    try {
+        validateStringInput(priority);
+    } catch {
+        throw error;
+    }
+    priority = Number(priority);
+    if (!Number.isInteger(priority) || priority < 1 || priority > 10)
+        throw error;
+    return priority;
+}
+
+function validateTags(tags) {
+    const error = `Tags: (${tags}) is not a valid tag string. It must be a comma-separated list of strings`;
+    try {
+        validateStringInput(tags);
+        const tagList = tags.split(',');
+        for (let tag of tagList) {
+            validateStringInput(tag, 'Tag');
+        }
+        return tagList;
+    } catch {
+        throw error;
+    }
+}
+
 module.exports = {
     validateStringInput,
     validateEmail,
     validatePhoneNumber,
     validateObjectId,
+    validateDate,
+    validateStatus,
+    validatePriority,
+    validateTags,
 };

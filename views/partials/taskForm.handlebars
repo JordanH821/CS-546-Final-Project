@@ -1,6 +1,6 @@
 <form method="POST" id="taskForm">
     {{#ifEquals title "Task Details"}}
-    <input name="id" valuue="{{task._id}}" hidden>
+    <input id="taskId" value="{{task._id}}" hidden>
     {{/ifEquals}}
     <label for="title">Title:</label><br>
     <input id="title" name="title" type="text" value="{{task.title}}"><br><br>
@@ -45,7 +45,7 @@
     <input id="tags" name="tags" type="text" value="{{task.tags}}"><br><br>
 
     {{#ifEquals title "Create Task"}}
-    <button id="submitButton" type="submit" class="btn btn-primary"></button>Create Task</button>
+    <button id="submitButton" type="submit" class="btn btn-primary">Create Task</button>
     {{/ifEquals}}
 </form>
 {{#ifEquals title "Task Details"}}
