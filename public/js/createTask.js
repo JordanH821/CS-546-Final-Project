@@ -99,3 +99,4 @@ $('#taskForm').on('submit', event => {
     $('#errorDiv').show();
   }
 });
+

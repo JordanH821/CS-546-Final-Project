@@ -348,10 +348,16 @@ async function updateTaskStatus(taskId, status) {
   return await this.getTaskById(taskId);
 }
 
-function sortTasksByDate(tasks, status) {
-  return tasks.sort(function(a, b) {
-    return new Date(a.dateModified) - new Date(b.dateModified);
-  });
+
+function sortTasksByDate(tasks, inverted) {
+    return tasks.sort(function (a, b) {
+        if (!inverted) {
+            return new Date(a.dateModified) - new Date(b.dateModified);
+        } else {
+            return new Date(b.dateModified) - new Date(a.dateModified);
+        }
+    });
+
 }
 
 async function searchUsersTasks(userId, searchTerm) {

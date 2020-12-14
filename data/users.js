@@ -136,9 +136,18 @@ async function getUserByEmail(email) {
 }
 
 async function authenticateUser(email, password) {
-  let user = await getUserByEmail(email);
-  if (comparePasswordToHash(password, user.hashedPassword)) return user;
-  throw 'Invalid username or password';
+    try {
+        let user = await getUserByEmail(email);
+        let compare = await comparePasswordToHash(password, user.hashedPassword);
+        if (compare) {
+            return user;
+        } else {
+            throw 'Invalid username or password';
+        }
+    } catch {
+        throw 'Invalid username or password';
+    }
+
 }
 
 async function addTaskToUser(userId, taskId) {
