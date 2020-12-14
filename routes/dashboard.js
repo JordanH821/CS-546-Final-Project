@@ -1,4 +1,5 @@
 const express = require('express');
+const xss = require('xss');
 const router = express.Router();
 const { authenticationCheckRedirect } = require('./middleware');
 const usersData = require('../data/users');
@@ -9,6 +10,7 @@ const {
     replaceQueryStringSpaces,
 } = require('../inputValidation');
 const { request } = require('express');
+const { default: xss } = require('xss');
 
 router.get(
     '/',
@@ -20,7 +22,7 @@ router.get(
         let tags;
         let tag;
         if (req.query && req.query.searchTerm) {
-            searchTerm = req.query.searchTerm;
+            searchTerm = xss(req.query.searchTerm);
             try {
                 searchTerm = validateStringInput(searchTerm);
                 tasks = await usersData.searchUsersTasks(
