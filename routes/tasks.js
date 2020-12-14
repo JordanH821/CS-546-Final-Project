@@ -1,4 +1,5 @@
 const express = require('express');
+const xss = require('xss');
 const router = express.Router();
 const { authenticationCheckRedirect } = require('./middleware');
 const tasksData = require('../data/tasks');
@@ -27,13 +28,16 @@ router.post(
     async (req, res) => {
         try {
             const rq = req.body;
-            validateStringInput(rq.title, 'Title');
-            validateStringInput(rq.description, 'Description');
-            validatePriority(rq.priority);
-            validateDate(rq.dueDate, 'Due Date');
-            validateDate(rq.reminderDate, 'Reminder Date');
-            validateStatus(rq.status);
-            validateStringInput(rq.assignee, 'Assignee');
+            validateStringInput(xss(rq.title), 'Title');
+            validateStringInput(xss(rq.description), 'Description');
+            validatePriority(xss(rq.priority));
+            validateDate(xss(rq.dueDate), 'Due Date');
+            validateDate(xss(rq.reminderDate), 'Reminder Date');
+            validateStatus(xss(rq.status));
+            validateStringInput(xss(rq.assignee), 'Assignee');
+            for (let i = 0; i < rq.tags.length; i++) {
+                rq.tags[i] = xss(rq.tags[i]);
+            };
             validateTags(rq.tags);
             const newTask = await tasksData.addTask(
                 req.session.user._id,
@@ -78,14 +82,17 @@ router.post(
     async (req, res) => {
         try {
             const rq = req.body;
-            validateObjectId(req.params.id);
-            validateStringInput(rq.title, 'Title');
-            validateStringInput(rq.description, 'Description');
-            validatePriority(rq.priority);
-            validateDate(rq.dueDate, 'Due Date');
-            validateDate(rq.reminderDate, 'Reminder Date');
-            validateStatus(rq.status);
-            validateStringInput(rq.assignee, 'Assignee');
+            validateObjectId(xss(req.params.id));
+            validateStringInput(xss(rq.title), 'Title');
+            validateStringInput(xss(rq.description), 'Description');
+            validatePriority(xss(rq.priority));
+            validateDate(xss(rq.dueDate), 'Due Date');
+            validateDate(xss(rq.reminderDate), 'Reminder Date');
+            validateStatus(xss(rq.status));
+            validateStringInput(xss(rq.assignee), 'Assignee');
+            for (let i = 0; i < rq.tags.length; i++) {
+                rq.tags[i] = xss(rq.tags[i]);
+            };
             validateTags(rq.tags);
             const newTask = await tasksData.updateTask(
                 req.session.user._id,
