@@ -43,7 +43,13 @@
     <input id="assignee" name="assignee" type="text" value="{{task.assignee}}"><br><br>
 
     <div id="subtasksDiv">
-        <ul id="subtaskList"></ul>
+        <p>Subtasks:</p>
+        <ul id="subtaskList">
+            {{log task}}
+            {{#each task.subtasks}}
+            <li>{{this}}</li>
+            {{/each}}
+        </ul>
     </div>
     <div id="subtaskCreation">
         <label for="subtask">Subtask:</label><br>

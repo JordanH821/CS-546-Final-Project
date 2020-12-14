@@ -184,7 +184,7 @@ async function addTask(
         status: status,
         assignee: assignee,
         tags: tags,
-        subTasks: subtasks,
+        subtasks: subtasks,
         dependencies: [],
         comments: [],
     };
@@ -206,7 +206,8 @@ async function updateTask(
     reminderDate,
     status,
     assignee,
-    tags
+    tags,
+    subtasks
 ) {
     validateObjectId(creatorId);
     validateObjectId(taskId);
@@ -218,6 +219,7 @@ async function updateTask(
     validateStatus(status);
     assignee = validateStringInput(assignee, 'Assignee');
     tags = validateTags(tags);
+    subtasks = validateSubtasks(subtasks);
     let updateTask = {
         dateModified: new Date(Date.now()),
         creatorId: new mongoDB.ObjectID(creatorId),
@@ -229,6 +231,7 @@ async function updateTask(
         status: status,
         assignee: assignee,
         tags: tags,
+        subtasks: subtasks,
     };
     const taskCollection = await tasks();
     const updateInfo = await taskCollection.updateOne(
@@ -271,7 +274,7 @@ async function addSubTaskToTask(taskId, subtaskId) {
     const taskCollection = await tasks();
     const updateInfo = await taskCollection.updateOne(
         { _id: mongoDB.ObjectID(String(taskId)) },
-        { $addToSet: { subTasks: subtaskId } }
+        { $addToSet: { subtasks: subtaskId } }
     );
 
     if (!updateInfo.matchedCount && !updateInfo.modifiedCount)

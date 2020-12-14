@@ -92,6 +92,7 @@ router.post(
             validateStatus(rq.status);
             validateStringInput(rq.assignee, 'Assignee');
             validateTags(rq.tags);
+            validateSubtasks(rq.subtasks);
             const newTask = await tasksData.updateTask(
                 req.session.user._id,
                 req.params.id,
@@ -102,7 +103,8 @@ router.post(
                 rq.reminderDate,
                 rq.status,
                 rq.assignee,
-                rq.tags
+                rq.tags,
+                rq.subtasks
             );
             res.json({ updated: true });
         } catch (e) {
