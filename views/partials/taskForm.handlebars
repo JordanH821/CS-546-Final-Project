@@ -31,11 +31,12 @@
 
     <label for="status">Status:</label><br>
     <select name="status" id="status">
-        <option value="To Do" {{#ifEquals "To Do" task.priority}}selected{{/ifEquals}}>To Do</option>
-        <option value="In Progress" {{#ifEquals "In Progress" (lookup ../task 'title' )}}selected{{/ifEquals}}>In
+        <option value="To Do" {{#ifEquals "To Do" task.status}}selected{{/ifEquals}}>To Do</option>
+        <option value="In Progress" {{#ifEquals "In Progress" task.status}}selected{{/ifEquals}}>In
             Progress
         </option>
-        <option value="Done" {{#ifEquals "Done" task.priority}}selected{{/ifEquals}}>Done</option>
+        <option value="Done" {{#ifEquals "Done" task.status}}selected{{/ifEquals}}>Done</option>
+        <option value="Archived" {{#ifEquals "Archived" task.status}}selected{{/ifEquals}}>Archived</option>
     </select><br><br>
 
     <label for="assignee">Assignee:(For multiple assignees, separate names with commas)</label><br>
