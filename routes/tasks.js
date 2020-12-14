@@ -6,21 +6,21 @@ const tasksData = require('../data/tasks');
 const users = require('../data/users');
 
 const {
-  validateStringInput,
-  validateDate,
-  validateStatus,
-  validatePriority,
-  validateTags,
-  validateObjectId
+    validateStringInput,
+    validateDate,
+    validateStatus,
+    validatePriority,
+    validateTags,
+    validateObjectId
 } = require('../inputValidation');
 //const alert = require('alert');
 
 router.get(
-  '/new',
-  authenticationCheckRedirect('/users/login', true),
-  async (req, res) => {
-    res.render('tasks/taskView', { title: 'Create Task' });
-  }
+    '/new',
+    authenticationCheckRedirect('/users/login', true),
+    async (req, res) => {
+        res.render('tasks/taskView', { title: 'Create Task' });
+    }
 );
 
 router.post(
@@ -62,9 +62,7 @@ router.post(
                 error: e,
             });
         }
-
     }
-  }
 );
 
 router.get(
@@ -81,13 +79,11 @@ router.get(
 
             // if task is found, render details
             const newTask = req.query.newTask ? req.query.newTask : false;
-            res.render('tasks/taskView', { title: 'Task Details', task: task, newTask: newTask});
+            res.render('tasks/taskView', { title: 'Task Details', task: task, newTask: newTask });
         } catch (e) {
             res.status(404).json({ error: `${e}: Task not found` });
         }
-
     }
-  }
 );
 
 router.post(
@@ -125,9 +121,7 @@ router.post(
             console.log(`error ${e}`);
             res.status(500).json({ updated: false, error: e });
         }
-
     }
-  }
 );
 
 module.exports = router;

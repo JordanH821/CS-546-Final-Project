@@ -47,16 +47,6 @@ router.get(
         });
 
     }
-
-    res.render('archive/archive', {
-      title: 'Archive',
-      user: req.session.user,
-      archiveCards: tasksData.sortTasksByDate(
-        tasks.filter(task => task.status == 'Archived')
-      ),
-      searchTerm: searchTerm
-    });
-  }
 );
 
 router.post(
