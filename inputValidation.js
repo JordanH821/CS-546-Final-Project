@@ -99,7 +99,7 @@ function validateSubtasks(subtasks) {
     if (typeof subtasks !== 'string')
         throw `Subtasks must be a string of comma separated subtasks`;
     if (subtasks === '') return [];
-    const subtaskList = subtasks.split(',');
+    const subtaskList = subtasks.split(';');
     subtaskList.forEach((subtask, index) => {
         subtaskList[index] = validateStringInput(subtask, 'Subtask');
     });

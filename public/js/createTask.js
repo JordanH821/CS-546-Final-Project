@@ -14,7 +14,7 @@ function addSubtasksToForm() {
         subtasks.push($(subtask).text());
     });
     $('#subtask').remove();
-    $('#subtasks').val(subtasks.join(','));
+    $('#subtasks').val(subtasks.join(';'));
 }
 
 $('#taskForm').on('submit', (event) => {
@@ -39,7 +39,7 @@ $('#addSubtaskButton').on('click', () => {
     clearErrors();
     try {
         const subtask = validateStringInput(
-            $('#subtask').val().trim(),
+            $('#subtask').val().trim().replace(/\;/g, ''),
             'Subtask'
         );
         const listItem = $(`<li>${subtask}</li>`);

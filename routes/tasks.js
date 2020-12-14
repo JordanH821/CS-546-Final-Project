@@ -27,7 +27,6 @@ router.post(
     '/new',
     authenticationCheckRedirect('/users/login', true),
     async (req, res) => {
-        console.log(req.body);
         try {
             const rq = req.body;
             validateStringInput(rq.title, 'Title');
