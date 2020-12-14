@@ -1,4 +1,3 @@
-
 const columnMapping = {
     toDoColumn: 'To Do',
     inProgressColumn: 'In Progress',
@@ -47,7 +46,7 @@ function dashboardOnDrop(ev) {
 
     const params = {
         status: columnMapping[column.id],
-        taskId: cardCurrentlyDragging.dataset.taskid,
+        taskId: cardCurrentlyDragging.dataset.taskid.toString(),
     };
 
     // update service with moving card
@@ -105,7 +104,11 @@ $('#searchForm').on('submit', (event) => {
 
 function taskClicked(event) {
     event.stopPropagation();
-    window.open('http://localhost:3000/tasks/' + event.target.dataset.taskid,'_self',false);
+    window.open(
+        'http://localhost:3000/tasks/' + event.target.dataset.taskid,
+        '_self',
+        false
+    );
 }
 
 function taskOnMouseOver(event) {
@@ -113,5 +116,5 @@ function taskOnMouseOver(event) {
 }
 
 function taskOnMouseExit(event) {
-    event.target.classList.remove('taskOnMouse')
+    event.target.classList.remove('taskOnMouse');
 }

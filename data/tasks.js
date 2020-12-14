@@ -227,7 +227,7 @@ async function updateTask(
         assignee: assignee,
         tags: tags,
     };
-
+    console.log('there in updatedtask');
     const taskCollection = await tasks();
     const updateInfo = await taskCollection.updateOne(
         { _id: mongoDB.ObjectID(taskId) },
@@ -343,22 +343,18 @@ async function addCommentToTask(taskId, commentId) {
     return await this.getTaskById(taskId);
 }
 async function updateTaskStatus(taskId, status) {
-    if (!taskId || !mongoDB.ObjectID.isValid(String(taskId))) {
-        throw 'You must provide valid taskId';
-    }
+    validateObjectId(taskId);
+    validateStatus(status);
+    await this.getTaskById(taskId);
+    const taskCollection = await tasks();
+    const updateInfo = await taskCollection.updateOne(
+        { _id: mongoDB.ObjectID(taskId) },
+        { $set: { status: status } }
+    );
+    if (!updateInfo.matchedCount && !updateInfo.modifiedCount)
+        throw 'Task status update failed';
 
-    if (!status || typeof status != 'string') {
-        throw 'Invalid update status';
-    }
-
-    // get task
-    let task = await this.getTaskById(taskId);
-
-    // update status
-    task.status = status;
-
-    // update task in DB
-    return this.updateTask(taskId, task);
+    return await this.getTaskById(taskId);
 }
 
 function sortTasksByDate(tasks, status) {
