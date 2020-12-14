@@ -3,7 +3,7 @@
     <input id="taskId" value="{{task._id}}" hidden>
     {{/ifEquals}}
     <label for="title">Title:</label><br>
-    <input id="title" name="title" type="text" value="{{task.title}}"><br><br>
+    <input class="wideInput" id="title" name="title" type="text" value="{{task.title}}"><br><br>
 
     <label for="description">Description:</label><br>
     <textarea id="description" name="description" type="text" rows="4"
@@ -39,11 +39,11 @@
         <option value="Archived" {{#ifEquals "Archived" task.status}}selected{{/ifEquals}}>Archived</option>
     </select><br><br>
 
-    <label for="assignee">Assignee:(For multiple assignees, separate names with commas)</label><br>
-    <input id="assignee" name="assignee" type="text" value="{{task.assignee}}"><br><br>
+    <label for="assignee">Assignee:</label><br>
+    <input class="wideInput" id="assignee" name="assignee" type="text" value="{{task.assignee}}"><br><br>
 
     <label for="tags">Tags:(For tags, separate names with commas)</label><br>
-    <input id="tags" name="tags" type="text" value="{{task.tags}}"><br><br>
+    <input class="wideInput" id="tags" name="tags" type="text" value="{{task.tags}}"><br><br>
 
     {{#ifEquals title "Create Task"}}
     <button id="submitButton" type="submit" class="btn btn-primary">Create Task</button>

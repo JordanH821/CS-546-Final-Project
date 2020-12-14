@@ -31,6 +31,7 @@ function dashboardOnDrag(ev) {
 }
 
 function dashboardOnDrop(ev) {
+    alert("Task moved!");
     const column = findColumnForTaskCard(ev.target);
 
     // do not re-drag task cards into the column it was already in

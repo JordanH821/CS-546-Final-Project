@@ -1,5 +1,6 @@
 let firstName, lastName, mobileNumber, homeNumber, workNumber;
 
+
 function disableForm() {
     $('input[type="text"]').attr('disabled', true);
     $('#updateProfileButton').hide();

@@ -16,3 +16,8 @@ $('#taskForm').on('submit', (event) => {
         $('#errorDiv').show();
     }
 });
+
+
+const headerHeight = $('#dashboardHeader').height();
+const windowHeight = $(window).height();
+$('main').height(windowHeight - headerHeight);
