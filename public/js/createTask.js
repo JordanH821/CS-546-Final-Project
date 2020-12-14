@@ -4,12 +4,12 @@ $('#taskForm').on('submit', (event) => {
     try {
         validateStringInput($('#title').val().trim(), 'Title');
         validateStringInput($('#description').val().trim(), 'Description');
-        // validateSelect($('#priority').val().trim(), 'Priority);
+        validateSelect($('#priority').val().trim(), 'Priority');
         validateDate($('#dueDate').val().trim(), 'Due Date');
         validateDate($('#reminderDate').val().trim(), 'Reminder Date');
-        // validateSelect($('#status').val().trim(), 'Status');
+        validateSelect($('#status').val().trim(), 'Status');
         validateStringInput($('#assignee').val().trim(), 'Assignee');
-        // validateTags($('#tags').val().trim(), 'Home');
+        validateTags($('#tags').val().trim());
     } catch (e) {
         event.preventDefault();
         $('#errorDiv').append(`<p>Error: ${e}</p>`);

@@ -17,7 +17,6 @@ const getCollectionFn = (collection) => {
                 });
             }
         }
-
         return _col;
     };
 };

@@ -31,10 +31,29 @@ function validatePhoneNumber(phoneNumber, type) {
     }
 }
 
-function validateDate(date) {
-    validateStringInput(date, 'Date');
+function validateDate(date, name) {
     date = Date.parse(date);
     if (Number.isNaN(date)) {
-        throw `Date is invalid`;
+        throw `${name} is invalid`;
+    }
+}
+
+function validateSelect(field, name) {
+    try {
+        validateStringInput(field, name);
+    } catch (e) {
+        throw `You must select a value for ${name}`;
+    }
+}
+
+function validateTags(tags) {
+    const tagList = tags.split(',');
+    try {
+        tagList.forEach((tag, index) => {
+            tagList[index] = validateStringInput(tag, 'Tag');
+        });
+        return tagList;
+    } catch (e) {
+        throw `Invalid Tag String. You must provide at least one tag, with additional tags separated by a comma.`;
     }
 }

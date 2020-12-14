@@ -6,6 +6,7 @@ const configRoutes = require('./routes');
 const exphbs = require('express-handlebars');
 const session = require('express-session');
 const hbs = exphbs.create({});
+const { validateDate } = require('./inputValidation');
 
 hbs.handlebars.registerHelper('prettyPrintDate', function (date) {
     return `${date.toLocaleDateString()} @ ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
@@ -18,7 +19,17 @@ hbs.handlebars.registerHelper('ifEquals', function (arg1, arg2, options) {
 });
 
 hbs.handlebars.registerHelper('formatDateValue', function (date) {
-    if (!date) return;
+    if (!date) return 'taco';
+    if (typeof date === 'string') {
+        try {
+            console.log(date);
+            validateDate(date);
+            date = new Date(date);
+        } catch (e) {
+            console.log(e);
+            return 'burrito';
+        }
+    }
     const dateString = date.toISOString();
     const cutOff = dateString.indexOf('T');
     return dateString.slice(0, cutOff);

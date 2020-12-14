@@ -3,15 +3,59 @@ const router = express.Router();
 const { authenticationCheckRedirect } = require('./middleware');
 const tasksData = require('../data/tasks');
 const userData = require('../data/users');
-const { ObjectID } = require('mongodb');
-const tasks = require('../data/tasks');
 const users = require('../data/users');
+const {
+    validateStringInput,
+    validateDate,
+    validateStatus,
+    validatePriority,
+    validateTags,
+    validateObjectId,
+} = require('../inputValidation');
 
 router.get(
     '/new',
     authenticationCheckRedirect('/users/login', true),
     async (req, res) => {
         res.render('tasks/taskView', { title: 'Create Task' });
+    }
+);
+
+router.post(
+    '/new',
+    authenticationCheckRedirect('/users/login', true),
+    async (req, res) => {
+        try {
+            const rq = req.body;
+            validateStringInput(rq.title, 'Title');
+            validateStringInput(rq.description, 'Description');
+            validatePriority(rq.priority);
+            validateDate(rq.dueDate, 'Due Date');
+            validateDate(rq.reminderDate, 'Reminder Date');
+            validateStatus(rq.status);
+            validateStringInput(rq.assignee, 'Assignee');
+            validateTags(rq.tags);
+            const newTask = await tasksData.addTask(
+                req.session.user._id,
+                rq.title,
+                rq.description,
+                rq.priority,
+                rq.dueDate,
+                rq.reminderDate,
+                rq.status,
+                rq.assignee,
+                rq.tags
+            );
+            await users.addTaskToUser(req.session.user._id, newTask._id);
+            res.redirect(`/tasks/${newTask._id}`);
+        } catch (e) {
+            console.log(`error ${e}`);
+            res.render('tasks/taskView', {
+                title: 'Create Task',
+                task: req.body,
+                error: e,
+            });
+        }
     }
 );
 
@@ -28,103 +72,39 @@ router.get(
     }
 );
 
-function convertListToArray(list) {
-    let stringOfItems = String(list);
-    let c = stringOfItems.split(',');
-    console.log(c);
-    return c;
-}
-
 router.post(
-    '/new',
+    '/:id',
     authenticationCheckRedirect('/users/login', true),
     async (req, res) => {
-        // add validation for input data
-
         try {
-            let taskBody = req.body;
-            let {
-                title,
-                description,
-                priority,
-                dueDate,
-                reminderDate,
-                status,
-                assignee,
-                tags,
-            } = taskBody;
-
-            validateFullTask(taskBody);
-
-            assignee = convertListToArray(assignee);
-            tags = convertListToArray(tags);
-            // console.log(assignee);
-            // console.log(tags);
-
-            let newTask = await tasksData.addTask(
-                (creatorId = req.session.user._id),
-                (title = title),
-                (description = description),
-                (priority = Number(priority)),
-                (dueDate = new Date(dueDate)),
-                (reminderDate = new Date(reminderDate)),
-                (status = status),
-                (assignee = assignee),
-                (tags = tags)
+            const rq = req.body;
+            validateObjectId(req.params.id);
+            validateStringInput(rq.title, 'Title');
+            validateStringInput(rq.description, 'Description');
+            validatePriority(rq.priority);
+            validateDate(rq.dueDate, 'Due Date');
+            validateDate(rq.reminderDate, 'Reminder Date');
+            validateStatus(rq.status);
+            validateStringInput(rq.assignee, 'Assignee');
+            validateTags(rq.tags);
+            const newTask = await tasksData.updateTask(
+                req.session.user._id,
+                req.params.id,
+                rq.title,
+                rq.description,
+                rq.priority,
+                rq.dueDate,
+                rq.reminderDate,
+                rq.status,
+                rq.assignee,
+                rq.tags
             );
-            let user = await userData.getUserById(newTask.creatorId);
-            newTask.creatorName = `${user.firstName} ${user.lastName}`;
-            console.log(newTask);
-
-            // add task to user's tasks list
-            let addingToUser = await users.addTaskToUser(
-                newTask.creatorId,
-                newTask._id
-            );
-
-            if (!addingToUser) {
-                throw 'Unable to add task to user.';
-            }
-
-            res.redirect(`/tasks/${newTask._id}`);
+            res.json({ updated: true });
         } catch (e) {
             console.log(`error ${e}`);
-            res.status(500).json({ error: e });
+            res.status(500).json({ updated: false, error: e });
         }
     }
 );
-
-//route validations
-const validateFullTask = function (task) {
-    if (!task || typeof task != 'object') {
-        throw 'You must provide valid task';
-    }
-
-    if (
-        !task.title ||
-        typeof task.title != 'string' ||
-        task.title.trim() == ''
-    ) {
-        throw 'You must provide a valid title3';
-    }
-    if (
-        !task.description ||
-        typeof task.description != 'string' ||
-        task.description.trim() == ''
-    ) {
-        throw 'You must provide a valid description';
-    }
-
-    if (
-        !task.assignee ||
-        typeof task.assignee != 'string' ||
-        task.assignee.trim() == ''
-    ) {
-        throw 'You must provide a valid assignee';
-    }
-    if (!task.tags || typeof task.tags != 'string' || task.tags.trim() == '') {
-        throw 'You must provide a valid tags';
-    }
-};
 
 module.exports = router;

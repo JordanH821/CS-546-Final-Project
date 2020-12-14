@@ -3,7 +3,7 @@
 
 <div id="dashboardBackground" class="back">
     <div id='dashboardHeader'>
-        <img id="headerLogo" src="public/img/header_logo.png"
+        <img id="headerLogo" src="/public/img/header_logo.png"
             class="marginLeft12 marginRight12 marginTop12 marginBottom12">
         <div class="dashboardNav_V_Divider marginLeft12 marginRight12"></div>
 
@@ -18,16 +18,14 @@
 
         <a href="/users/profile" class='headerLink'>Profile</a>
     </div>
-
-    <div id="errorDiv" {{#unless error}}hidden{{/unless}}>
-        {{#if error}}
-        <p>{{error}}</p>
-        {{/if}}
-    </div>
     <main>
         <div class="taskForm">
-            <div class="pop-error"></div>
             <h1>{{title}}</h1>
+            <div id="errorDiv" {{#unless error}}hidden{{/unless}}>
+                {{#if error}}
+                <p>{{error}}</p>
+                {{/if}}
+            </div>
             {{> 'taskForm' task=task title=title}}
         </div>
     </main>
@@ -36,4 +34,7 @@
     <script src="/public/js/validationFunctions.js"></script>
     {{#ifEquals title "Create Task"}}
     <script src="/public/js/createTask.js"></script>
+    {{/ifEquals}}
+    {{#ifEquals title "Task Details"}}
+    <script src="/public/js/taskDetails.js"></script>
     {{/ifEquals}}
