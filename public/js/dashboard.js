@@ -1,3 +1,4 @@
+
 const columnMapping = {
     toDoColumn: 'To Do',
     inProgressColumn: 'In Progress',
@@ -88,8 +89,8 @@ function highlightSelectedTag() {
     }
 }
 
-// calls sizeColumns() on page load
-$(sizeColumns);
+// // calls sizeColumns() on page load
+// $(sizeColumns);
 
 $(highlightSelectedTag);
 
@@ -101,3 +102,16 @@ $('#searchForm').on('submit', (event) => {
         $('#searchTerm').addClass('invalidInput');
     }
 });
+
+function taskClicked(event) {
+    event.stopPropagation();
+    window.open('http://localhost:3000/tasks/' + event.target.dataset.taskid,'_self',false);
+}
+
+function taskOnMouseOver(event) {
+    event.target.classList.add('taskOnMouse');
+}
+
+function taskOnMouseExit(event) {
+    event.target.classList.remove('taskOnMouse')
+}

@@ -11,7 +11,7 @@
         <a href="/dashboard" class='headerLink marginLeft12'>Dashboard</a>
         <div class="dashboardNav_H_Divider marginLeft12 marginRight12"></div>
 
-        <a href="/createTask" class='headerLink'>Create Task</a>
+        <a href="/tasks/new" class='headerLink'>Create Task</a>
         <div class="dashboardNav_H_Divider marginLeft12 marginRight12"></div>
 
         <a href="/archive" class='headerLink'>Archive</a>
@@ -26,7 +26,7 @@
                 <h3 class="columnHeader marginLeft12 marginRight12">Archived:</h3>
                 <div id="toDoColumn" class="columnScrollView">
                     {{#each archiveCards}}
-                    <div data-taskid="{{this._id}}">
+                    <div data-taskid="{{this._id}}" onclick="taskClicked(event)" onmouseover="taskOnMouseOver(event)" onmouseout="taskOnMouseExit(event)">
                         {{> 'taskCard' this}}
                     </div>
                     {{/each}}

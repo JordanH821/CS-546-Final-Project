@@ -8,3 +8,7 @@ html {
 body {
   margin: 0;
 }
+
+.ignoreClick {
+  pointer-events: none;
+}

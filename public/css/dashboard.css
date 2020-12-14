@@ -69,17 +69,6 @@
     font-weight: bold;
 }
 
-.tagButton {
-    background-color: rgba(0, 0, 0, 0);
-    display: inline-block;
-    color: black;
-    border-color: black;
-    padding: 0;
-    border-radius: 6px;
-    font-weight: bold;
-    outline: none;
-}
-
 .clearPageDivider {
     height: 1px;
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
@@ -192,4 +181,8 @@
     filter: alpha(opacity=65);
     -webkit-box-shadow: none;
     box-shadow: none;
+}
+
+.taskOnMouse {
+    background-color:darkgray;
 }
