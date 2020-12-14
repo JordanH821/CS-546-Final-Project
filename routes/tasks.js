@@ -10,6 +10,7 @@ const {
     validateStatus,
     validatePriority,
     validateTags,
+    validateObjectId,
 } = require('../inputValidation');
 
 router.get(
@@ -17,19 +18,6 @@ router.get(
     authenticationCheckRedirect('/users/login', true),
     async (req, res) => {
         res.render('tasks/taskView', { title: 'Create Task' });
-    }
-);
-
-router.get(
-    '/:id',
-    authenticationCheckRedirect('/users/login', true),
-    async (req, res) => {
-        try {
-            const task = await tasksData.getTaskById(req.params.id);
-            res.render('tasks/taskView', { title: 'Task Details', task: task });
-        } catch (e) {
-            res.status(404).json({ error: `${e}: Task not found` });
-        }
     }
 );
 
@@ -72,10 +60,54 @@ router.post(
     }
 );
 
+router.get(
+    '/:id',
+    authenticationCheckRedirect('/users/login', true),
+    async (req, res) => {
+        try {
+            const task = await tasksData.getTaskById(req.params.id);
+            res.render('tasks/taskView', { title: 'Task Details', task: task });
+        } catch (e) {
+            res.status(404).json({ error: `${e}: Task not found` });
+        }
+    }
+);
+
 router.post(
     '/:id',
     authenticationCheckRedirect('/users/login', true),
-    async (req, res) => {}
+    async (req, res) => {
+        try {
+            const rq = req.body;
+            validateObjectId(req.params.id);
+            validateStringInput(rq.title, 'Title');
+            validateStringInput(rq.description, 'Description');
+            validatePriority(rq.priority);
+            validateDate(rq.dueDate, 'Due Date');
+            validateDate(rq.reminderDate, 'Reminder Date');
+            validateStatus(rq.status);
+            validateStringInput(rq.assignee, 'Assignee');
+            validateTags(rq.tags);
+            const newTask = await tasksData.updateTask(
+                req.session.user._id,
+                req.params.id,
+                rq.title,
+                rq.description,
+                rq.priority,
+                rq.dueDate,
+                rq.reminderDate,
+                rq.status,
+                rq.assignee,
+                rq.tags
+            );
+            await userData.getUserById(req.session.user._id);
+            await users.addTaskToUser(req.session.user._id, newTask._id);
+            res.json({ updated: true });
+        } catch (e) {
+            console.log(`error ${e}`);
+            res.status(500).json({ updated: false, error: e });
+        }
+    }
 );
 
 module.exports = router;

@@ -8,6 +8,7 @@ const {
     validateStringInput,
     validatePriority,
     validateTags,
+    validateObjectId,
 } = require('../inputValidation');
 
 const validateFullTask = function (task) {
@@ -157,9 +158,10 @@ async function addTask(
     dueDate,
     reminderDate,
     status,
-    assignee = [],
-    tags = []
+    assignee,
+    tags
 ) {
+    validateObjectId(creatorId);
     title = validateStringInput(title, 'Title');
     description = validateStringInput(description, 'Description');
     priority = validatePriority(priority);
@@ -169,13 +171,13 @@ async function addTask(
     assignee = validateStringInput(assignee, 'Assignee');
     tags = validateTags(tags);
     let newTask = {
-        dateModified: Date.now(),
+        dateModified: new Date(Date.now()),
         creatorId: creatorId,
         title: title,
         description: description,
         priority: priority,
-        dueDate: dueDate,
-        reminderDate: reminderDate,
+        dueDate: new Date(dueDate),
+        reminderDate: new Date(reminderDate),
         status: status,
         assignee: assignee,
         tags: tags,
@@ -191,41 +193,50 @@ async function addTask(
     return await this.getTaskById(newInsertInformation.insertedId.toString());
 }
 
-// PATCH /task/{id}
-async function updateTask(id, updatedTask) {
-    validatePartialTask(updatedTask);
-
-    if (!id || !mongoDB.ObjectID.isValid(String(id))) {
-        throw 'You must provide valid id';
-    }
-
-    const task = await this.getTaskById(id);
-
-    let taskUpdateInfo = {
-        creatorId: updatedTask.creatorId,
-        dueDate: updatedTask.dueDate,
-        priority: updatedTask.priority,
-        title: updatedTask.title,
-        description: updatedTask.description,
-        reminderDate: updatedTask.reminderDate,
-        status: updatedTask.status,
-        assignee: updatedTask.assignee,
-        dateModified: Date.now(),
-        subTasks: task.subTasks,
-        dependencies: task.dependencies,
-        tags: task.tags,
-        comments: task.comments,
+async function updateTask(
+    creatorId,
+    taskId,
+    title,
+    description,
+    priority,
+    dueDate,
+    reminderDate,
+    status,
+    assignee,
+    tags
+) {
+    validateObjectId(creatorId);
+    validateObjectId(taskId);
+    title = validateStringInput(title, 'Title');
+    description = validateStringInput(description, 'Description');
+    priority = validatePriority(priority);
+    validateDate(dueDate, 'Due Date');
+    validateDate(reminderDate, 'Reminder Date');
+    validateStatus(status);
+    assignee = validateStringInput(assignee, 'Assignee');
+    tags = validateTags(tags);
+    let updateTask = {
+        dateModified: new Date(Date.now()),
+        creatorId: creatorId,
+        title: title,
+        description: description,
+        priority: priority,
+        dueDate: new Date(dueDate),
+        reminderDate: new Date(reminderDate),
+        status: status,
+        assignee: assignee,
+        tags: tags,
     };
 
     const taskCollection = await tasks();
     const updateInfo = await taskCollection.updateOne(
-        { _id: mongoDB.ObjectID(String(id)) },
-        { $set: taskUpdateInfo }
+        { _id: mongoDB.ObjectID(taskId) },
+        { $set: updateTask }
     );
     if (!updateInfo.matchedCount && !updateInfo.modifiedCount)
         throw 'Update failed';
 
-    return await this.getTaskById(id);
+    return await this.getTaskById(taskId);
 }
 
 // DELETE /task/{id}

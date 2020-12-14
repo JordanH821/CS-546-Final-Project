@@ -83,9 +83,9 @@ function validateTags(tags) {
     try {
         validateStringInput(tags);
         const tagList = tags.split(',');
-        for (let tag of tagList) {
-            validateStringInput(tag, 'Tag');
-        }
+        tagList.forEach((tag, index) => {
+            tagList[index] = validateStringInput(tag, 'Tag');
+        });
         return tagList;
     } catch {
         throw error;
