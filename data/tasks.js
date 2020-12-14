@@ -172,7 +172,7 @@ async function addTask(
     tags = validateTags(tags);
     let newTask = {
         dateModified: new Date(Date.now()),
-        creatorId: creatorId,
+        creatorId: new mongoDB.ObjectID(creatorId),
         title: title,
         description: description,
         priority: priority,
@@ -217,7 +217,7 @@ async function updateTask(
     tags = validateTags(tags);
     let updateTask = {
         dateModified: new Date(Date.now()),
-        creatorId: creatorId,
+        creatorId: new mongoDB.ObjectID(creatorId),
         title: title,
         description: description,
         priority: priority,
@@ -379,6 +379,7 @@ async function searchUsersTasks(userId, searchTerm) {
         })
         .toArray();
 }
+
 async function getUsersTasksByTag(userId, tag) {
     const tasksCollection = await tasks();
     return await tasksCollection

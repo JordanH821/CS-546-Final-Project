@@ -30,15 +30,16 @@ async function main() {
             console.log(tasksForUser);
             for (const task of tasksForUser) {
                 let t = await tasks.addTask(
-                    u._id,
+                    u._id.toString(),
                     task.title,
                     task.description,
                     task.priority,
                     task.dueDate,
                     task.reminderDate,
                     task.status,
-                    u._id,
-                    task.tags)
+                    u.firstName,
+                    task.tags.join(', ')
+                );
 
                 // add tags // TODO: probably add tags when creating task
                 for (const tag of task.tags) {

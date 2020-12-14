@@ -62,7 +62,8 @@ function validateStatus(status) {
     } catch {
         throw error;
     }
-    if (['To Do', 'In Progress', 'Done'].indexOf(status) < 0) throw error;
+    if (['To Do', 'In Progress', 'Done', 'Archived'].indexOf(status) < 0)
+        throw error;
 }
 
 function validatePriority(priority) {
