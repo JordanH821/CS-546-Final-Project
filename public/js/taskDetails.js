@@ -74,6 +74,9 @@ function disableInput() {
     $('textarea').attr('disabled', true);
     $('#subtaskCreation').hide();
     removeSubtaskListener();
+
+    // comments always active
+    $('#commentTextArea').attr('disabled',false);
 }
 
 function enableInput() {

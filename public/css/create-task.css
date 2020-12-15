@@ -35,6 +35,10 @@ button {
     background-color: white;
 }
 
+.alrignRight {
+    float: right;
+}
+
 .task-item {
     font-weight: bold;
 }
