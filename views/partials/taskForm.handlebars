@@ -4,71 +4,110 @@
         <p class="notification">New task created successfully!</p>
         {{/if}}
     </div>
+
     {{#ifEquals title "Task Details"}}
     <input id="taskId" value="{{task._id}}" hidden>
     {{/ifEquals}}
-    <label for="title">Title:</label><br>
-    <input class="wideInput" id="title" name="title" type="text" value="{{task.title}}"><br><br>
 
-    <label for="description">Description:</label><br>
-    <textarea id="description" name="description" rows="4">{{task.description}}</textarea><br><br>
+    <div>
+        <label class="bold" for="title">Title:</label>
+        <input class="wideInput" id="title" name="title" type="text" value="{{task.title}}">
+    </div>
 
-    <label for="priority">Priority:</label><br>
-    <select name="priority" id="priority">
-        <option value="1" {{#ifEquals "1" task.priority}}selected{{/ifEquals}}>1</option>
-        <option value="2" {{#ifEquals "2" task.priority}}selected{{/ifEquals}}>2</option>
-        <option value="3" {{#ifEquals "3" task.priority}}selected{{/ifEquals}}>3</option>
-        <option value="4" {{#ifEquals "4" task.priority}}selected{{/ifEquals}}>4</option>
-        <option value="5" {{#ifEquals "5" task.priority}}selected{{/ifEquals}}>5</option>
-        <option value="6" {{#ifEquals "6" task.priority}}selected{{/ifEquals}}>6</option>
-        <option value="7" {{#ifEquals "7" task.priority}}selected{{/ifEquals}}>7</option>
-        <option value="8" {{#ifEquals "8" task.priority}}selected{{/ifEquals}}>8</option>
-        <option value="9" {{#ifEquals "9" task.priority}}selected{{/ifEquals}}>9</option>
-        <option value="10" {{#ifEquals "10" task.priority}}selected{{/ifEquals}}>10</option>
-    </select><br><br>
+    <div class="marginTop16">
+        <div>
+            <label class="bold" for="description">Description:</label>
+        </div>
+        <div>
+            <textarea id="description" name="description" rows="4">{{task.description}}</textarea>
+        </div>
+    </div>
 
-    <label for="dueDate">Due Date:</label><br>
-    <input id="dueDate" name="dueDate" type="date" value="{{formatDateValue task.dueDate}}"><br><br>
+    <div class="marginTop16">
+        <label class="bold" for="priority">Priority:</label>
+        <select name="priority" id="priority">
+            <option value="1" {{#ifEquals "1" task.priority}}selected{{/ifEquals}}>1</option>
+            <option value="2" {{#ifEquals "2" task.priority}}selected{{/ifEquals}}>2</option>
+            <option value="3" {{#ifEquals "3" task.priority}}selected{{/ifEquals}}>3</option>
+            <option value="4" {{#ifEquals "4" task.priority}}selected{{/ifEquals}}>4</option>
+            <option value="5" {{#ifEquals "5" task.priority}}selected{{/ifEquals}}>5</option>
+            <option value="6" {{#ifEquals "6" task.priority}}selected{{/ifEquals}}>6</option>
+            <option value="7" {{#ifEquals "7" task.priority}}selected{{/ifEquals}}>7</option>
+            <option value="8" {{#ifEquals "8" task.priority}}selected{{/ifEquals}}>8</option>
+            <option value="9" {{#ifEquals "9" task.priority}}selected{{/ifEquals}}>9</option>
+            <option value="10" {{#ifEquals "10" task.priority}}selected{{/ifEquals}}>10</option>
+        </select>
+    </div>
 
-    <label for="reminderDate">Reminder Date:</label><br>
-    <input id="reminderDate" name="reminderDate" type="date" value="{{formatDateValue task.reminderDate}}"><br><br>
+    <div class="marginTop16">
+        <label class="bold" for="dueDate">Due Date:</label>
+        <input id="dueDate" name="dueDate" type="date" value="{{formatDateValue task.dueDate}}">
+    </div>
 
-    <label for="status">Status:</label><br>
-    <select name="status" id="status">
-        <option value="To Do" {{#ifEquals "To Do" task.status}}selected{{/ifEquals}}>To Do</option>
-        <option value="In Progress" {{#ifEquals "In Progress" task.status}}selected{{/ifEquals}}>In
-            Progress
-        </option>
-        <option value="Done" {{#ifEquals "Done" task.status}}selected{{/ifEquals}}>Done</option>
-        <option value="Archived" {{#ifEquals "Archived" task.status}}selected{{/ifEquals}}>Archived</option>
-    </select><br><br>
+    <div class="marginTop16">
+        <label class="bold" for="reminderDate">Reminder Date:</label>
+        <input id="reminderDate" name="reminderDate" type="date" value="{{formatDateValue task.reminderDate}}">
+    </div>
 
-    <label for="assignee">Assignee:</label><br>
-    <input class="wideInput" id="assignee" name="assignee" type="text" value="{{task.assignee}}"><br><br>
+    <div class="marginTop16">
+        <label class="bold" for="status">Status:</label>
+        <select name="status" id="status">
+            <option value="To Do" {{#ifEquals "To Do" task.status}}selected{{/ifEquals}}>To Do</option>
+            <option value="In Progress" {{#ifEquals "In Progress" task.status}}selected{{/ifEquals}}>In
+                Progress
+            </option>
+            <option value="Done" {{#ifEquals "Done" task.status}}selected{{/ifEquals}}>Done</option>
+            <option value="Archived" {{#ifEquals "Archived" task.status}}selected{{/ifEquals}}>Archived</option>
+        </select>
+    </div>
 
-    <div id="subtasksDiv">
-        <p>Subtasks: (Click item to remove)</p>
+    <div class="marginTop16">
+        <label class="bold" for="assignee">Assignee:</label>
+        <input class="wideInput" id="assignee" name="assignee" type="text" value="{{task.assignee}}">
+    </div>
+
+    <div id="subtasksDiv" class="marginTop16">
+        <p class="bold" >Subtasks: (Click item to remove)</p>
         <ul id="subtaskList">
             {{#each task.subtasks}}
             <li>{{this}}</li>
             {{/each}}
         </ul>
     </div>
+
     <div id="subtaskCreation">
         <input type="text" name="subtask" id="subtask">
-        <button id="addSubtaskButton" type="button">Add Subtask</button><br><br>
+        <button id="addSubtaskButton" type="button">Add Subtask</button>
     </div>
 
-    <label for="tags">Tags: (Single words separated with commas)</label><br>
-    <input class="wideInput" id="tags" name="tags" type="text" value="{{task.tags}}"><br><br>
+    <div class="marginTop16">
+        <div>
+            <label class="bold" for="tags">Tags: (Single words separated with commas)</label>
+        </div>
+        <div>
+            <input class="wideInput" id="tags" name="tags" type="text" value="{{task.tags}}">
+        </div>
+    </div>
 
-    {{#ifEquals title "Create Task"}}
-    <button id="submitButton" type="submit" class="btn btn-primary">Create Task</button>
-    {{/ifEquals}}
+    <div class="marginTop16">
+        {{#ifEquals title "Create Task"}}
+        <button id="submitButton" type="submit" class="btn btn-primary">Create Task</button>
+        {{/ifEquals}}
+    </div>
 
 </form>
 {{#ifEquals title "Task Details"}}
 <button id="editTaskButton">Edit Task</button>
 <button id="updateTaskButton">Update Task</button>
 <button id="cancelEditButton">Cancel</button>
+
+<div id="commentsContainer">
+    <form method="POST" id="commentsForm">
+        <label class="bold" for="commentTextArea">Comments:</label>
+        <div>
+            <textarea id="commentTextArea" name="commentTextArea" rows="4"></textarea>
+        </div>
+        <button id="addCommentButton" type="button">Add Comment</button>
+    </form>
+</div>
 {{/ifEquals}}
