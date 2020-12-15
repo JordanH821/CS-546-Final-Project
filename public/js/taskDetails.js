@@ -97,7 +97,9 @@ function resetDependencyList() {
     $('#dependenciesList').empty();
     clickDependencies();
 }
-
+function setSelectBackToDefault() {
+    $('#dependenciesSelect').val('default');
+}
 function disableForm() {
     disableInput();
     $('#updateTaskButton').hide();
@@ -105,6 +107,7 @@ function disableForm() {
     $('#cancelEditButton').hide();
     disablingForm = true;
     copyDependenciesBackToOptions();
+    setSelectBackToDefault();
     disablingForm = false;
 }
 

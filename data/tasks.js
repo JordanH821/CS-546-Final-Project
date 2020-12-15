@@ -176,7 +176,6 @@ async function addTask(
     tags = validateTags(tags);
     validateSubtasks(subtasks);
     dependencies = validateDependencies(dependencies);
-    for (let dep of dependencies) console.log(typeof dep);
     let newTask = {
         dateModified: new Date(Date.now()),
         creatorId: new mongoDB.ObjectID(creatorId),
@@ -226,7 +225,6 @@ async function updateTask(
     tags = validateTags(tags);
     validateSubtasks(subtasks);
     validateDependencies(dependencies);
-    console.log(dependencies);
     let updateTask = {
         dateModified: new Date(Date.now()),
         creatorId: new mongoDB.ObjectID(creatorId),

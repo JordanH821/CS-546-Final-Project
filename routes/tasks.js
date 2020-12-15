@@ -29,7 +29,6 @@ router.post(
     '/new',
     authenticationCheckRedirect('/users/login', true),
     async (req, res) => {
-        console.log(req.body);
         try {
             const rq = req.body;
             validateStringInput(xss(rq.title), 'Title');
@@ -99,8 +98,6 @@ router.get(
             // if task is found, render details
             const newTask = req.query.newTask ? req.query.newTask : false;
 
-            // depencies work
-            // let tasks = await users.getActiveTasksForUser(req.session.user._id);
             let tasks = await users.getActiveNonDependenciesForUser(
                 req.session.user._id,
                 task.dependencies,
@@ -109,15 +106,11 @@ router.get(
             tasks = tasks.filter(
                 (t) => t._id.toString() !== task._id.toString()
             );
-            console.log(`Tasks w/o depenedencies:`);
-            console.log(tasks);
 
             const dependencies = await tasksData.getTasksInList(
                 task.dependencies
             );
 
-            console.log(`Depenedencies:`);
-            console.log(dependencies);
             res.render('tasks/taskView', {
                 title: 'Task Details',
                 task: task,
@@ -136,7 +129,6 @@ router.post(
     authenticationCheckRedirect('/users/login', true),
     async (req, res) => {
         try {
-            console.log(req.body);
             const rq = req.body;
             validateObjectId(xss(req.params.id));
             validateStringInput(xss(rq.title), 'Title');
