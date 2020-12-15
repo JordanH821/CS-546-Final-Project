@@ -13,6 +13,7 @@ const {
     validateTags,
     validateObjectId,
     validateSubtasks,
+    validateDependencies,
 } = require('../inputValidation');
 
 router.get(
@@ -40,8 +41,15 @@ router.post(
             validateStringInput(xss(rq.assignee), 'Assignee');
             validateTags(rq.tags);
             rq.subtasks = validateSubtasks(rq.subtasks);
-            for (let i = 0; i < rq.tags.length; i++) {
-                rq.tags[i] = xss(rq.tags[i]);
+            if (xss(rq.dependencies) === '') {
+                rq.dependencies = validateDependencies(xss(rq.dependencies));
+            } else {
+                for (let i = 0; i < rq.dependencies.length; i++) {
+                    rq.dependencies[i] = xss(rq.dependencies[i]);
+                }
+            }
+            for (let i = 0; i < rq.subtasks.length; i++) {
+                rq.subtasks[i] = xss(rq.subtasks[i]);
             }
             for (let i = 0; i < rq.subtasks.length; i++) {
                 rq.subtasks[i] = xss(rq.subtasks[i]);
@@ -56,7 +64,8 @@ router.post(
                 xss(rq.status),
                 xss(rq.assignee),
                 rq.tags,
-                rq.subtasks
+                rq.subtasks,
+                rq.dependencies
             );
             await users.addTaskToUser(req.session.user._id, newTask._id);
             res.redirect(`/tasks/${newTask._id}?newTask=true`);

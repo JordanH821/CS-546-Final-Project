@@ -12,6 +12,7 @@ module.exports = [
                 'Do something before',
                 'Do another thing before this task',
             ],
+            dependencies: [],
         },
         {
             dueDate: '2020-12-29',
@@ -25,6 +26,7 @@ module.exports = [
                 'Do something before',
                 'Do another thing before this task',
             ],
+            dependencies: [],
         },
         {
             dueDate: '2020-12-17',
@@ -35,6 +37,7 @@ module.exports = [
             status: 'To Do',
             tags: ['tag1', 'tag2', 'tag3'],
             subtasks: ['Go to the bank'],
+            dependencies: [],
         },
         {
             dueDate: '2020-12-20',
@@ -45,6 +48,7 @@ module.exports = [
             status: 'In Progress',
             tags: ['tag1', 'tag2'],
             subtasks: ['Go to taco bell'],
+            dependencies: [],
         },
         {
             dueDate: '2020-12-17',
@@ -55,6 +59,7 @@ module.exports = [
             status: 'In Progress',
             tags: ['tag2'],
             subtasks: ['Eat a burrito'],
+            dependencies: [],
         },
         {
             dueDate: '2020-12-19',
@@ -65,6 +70,7 @@ module.exports = [
             status: 'Done',
             tags: ['tag1'],
             subtasks: [],
+            dependencies: [],
         },
         {
             dueDate: '2020-12-12',
@@ -78,6 +84,7 @@ module.exports = [
                 'Do something before',
                 'Do another thing before this task',
             ],
+            dependencies: [],
         },
         {
             dueDate: '2020-12-12',
@@ -88,6 +95,7 @@ module.exports = [
             status: 'Archived',
             tags: ['tag1'],
             subtasks: [],
+            dependencies: [],
         },
         {
             dueDate: '2020-12-12',
@@ -98,6 +106,7 @@ module.exports = [
             status: 'Archived',
             tags: ['tag1'],
             subtasks: [],
+            dependencies: [],
         },
         {
             dueDate: '2020-12-12',
@@ -111,6 +120,7 @@ module.exports = [
                 'Do something before',
                 'Do another thing before this task',
             ],
+            dependencies: [],
         },
         {
             dueDate: '2020-12-12',
@@ -121,6 +131,7 @@ module.exports = [
             status: 'Archived',
             tags: ['tag1'],
             subtasks: [],
+            dependencies: [],
         },
         {
             dueDate: '2020-12-12',
@@ -131,6 +142,7 @@ module.exports = [
             status: 'Archived',
             tags: ['tag1'],
             subtasks: ['Do that thing', 'Do this thing'],
+            dependencies: [],
         },
         {
             dueDate: '2020-12-12',
@@ -141,6 +153,7 @@ module.exports = [
             status: 'Archived',
             tags: ['tag1'],
             subtasks: ['Do that thing', 'Do this thing'],
+            dependencies: [],
         },
         {
             dueDate: '2020-12-12',
@@ -151,6 +164,7 @@ module.exports = [
             status: 'Archived',
             tags: ['tag1'],
             subtasks: [],
+            dependencies: [],
         },
         {
             dueDate: '2020-12-12',
@@ -161,6 +175,7 @@ module.exports = [
             status: 'Archived',
             tags: ['tag1'],
             subtasks: ['Do that thing', 'Do this thing'],
+            dependencies: [],
         },
         {
             dueDate: '2020-12-12',
@@ -171,6 +186,7 @@ module.exports = [
             status: 'Archived',
             tags: ['tag1'],
             subtasks: [],
+            dependencies: [],
         },
         {
             dueDate: '2020-12-12',
@@ -181,6 +197,7 @@ module.exports = [
             status: 'Archived',
             tags: ['tag1'],
             subtasks: ['Do that thing', 'Do this thing'],
+            dependencies: [],
         },
         {
             dueDate: '2020-12-12',
@@ -191,6 +208,7 @@ module.exports = [
             status: 'Archived',
             tags: ['tag1'],
             subtasks: ['Do that thing', 'Do this thing'],
+            dependencies: [],
         },
     ],
 ];

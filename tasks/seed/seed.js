@@ -39,7 +39,8 @@ async function main() {
                     task.status,
                     u.firstName,
                     task.tags.join(', '),
-                    task.subtasks
+                    task.subtasks,
+                    task.dependencies
                 );
 
                 // add tags // TODO: probably add tags when creating task
