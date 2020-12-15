@@ -25,7 +25,7 @@ select {
 button {
     width: 200px;
     display: block;
-    margin:auto;
+    margin: auto;
     padding: 4px 24px 4px 24px;
     font-size: 18px;
     margin-top: 16px;
@@ -55,7 +55,6 @@ h1 {
     text-align: center;
 }
 
-
 .taskForm {
     margin-top: 28px;
     margin-bottom: 28px;
@@ -68,6 +67,6 @@ main {
     overflow-y: auto;
 }
 
-#newTaskText, #updatedTaskText {
+.notification {
     text-align: center;
 }

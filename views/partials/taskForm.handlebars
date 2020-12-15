@@ -1,4 +1,9 @@
 <form method="POST" id="taskForm">
+    <div id="notificationDiv">
+        {{#if newTask}}
+        <p class="notification">New task created successfully!</p>
+        {{/if}}
+    </div>
     {{#ifEquals title "Task Details"}}
     <input id="taskId" value="{{task._id}}" hidden>
     {{/ifEquals}}
@@ -63,11 +68,6 @@
     <button id="submitButton" type="submit" class="btn btn-primary">Create Task</button>
     {{/ifEquals}}
 
-    {{#if newTask}}
-    <p id="newTaskText">New task created successfully!</p>
-    {{/if}}
-
-    <p id="updatedTaskText" hidden>Updated task created successfully!</p>
 </form>
 {{#ifEquals title "Task Details"}}
 <button id="editTaskButton">Edit Task</button>

@@ -137,6 +137,19 @@ function clearErrors() {
     $('#errorDiv').hide();
 }
 
+function setNotificationTimeout() {
+    setTimeout(() => {
+        $('#notificationDiv').empty();
+    }, 5000);
+}
+
+function alertUserUpdateSuccess() {
+    $('#notificationDiv').append(
+        '<p class="notification">Task updated successfully!</p>'
+    );
+    setNotificationTimeout();
+}
+
 function updateTaskWithAJAX() {
     const id = $('#taskId').val().trim();
     const requestConfig = {
@@ -149,9 +162,9 @@ function updateTaskWithAJAX() {
         error: handleAJAXError,
     };
 
-    $.ajax(requestConfig).then(function(res) {
+    $.ajax(requestConfig).then(function (res) {
         if (res.updated && res.updated == true) {
-            $('#updatedTaskText').show();
+            alertUserUpdateSuccess();
         }
     });
 }
@@ -191,3 +204,5 @@ $('#addSubtaskButton').on('click', () => {
         displayError(e);
     }
 });
+
+$(setNotificationTimeout);
