@@ -277,21 +277,19 @@ async function addSubTaskToTask(taskId, subtaskId) {
     return await this.getTaskById(taskId);
 }
 
-async function addDependencyToTask(taskId, dependencyId) {
+async function addDependencyToTask(taskId, dependency) {
     if (!taskId || !mongoDB.ObjectID.isValid(String(taskId))) {
         throw 'You must provide valid taskId';
     }
 
-    if (!dependencyId || !mongoDB.ObjectID.isValid(String(dependencyId))) {
-        throw 'You must provide valid subtaskId';
+    if (!dependency || typeof dependency != 'string') {
+        throw 'You must provide valid dependency';
     }
-
-    let dependency = this.getTaskById(dependencyId);
 
     const taskCollection = await tasks();
     const updateInfo = await taskCollection.updateOne(
         { _id: mongoDB.ObjectID(String(taskId)) },
-        { $addToSet: { dependencies: dependencyId } }
+        { $addToSet: { dependencies: dependency } }
     );
 
     if (!updateInfo.matchedCount && !updateInfo.modifiedCount)
