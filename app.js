@@ -19,7 +19,7 @@ hbs.handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {
 });
 
 hbs.handlebars.registerHelper('formatDateValue', function(date) {
-  if (!date) return new Date().toISOString().substr(0, 10);
+  if (!date) return;
   if (typeof date === 'string') {
     try {
       console.log(date);
@@ -27,7 +27,7 @@ hbs.handlebars.registerHelper('formatDateValue', function(date) {
       date = new Date(date);
     } catch (e) {
       console.log(e);
-      return new Date().toISOString().substr(0, 10);
+      return;
     }
   }
   const dateString = date.toISOString();
