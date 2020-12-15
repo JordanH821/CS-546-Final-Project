@@ -33,8 +33,7 @@ async function main() {
                         task.reminderDate,
                         task.status,
                         u.firstName,
-                        task.tags.join(', '),
-                        task.subtasks
+                        task.tags.join(', ')
                     );
 
                     // add tags
