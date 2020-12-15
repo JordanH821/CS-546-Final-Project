@@ -70,7 +70,7 @@
     <select id="dependenciesSelect">
         <option id="default" value="default">Select Dependency Tasks</option>
         {{#each allTasks}}
-        <option id="{{this._id}}" value="{{this._id}}">{{this.title}}</option>
+        <option id="{{this._id}}" value="{{this._id}}">{{concat title ' (' status ') '}}</option>
         {{/each}}
     </select><br><br>
 

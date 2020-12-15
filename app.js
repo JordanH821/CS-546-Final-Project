@@ -34,6 +34,14 @@ hbs.handlebars.registerHelper('formatDateValue', function (date) {
     return dateString.slice(0, cutOff);
 });
 
+hbs.handlebars.registerHelper('concat', function () {
+    let newString = '';
+    for (let i = 0; i < arguments.length - 1; i++) {
+        newString += arguments[i];
+    }
+    return newString;
+});
+
 app.use('/public', staticRoutes);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
