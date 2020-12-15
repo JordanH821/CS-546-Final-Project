@@ -79,7 +79,19 @@ router.post(
         }
     }
 );
-
+// function containsObject(activeTasks, depencies) {
+//     for (let lstObj of lst) {
+//         if (obj.toString() === lstObj._id.toString()) {
+//             // is an active tasks so set it as dependency
+//             lstObj.dependency = true;
+//             return;
+//         }
+//     }
+//     // is not an active task so add to task list
+//     obj.dependency = true;
+//     lst.push(obj);
+//     return;
+// }
 router.get(
     '/:id',
     authenticationCheckRedirect('/users/login', true),
@@ -100,20 +112,27 @@ router.get(
             const newTask = req.query.newTask ? req.query.newTask : false;
 
             // depencies work
-            let tasks = await users.getActiveTasksForUser(req.session.user._id);
+            // let tasks = await users.getActiveTasksForUser(req.session.user._id);
+            let tasks = await users.getActiveNonDependenciesForUser(
+                req.session.user._id,
+                task.dependencies
+            );
+
+            console.log(`Tasks w/o depenedencies:`);
+            console.log(tasks);
 
             const dependencies = await tasksData.getTasksInList(
                 task.dependencies
             );
-            for (let i = 0; i < tasks.length; i++) {
-                if (dependencies.includes(tasks[i])) delete tasks[i];
-            }
+
+            console.log(`Depenedencies:`);
+            console.log(dependencies);
             res.render('tasks/taskView', {
                 title: 'Task Details',
                 task: task,
                 newTask: newTask,
-                dependencies: dependencies,
                 allTasks: tasks,
+                dependencies: dependencies,
             });
         } catch (e) {
             res.status(404).json({ error: `${e}: Task not found` });

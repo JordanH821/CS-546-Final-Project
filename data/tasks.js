@@ -432,6 +432,17 @@ async function getTasksInList(idList) {
         .toArray();
 }
 
+async function getActiveNonDependenciesForUser(userId, dependencies) {
+    const tasksCollection = await tasks();
+    return await tasksCollection
+        .find({
+            _id: { $nin: dependencies },
+            creatorId: mongoDB.ObjectID(userId),
+            status: { $nin: ['Done', 'Archived'] },
+        })
+        .toArray();
+}
+
 module.exports = {
     getAlltasks,
     getTaskById,
@@ -449,4 +460,5 @@ module.exports = {
     getTaskNotificationsForUser,
     getActiveTasksForUser,
     getTasksInList,
+    getActiveNonDependenciesForUser,
 };

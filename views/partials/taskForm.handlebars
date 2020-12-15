@@ -62,15 +62,15 @@
     <div id="dependenciesDiv">
         <p>Dependencies: (Click item to remove)</p>
         <ul id="dependenciesList">
-            {{#each dependencies}}
-            <li>{{this.title}}</li>
-            {{/each}}
         </ul>
     </div>
     <select id="dependenciesSelect">
         <option id="default" value="default">Select Dependency Tasks</option>
         {{#each allTasks}}
         <option id="{{this._id}}" value="{{this._id}}">{{concat title ' (' status ') '}}</option>
+        {{/each}}
+        {{#each dependencies}}
+        <option class="dependency" id="{{this._id}}" value="{{this._id}}">{{concat title ' (' status ') '}}</option>
         {{/each}}
     </select><br><br>
 

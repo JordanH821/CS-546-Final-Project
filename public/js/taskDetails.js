@@ -6,7 +6,8 @@ let title,
     status,
     assignee,
     tags,
-    subtasks;
+    subtasks,
+    depencies;
 
 function removeSubtaskListener() {
     $('#subtaskList li').each((index, subtask) => {
@@ -15,6 +16,20 @@ function removeSubtaskListener() {
 }
 
 function setSubtaskListener() {
+    $('#subtaskList li').each((index, subtask) => {
+        $(subtask).on('click', () => {
+            $(subtask).remove();
+        });
+    });
+}
+
+function removeDependencyListener() {
+    $('#dependenciesList li').each((index, dependency) => {
+        $(dependency).off();
+    });
+}
+
+function setDependencyListener() {
     $('#subtaskList li').each((index, subtask) => {
         $(subtask).on('click', () => {
             $(subtask).remove();
@@ -57,11 +72,26 @@ function enableInput() {
     setSubtaskListener();
 }
 
+function copyDependenciesBackToOptions() {
+    $('#dependenciesList li').each((index, dependency) => {
+        const depClone = $(dependency).clone();
+        $(depClone).off();
+        $(dependency).trigger('click');
+        $('#dependenciesList').append(depClone);
+    });
+}
+
+function resetDependencyList() {
+    $('#dependenciesList').empty();
+    clickDependencies();
+}
+
 function disableForm() {
     disableInput();
     $('#updateTaskButton').hide();
     $('#editTaskButton').show();
     $('#cancelEditButton').hide();
+    copyDependenciesBackToOptions();
 }
 
 function enableForm() {
@@ -71,6 +101,7 @@ function enableForm() {
     $('#editTaskButton').hide();
     $('#cancelEditButton').show();
     $('#newTaskText').hide();
+    resetDependencyList();
 }
 
 function getOriginalTaskInfo() {
@@ -177,7 +208,33 @@ function updateTaskWithAJAX() {
     });
 }
 
-$(disableForm);
+function setOptionListener(option) {
+    $(option).on('click', () => {
+        if ($(option).val().trim() === 'Default') return;
+        let listItem = $(`<li>${$(option).text()}</li>`);
+        listItem.data('id', $(option).val().trim());
+        $(option).remove();
+        $(listItem).on('click', () => {
+            setOptionListener($(option));
+            $('#dependenciesSelect').append($(option));
+            $(listItem).remove();
+        });
+        $('#dependenciesList').append(listItem);
+    });
+}
+
+function setDependencySelectListener() {
+    $('#dependenciesSelect option').each((index, option) => {
+        if ($(option).val().trim() === 'default') return;
+        setOptionListener(option);
+    });
+}
+
+function clickDependencies() {
+    $('.dependency').each((index, option) => {
+        $(option).trigger('click');
+    });
+}
 
 $('#editTaskButton').on('click', enableForm);
 
@@ -185,7 +242,7 @@ $('#updateTaskButton').on('click', (event) => {
     event.preventDefault();
     try {
         validateTaskUpdates();
-        disableForm();
+        // disableForm();
         updateTaskWithAJAX();
     } catch (e) {
         displayError(e);
@@ -212,3 +269,6 @@ $('#addSubtaskButton').on('click', () => {
 });
 
 $(setNotificationTimeout);
+$(setDependencySelectListener);
+$(clickDependencies);
+$(disableForm);
