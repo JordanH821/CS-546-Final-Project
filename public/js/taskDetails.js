@@ -76,7 +76,7 @@ function disableInput() {
     removeSubtaskListener();
 
     // comments always active
-    $('#commentTextArea').attr('disabled',false);
+    $('#commentTextArea').attr('disabled', false);
 }
 
 function enableInput() {
@@ -201,7 +201,6 @@ function getFormValues() {
 }
 
 function handleAJAXError(error) {
-    console.log(error);
     $('#errorDiv').append(
         `<p>There was an error while updating your Task. Please try again later.</p>`
     );
@@ -315,4 +314,9 @@ $('#addSubtaskButton').on('click', () => {
 $(setNotificationTimeout);
 $(setDependencySelectListener);
 $(clickDependencies);
+$('#dependenciesSelect').on('change', () => {
+    const id = $('#dependenciesSelect').val();
+    $(`#${id}`).trigger('click');
+    $('#dependenciesSelect').val('default');
+});
 $(disableForm);
