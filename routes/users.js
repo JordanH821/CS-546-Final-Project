@@ -51,7 +51,7 @@ router.get(
   '/profile',
   authenticationCheckRedirect('/users/login', true),
   async (req, res) => {
-    res.render('users/profile', { user: req.session.user });
+    res.render('users/profile', {title:"Profile", user: req.session.user });
   }
 );
 
