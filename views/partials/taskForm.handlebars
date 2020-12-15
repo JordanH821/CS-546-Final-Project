@@ -67,10 +67,10 @@
             {{/each}}
         </ul>
     </div>
-    <select id="dependencies">
+    <select id="dependenciesSelect">
         <option id="default" value="default">Select Dependency Tasks</option>
         {{#each allTasks}}
-        <option value="{{this._id}}">{{this.title}}</option>
+        <option id="{{this._id}}" value="{{this._id}}">{{this.title}}</option>
         {{/each}}
     </select><br><br>
 

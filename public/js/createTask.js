@@ -108,6 +108,28 @@ $('#taskForm').on('submit', (event) => {
     }
 });
 
+function setOptionListener(option) {
+    $(option).on('click', () => {
+        if ($(option).val().trim() === 'Default') return;
+        let listItem = $(`<li>${$(option).text()}</li>`);
+        listItem.data('id', $(option).val().trim());
+        $(option).remove();
+        $(listItem).on('click', () => {
+            setOptionListener($(option));
+            $('#dependenciesSelect').append($(option));
+            $(listItem).remove();
+        });
+        $('#dependenciesList').append(listItem);
+    });
+}
+
+function setDependencySelectListener() {
+    $('#dependenciesSelect option').each((index, option) => {
+        if ($(option).val().trim() === 'default') return;
+        setOptionListener(option);
+    });
+}
+
 $('#addSubtaskButton').on('click', () => {
     clearErrors();
     try {
@@ -124,3 +146,5 @@ $('#addSubtaskButton').on('click', () => {
         displayError(e);
     }
 });
+
+$(setDependencySelectListener);
