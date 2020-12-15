@@ -44,7 +44,7 @@ router.get(
             tasks = await usersData.getAllTasksForUser(req.session.user._id);
         }
 
-        tasks.map((task) => task.tags.map((t) => tagSet.add(t)));
+        tasks.filter((task) => task.status != 'Archived').map((task) => task.tags.map((t) => tagSet.add(t)));
         tags = Array.from(tagSet);
 
         let taskNotifications = await getTaskNotificationsForUser(
