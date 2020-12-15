@@ -96,10 +96,12 @@ function validateTags(tags) {
 function validateSubtasks(subtasks) {
     if (subtasks === null || subtasks === undefined)
         throw `Subtasks cannot be null or undefined`;
+    if (typeof subtasks === 'string' && subtasks.length === 0) return [];
     if (!Array.isArray(subtasks)) throw `Subtasks must be a list of strings`;
     subtasks.forEach((subtask, index) => {
         subtasks[index] = validateStringInput(subtask, 'Subtask');
     });
+    return subtasks;
 }
 
 module.exports = {

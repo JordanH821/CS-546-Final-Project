@@ -34,7 +34,10 @@ function getSubtaskList() {
 function resetSubtasks() {
     $('#subtaskList').empty();
     for (let subtask of subtasks) {
-        $('#subtaskList').append(`<li>${subtask}</li>`);
+        let escaped = filterXSS(subtask);
+        let listItem = $('<li></li>');
+        listItem.text(escaped);
+        $('#subtaskList').append(listItem);
     }
 }
 
@@ -137,6 +140,11 @@ function clearErrors() {
     $('#errorDiv').hide();
 }
 
+function displayError(e) {
+    $('#errorDiv').append(`<p>Error: ${e}</p>`);
+    $('#errorDiv').show();
+}
+
 function setNotificationTimeout() {
     setTimeout(() => {
         $('#notificationDiv').empty();
@@ -180,8 +188,7 @@ $('#updateTaskButton').on('click', (event) => {
         disableForm();
         updateTaskWithAJAX();
     } catch (e) {
-        $('#errorDiv').append(`<p>Error: ${e}</p>`);
-        $('#errorDiv').show();
+        displayError(e);
     }
 });
 
@@ -190,11 +197,10 @@ $('#cancelEditButton').on('click', cancelTaskUpdate);
 $('#addSubtaskButton').on('click', () => {
     clearErrors();
     try {
-        const subtask = validateStringInput(
-            $('#subtask').val().trim(),
-            'Subtask'
-        );
-        const listItem = $(`<li>${subtask}</li>`);
+        const escaped = filterXSS($('#subtask').val().trim());
+        validateStringInput(escaped, 'Subtask');
+        const listItem = $('<li></li>');
+        listItem.text(escaped);
         $(listItem).on('click', () => {
             $(listItem).remove();
         });

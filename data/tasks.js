@@ -171,6 +171,8 @@ async function addTask(
     validateStatus(status);
     assignee = validateStringInput(assignee, 'Assignee');
     tags = validateTags(tags);
+    validateSubtasks(subtasks);
+
     let newTask = {
         dateModified: new Date(Date.now()),
         creatorId: new mongoDB.ObjectID(creatorId),
