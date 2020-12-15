@@ -22,21 +22,20 @@ async function main() {
             );
 
             // create taskes for user
-            const tasksForUser = taskList[0];
-            // console.log(tasksForUser);
-            for (const task of tasksForUser) {
-                let t = await tasks.addTask(
-                    u._id.toString(),
-                    task.title,
-                    task.description,
-                    task.priority,
-                    task.dueDate,
-                    task.reminderDate,
-                    task.status,
-                    u.firstName,
-                    task.tags.join(', '),
-                    task.subtasks
-                );
+            if ('tasks' in user) {
+                for (const task of user.tasks) {
+                    let t = await tasks.addTask(
+                        u._id.toString(),
+                        task.title,
+                        task.description,
+                        task.priority,
+                        task.dueDate,
+                        task.reminderDate,
+                        task.status,
+                        u.firstName,
+                        task.tags.join(', '),
+                        task.subtasks
+                    );
 
                     // add tags
                     if ('tags' in task) {

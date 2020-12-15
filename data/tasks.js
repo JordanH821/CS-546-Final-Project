@@ -160,8 +160,7 @@ async function addTask(
     reminderDate,
     status,
     assignee,
-    tags,
-    subtasks
+    tags
 ) {
     validateObjectId(creatorId);
     title = validateStringInput(title, 'Title');
@@ -172,7 +171,6 @@ async function addTask(
     validateStatus(status);
     assignee = validateStringInput(assignee, 'Assignee');
     tags = validateTags(tags);
-    validateSubtasks(subtasks);
     let newTask = {
         dateModified: new Date(Date.now()),
         creatorId: new mongoDB.ObjectID(creatorId),
@@ -184,7 +182,7 @@ async function addTask(
         status: status,
         assignee: assignee,
         tags: tags,
-        subtasks: subtasks,
+        subtasks: [],
         dependencies: [],
         comments: [],
     };
