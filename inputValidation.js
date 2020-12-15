@@ -104,6 +104,19 @@ function validateSubtasks(subtasks) {
     return subtasks;
 }
 
+function validateDependencies(dependencies) {
+    if (dependencies === null || dependencies === undefined)
+        throw `Dependencies cannot be null or undefined`;
+    if (typeof dependencies === 'string' && dependencies.length === 0)
+        return [];
+    if (!Array.isArray(dependencies))
+        throw `Dependencies must be a list of strings`;
+    dependencies.forEach((dependency, index) => {
+        dependencies[index] = validateObjectId(dependencies[index]);
+    });
+    return dependencies;
+}
+
 module.exports = {
     validateStringInput,
     validateEmail,
@@ -114,4 +127,5 @@ module.exports = {
     validatePriority,
     validateTags,
     validateSubtasks,
+    validateDependencies,
 };

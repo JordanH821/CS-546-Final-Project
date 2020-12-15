@@ -13,13 +13,15 @@ const {
     validateTags,
     validateObjectId,
     validateSubtasks,
+    validateDependencies,
 } = require('../inputValidation');
 
 router.get(
     '/new',
     authenticationCheckRedirect('/users/login', true),
     async (req, res) => {
-        res.render('tasks/taskView', { title: 'Create Task' });
+        const tasks = await users.getActiveTasksForUser(req.session.user._id);
+        res.render('tasks/taskView', { title: 'Create Task', allTasks: tasks });
     }
 );
 
@@ -38,8 +40,15 @@ router.post(
             validateStringInput(xss(rq.assignee), 'Assignee');
             validateTags(rq.tags);
             rq.subtasks = validateSubtasks(rq.subtasks);
-            for (let i = 0; i < rq.tags.length; i++) {
-                rq.tags[i] = xss(rq.tags[i]);
+            if (xss(rq.dependencies) === '') {
+                rq.dependencies = validateDependencies(xss(rq.dependencies));
+            } else {
+                for (let i = 0; i < rq.dependencies.length; i++) {
+                    rq.dependencies[i] = xss(rq.dependencies[i]);
+                }
+            }
+            for (let i = 0; i < rq.subtasks.length; i++) {
+                rq.subtasks[i] = xss(rq.subtasks[i]);
             }
             for (let i = 0; i < rq.subtasks.length; i++) {
                 rq.subtasks[i] = xss(rq.subtasks[i]);
@@ -54,7 +63,8 @@ router.post(
                 xss(rq.status),
                 xss(rq.assignee),
                 rq.tags,
-                rq.subtasks
+                rq.subtasks,
+                rq.dependencies
             );
             await users.addTaskToUser(req.session.user._id, newTask._id);
             res.redirect(`/tasks/${newTask._id}?newTask=true`);
@@ -87,10 +97,26 @@ router.get(
 
             // if task is found, render details
             const newTask = req.query.newTask ? req.query.newTask : false;
+
+            let tasks = await users.getActiveNonDependenciesForUser(
+                req.session.user._id,
+                task.dependencies,
+                task._id
+            );
+            tasks = tasks.filter(
+                (t) => t._id.toString() !== task._id.toString()
+            );
+
+            const dependencies = await tasksData.getTasksInList(
+                task.dependencies
+            );
+
             res.render('tasks/taskView', {
                 title: 'Task Details',
                 task: task,
                 newTask: newTask,
+                allTasks: tasks,
+                dependencies: dependencies,
             });
         } catch (e) {
             res.status(404).json({ error: `${e}: Task not found` });
@@ -113,6 +139,13 @@ router.post(
             validateStatus(xss(rq.status));
             validateStringInput(xss(rq.assignee), 'Assignee');
             rq.subtasks = validateSubtasks(rq.subtasks);
+            if (xss(rq.dependencies) === '') {
+                rq.dependencies = validateDependencies(xss(rq.dependencies));
+            } else {
+                for (let i = 0; i < rq.dependencies.length; i++) {
+                    rq.dependencies[i] = xss(rq.dependencies[i]);
+                }
+            }
             for (let i = 0; i < rq.tags.length; i++) {
                 rq.tags[i] = xss(rq.tags[i]);
             }
@@ -132,7 +165,8 @@ router.post(
                 xss(rq.status),
                 xss(rq.assignee),
                 xss(rq.tags),
-                rq.subtasks
+                rq.subtasks,
+                rq.dependencies
             );
             res.json({ updated: true });
         } catch (e) {

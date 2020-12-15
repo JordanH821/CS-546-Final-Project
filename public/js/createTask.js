@@ -34,6 +34,33 @@ function addSubtasksToForm() {
     $('#subtask').remove();
 }
 
+function addDependenciesToForm() {
+    let form = $('#taskForm');
+    let dependencies = $('#dependenciesList li');
+    const length = $(dependencies).length;
+    console.log(length);
+
+    if (length === 0) {
+        form.append(`<input type="text" name="dependencies" hidden>`);
+    } else if (length === 1) {
+        $(dependencies).each((index, dependency) => {
+            form.append(
+                `<input type="text" name="dependencies[0]" value="${$(
+                    dependency
+                ).data('id')}">`
+            );
+        });
+    } else {
+        $(dependencies).each((index, dependency) => {
+            form.append(
+                `<input type="text" name="dependencies" value="${$(
+                    dependency
+                ).data('id')}">`
+            );
+        });
+    }
+}
+
 $('#taskForm').on('submit', (event) => {
     clearErrors();
     let valid = true;
@@ -105,8 +132,31 @@ $('#taskForm').on('submit', (event) => {
     }
     if (valid) {
         addSubtasksToForm();
+        addDependenciesToForm();
     }
 });
+
+function setOptionListener(option) {
+    $(option).on('click', () => {
+        if ($(option).val().trim() === 'Default') return;
+        let listItem = $(`<li>${$(option).text()}</li>`);
+        listItem.data('id', $(option).val().trim());
+        $(option).remove();
+        $(listItem).on('click', () => {
+            setOptionListener($(option));
+            $('#dependenciesSelect').append($(option));
+            $(listItem).remove();
+        });
+        $('#dependenciesList').append(listItem);
+    });
+}
+
+function setDependencySelectListener() {
+    $('#dependenciesSelect option').each((index, option) => {
+        if ($(option).val().trim() === 'default') return;
+        setOptionListener(option);
+    });
+}
 
 $('#addSubtaskButton').on('click', () => {
     clearErrors();
@@ -124,3 +174,5 @@ $('#addSubtaskButton').on('click', () => {
         displayError(e);
     }
 });
+
+$(setDependencySelectListener);

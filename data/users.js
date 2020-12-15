@@ -204,6 +204,22 @@ async function getUsersTasksByTag(userId, tag) {
     return await tasks.getUsersTasksByTag(userId, tag);
 }
 
+async function getActiveTasksForUser(userId) {
+    if (!userId || !mongoDB.ObjectID.isValid(String(userId))) {
+        throw 'You must provide a valid user id';
+    }
+    await this.getUserById(userId);
+    return await tasks.getActiveTasksForUser(userId);
+}
+
+async function getActiveNonDependenciesForUser(userId, dependencies) {
+    if (!userId || !mongoDB.ObjectID.isValid(String(userId))) {
+        throw 'You must provide a valid user id';
+    }
+    await this.getUserById(userId);
+    return await tasks.getActiveNonDependenciesForUser(userId, dependencies);
+}
+
 module.exports = {
     createUser,
     seedUser,
@@ -215,4 +231,6 @@ module.exports = {
     searchUsersTasks,
     updateUser,
     getUsersTasksByTag,
+    getActiveTasksForUser,
+    getActiveNonDependenciesForUser,
 };
