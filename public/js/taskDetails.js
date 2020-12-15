@@ -201,7 +201,6 @@ function getFormValues() {
 }
 
 function handleAJAXError(error) {
-    console.log(error);
     $('#errorDiv').append(
         `<p>There was an error while updating your Task. Please try again later.</p>`
     );

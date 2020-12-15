@@ -38,7 +38,6 @@ function addDependenciesToForm() {
     let form = $('#taskForm');
     let dependencies = $('#dependenciesList li');
     const length = $(dependencies).length;
-    console.log(length);
 
     if (length === 0) {
         form.append(`<input type="text" name="dependencies" hidden>`);
@@ -174,9 +173,11 @@ $('#addSubtaskButton').on('click', () => {
         displayError(e);
     }
 });
+
 $('#dependenciesSelect').on('change', () => {
     const id = $('#dependenciesSelect').val();
     $(`#${id}`).trigger('click');
     $('#dependenciesSelect').val('default');
 });
+
 $(setDependencySelectListener);
