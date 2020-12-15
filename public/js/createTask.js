@@ -103,7 +103,7 @@ $('#addSubtaskButton').on('click', () => {
     clearErrors();
     try {
         const subtask = validateStringInput(
-            filterXSS($('#subtask').val().trim()),
+            escape($('#subtask').val().trim()),
             'Subtask'
         );
         const listItem = $(`<li>${subtask}</li>`);

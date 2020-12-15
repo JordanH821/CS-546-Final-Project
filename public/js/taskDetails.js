@@ -137,6 +137,11 @@ function clearErrors() {
     $('#errorDiv').hide();
 }
 
+function displayError(e) {
+    $('#errorDiv').append(`<p>Error: ${e}</p>`);
+    $('#errorDiv').show();
+}
+
 function setNotificationTimeout() {
     setTimeout(() => {
         $('#notificationDiv').empty();
@@ -180,8 +185,7 @@ $('#updateTaskButton').on('click', (event) => {
         disableForm();
         updateTaskWithAJAX();
     } catch (e) {
-        $('#errorDiv').append(`<p>Error: ${e}</p>`);
-        $('#errorDiv').show();
+        displayError(e);
     }
 });
 
@@ -191,7 +195,7 @@ $('#addSubtaskButton').on('click', () => {
     clearErrors();
     try {
         const subtask = validateStringInput(
-            $('#subtask').val().trim(),
+            escape($('#subtask').val().trim()),
             'Subtask'
         );
         const listItem = $(`<li>${subtask}</li>`);
