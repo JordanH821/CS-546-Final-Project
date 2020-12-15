@@ -11,8 +11,17 @@ function displayError(e) {
 function addSubtasksToForm() {
     let form = $('#taskForm');
     let subtasks = $('#subtaskList li');
-    if ($(subtasks).length === 0) {
+    const length = $(subtasks).length;
+    if (length === 0) {
         form.append(`<input type="text" name="subtasks" hidden>`);
+    } else if (length === 1) {
+        $('#subtaskList li').each((index, subtask) => {
+            form.append(
+                `<input type="text" name="subtasks[0]" value="${$(
+                    subtask
+                ).text()}">`
+            );
+        });
     } else {
         $('#subtaskList li').each((index, subtask) => {
             form.append(
