@@ -15,7 +15,7 @@ const constructorMethod = app => {
     '/',
     authenticationCheckRedirect('/dashboard', false),
     async (req, res) => {
-      res.render('landing');
+      res.render('landing', {'title': 'TaskTrack'});
     }
   );
   // wildcard route 404

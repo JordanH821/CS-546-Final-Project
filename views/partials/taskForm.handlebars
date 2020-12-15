@@ -11,10 +11,9 @@
     <input class="wideInput" id="title" name="title" type="text" value="{{task.title}}"><br><br>
 
     <label for="description">Description:</label><br>
-    <textarea id="description" name="description" type="text" rows="4"
-        columns="50">{{task.description}}</textarea><br><br>
+    <textarea id="description" name="description" rows="4">{{task.description}}</textarea><br><br>
 
-    <label for=" priority">Priority:</label><br>
+    <label for="priority">Priority:</label><br>
     <select name="priority" id="priority">
         <option value="1" {{#ifEquals "1" task.priority}}selected{{/ifEquals}}>1</option>
         <option value="2" {{#ifEquals "2" task.priority}}selected{{/ifEquals}}>2</option>
@@ -48,7 +47,7 @@
     <input class="wideInput" id="assignee" name="assignee" type="text" value="{{task.assignee}}"><br><br>
 
     <div id="subtasksDiv">
-        <p>Subtasks: (Click to delete when editing)</p>
+        <p>Subtasks: (Click item to remove)</p>
         <ul id="subtaskList">
             {{#each task.subtasks}}
             <li>{{this}}</li>
@@ -56,8 +55,7 @@
         </ul>
     </div>
     <div id="subtaskCreation">
-        <label for="subtask">Subtask:</label><br>
-        <input type="text" name="subtask" id="subtask"><br>
+        <input type="text" name="subtask" id="subtask">
         <button id="addSubtaskButton" type="button">Add Subtask</button><br><br>
     </div>
 

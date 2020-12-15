@@ -81,7 +81,7 @@ $('#addSubtaskButton').on('click', () => {
             $('#subtask').val().trim(),
             'Subtask'
         );
-        const listItem = $(`<li>${subtask}</li>`);
+        const listItem = $(`<li class="subtaskItem">${subtask}</li>`);
         $(listItem).on('click', () => {
             $(listItem).remove();
         });

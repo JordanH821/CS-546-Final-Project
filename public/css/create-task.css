@@ -70,3 +70,25 @@ main {
 .notification {
     text-align: center;
 }
+
+
+.inlineDiv {
+    display: table;
+}
+
+#addSubtaskButton {
+    display: inline;
+    font-size: 14px;
+    padding: 4px;
+    margin: 0;
+    width: 100px;
+}
+
+.subtaskItem {
+    margin-top: 4px;
+}
+
+#subtaskList, #subtaskCreation {
+    padding-top: 0;
+    margin-top: 0px;
+}
