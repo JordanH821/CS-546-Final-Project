@@ -98,10 +98,22 @@ router.get(
 
             // if task is found, render details
             const newTask = req.query.newTask ? req.query.newTask : false;
+
+            // depencies work
+            let tasks = await users.getActiveTasksForUser(req.session.user._id);
+
+            const dependencies = await tasksData.getTasksInList(
+                task.dependencies
+            );
+            for (let i = 0; i < tasks.length; i++) {
+                if (dependencies.includes(tasks[i])) delete tasks[i];
+            }
             res.render('tasks/taskView', {
                 title: 'Task Details',
                 task: task,
                 newTask: newTask,
+                dependencies: dependencies,
+                allTasks: tasks,
             });
         } catch (e) {
             res.status(404).json({ error: `${e}: Task not found` });

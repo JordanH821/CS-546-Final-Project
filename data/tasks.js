@@ -423,6 +423,15 @@ async function getActiveTasksForUser(userId) {
         .toArray();
 }
 
+async function getTasksInList(idList) {
+    const tasksCollection = await tasks();
+    return await tasksCollection
+        .find({
+            _id: { $in: idList },
+        })
+        .toArray();
+}
+
 module.exports = {
     getAlltasks,
     getTaskById,
@@ -439,4 +448,5 @@ module.exports = {
     getUsersTasksByTag,
     getTaskNotificationsForUser,
     getActiveTasksForUser,
+    getTasksInList,
 };
