@@ -64,43 +64,43 @@ async function main() {
                     }
 
                     // add subTasks
-                    if ('subTasks' in task) {
-                        for (const subTask of task.subTasks) {
-                            let st = await tasks.addTask(
-                                u._id.toString(),
-                                subTask.title,
-                                subTask.description,
-                                subTask.priority,
-                                subTask.dueDate,
-                                subTask.reminderDate,
-                                subTask.status,
-                                u.firstName,
-                                subTask.tags.join(', ')
-                            );
-                            if ('tags' in subTask) {
-                                for (const tag of subTask.tags) {
-                                    await tasks.addTagToTask(st._id, tag);
-                                }
-                            }
-                            if ('comments' in subTask) {
-                                for (const comment of subTask.comments) {
-                                    let c = await comments.addComment(
-                                        u._id.toString(), 
-                                        comment.datePosted, 
-                                        st._id, 
-                                        comment.comment
-                                    );
-                                    await tasks.addCommentToTask(st._id, c._id);
-                                }
-                            }
-                            if ('dependencies' in subTask) {
-                                for (const dependency in subTask.depencies) {
-                                    await tasks.addDependencyToTask(st._id, dependency);
-                                }
-                            }
-                            await tasks.addSubTaskToTask(t._id, st._id);
-                        }
-                    }
+                    // if ('subTasks' in task) {
+                    //     for (const subTask of task.subTasks) {
+                    //         let st = await tasks.addTask(
+                    //             u._id.toString(),
+                    //             subTask.title,
+                    //             subTask.description,
+                    //             subTask.priority,
+                    //             subTask.dueDate,
+                    //             subTask.reminderDate,
+                    //             subTask.status,
+                    //             u.firstName,
+                    //             subTask.tags.join(', ')
+                    //         );
+                    //         if ('tags' in subTask) {
+                    //             for (const tag of subTask.tags) {
+                    //                 await tasks.addTagToTask(st._id, tag);
+                    //             }
+                    //         }
+                    //         if ('comments' in subTask) {
+                    //             for (const comment of subTask.comments) {
+                    //                 let c = await comments.addComment(
+                    //                     u._id.toString(), 
+                    //                     comment.datePosted, 
+                    //                     st._id, 
+                    //                     comment.comment
+                    //                 );
+                    //                 await tasks.addCommentToTask(st._id, c._id);
+                    //             }
+                    //         }
+                    //         if ('dependencies' in subTask) {
+                    //             for (const dependency in subTask.depencies) {
+                    //                 await tasks.addDependencyToTask(st._id, dependency);
+                    //             }
+                    //         }
+                    //         await tasks.addSubTaskToTask(t._id, st._id);
+                    //     }
+                    // }
 
                     await users.addTaskToUser(u._id, t._id);
                 }
