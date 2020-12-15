@@ -79,19 +79,7 @@ router.post(
         }
     }
 );
-// function containsObject(activeTasks, depencies) {
-//     for (let lstObj of lst) {
-//         if (obj.toString() === lstObj._id.toString()) {
-//             // is an active tasks so set it as dependency
-//             lstObj.dependency = true;
-//             return;
-//         }
-//     }
-//     // is not an active task so add to task list
-//     obj.dependency = true;
-//     lst.push(obj);
-//     return;
-// }
+
 router.get(
     '/:id',
     authenticationCheckRedirect('/users/login', true),
@@ -145,6 +133,7 @@ router.post(
     authenticationCheckRedirect('/users/login', true),
     async (req, res) => {
         try {
+            console.log(req.body);
             const rq = req.body;
             validateObjectId(xss(req.params.id));
             validateStringInput(xss(rq.title), 'Title');

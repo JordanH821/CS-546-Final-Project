@@ -7,7 +7,9 @@ let title,
     assignee,
     tags,
     subtasks,
-    depencies;
+    depencies,
+    disablingForm,
+    originalDependencySelect;
 
 function removeSubtaskListener() {
     $('#subtaskList li').each((index, subtask) => {
@@ -44,6 +46,16 @@ function getSubtaskList() {
     });
     subtasks = subtaskList;
     return subtasks;
+}
+
+function getDependencyList() {
+    let form = $('#taskForm');
+    let dependencies = $('#dependenciesList li');
+    let depList = [];
+    dependencies.each((indx, dep) => {
+        depList.push($(dep).data('id'));
+    });
+    return depList;
 }
 
 function resetSubtasks() {
@@ -91,7 +103,9 @@ function disableForm() {
     $('#updateTaskButton').hide();
     $('#editTaskButton').show();
     $('#cancelEditButton').hide();
+    disablingForm = true;
     copyDependenciesBackToOptions();
+    disablingForm = false;
 }
 
 function enableForm() {
@@ -104,6 +118,14 @@ function enableForm() {
     resetDependencyList();
 }
 
+function cloneSelectOptions() {
+    let opts = [];
+    $('#dependenciesSelect option').each((index, opt) => {
+        opts.push($(opt).clone());
+    });
+    return opts;
+}
+
 function getOriginalTaskInfo() {
     title = $('#title').val().trim();
     description = $('#description').val().trim();
@@ -114,6 +136,18 @@ function getOriginalTaskInfo() {
     assignee = $('#assignee').val().trim();
     tags = $('#tags').val().trim();
     getSubtaskList();
+    originalDependencySelect = cloneSelectOptions();
+}
+
+function resetDependencyOptions() {
+    let select = $('#dependenciesSelect');
+    $(select).empty();
+    originalDependencySelect.forEach((opt) => {
+        $(select).append(opt);
+    });
+    $('#dependenciesList').empty();
+    setDependencySelectListener();
+    clickDependencies();
 }
 
 function cancelTaskUpdate() {
@@ -126,6 +160,7 @@ function cancelTaskUpdate() {
     $('#assignee').val(assignee);
     $('#tags').val(tags);
     resetSubtasks();
+    resetDependencyOptions();
     clearErrors();
     disableForm();
 }
@@ -155,6 +190,7 @@ function getFormValues() {
         assignee: $('#assignee').val().trim(),
         tags: $('#tags').val().trim(),
         subtasks: getSubtaskList(),
+        dependencies: getDependencyList(),
     };
 }
 
@@ -213,9 +249,11 @@ function setOptionListener(option) {
         if ($(option).val().trim() === 'Default') return;
         let listItem = $(`<li>${$(option).text()}</li>`);
         listItem.data('id', $(option).val().trim());
+        $(option).addClass('dependency');
         $(option).remove();
         $(listItem).on('click', () => {
             setOptionListener($(option));
+            if (!disablingForm) $(option).removeClass('dependency');
             $('#dependenciesSelect').append($(option));
             $(listItem).remove();
         });
