@@ -174,5 +174,9 @@ $('#addSubtaskButton').on('click', () => {
         displayError(e);
     }
 });
-
+$('#dependenciesSelect').on('change', () => {
+    const id = $('#dependenciesSelect').val();
+    $(`#${id}`).trigger('click');
+    $('#dependenciesSelect').val('default');
+});
 $(setDependencySelectListener);

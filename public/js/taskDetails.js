@@ -76,7 +76,7 @@ function disableInput() {
     removeSubtaskListener();
 
     // comments always active
-    $('#commentTextArea').attr('disabled',false);
+    $('#commentTextArea').attr('disabled', false);
 }
 
 function enableInput() {
@@ -315,4 +315,9 @@ $('#addSubtaskButton').on('click', () => {
 $(setNotificationTimeout);
 $(setDependencySelectListener);
 $(clickDependencies);
+$('#dependenciesSelect').on('change', () => {
+    const id = $('#dependenciesSelect').val();
+    $(`#${id}`).trigger('click');
+    $('#dependenciesSelect').val('default');
+});
 $(disableForm);
