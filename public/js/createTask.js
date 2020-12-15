@@ -93,6 +93,7 @@ $('#taskForm').on('submit', (event) => {
     }
     try {
         validateDate($('#dueDate').val().trim(), 'Due Date');
+        validateDueDate($('#dueDate').val().trim());
     } catch (e) {
         event.preventDefault();
         valid = false;
@@ -100,6 +101,10 @@ $('#taskForm').on('submit', (event) => {
     }
     try {
         validateDate($('#reminderDate').val().trim(), 'Reminder Date');
+        validateReminderDate(
+            $('#reminderDate').val().trim(),
+            $('#dueDate').val().trim()
+        );
     } catch (e) {
         event.preventDefault();
         valid = false;

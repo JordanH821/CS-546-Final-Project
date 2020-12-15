@@ -14,6 +14,8 @@ const {
     validateObjectId,
     validateSubtasks,
     validateDependencies,
+    validateDueDate,
+    validateReminderDate,
 } = require('../inputValidation');
 
 router.get(
@@ -34,6 +36,7 @@ router.post(
             validateStringInput(xss(rq.title), 'Title');
             validateStringInput(xss(rq.description), 'Description');
             validatePriority(xss(rq.priority));
+            //TODO validate dueDate and reminderDate
             validateDate(xss(rq.dueDate), 'Due Date');
             validateDate(xss(rq.reminderDate), 'Reminder Date');
             validateStatus(xss(rq.status));
@@ -134,6 +137,7 @@ router.post(
             validateStringInput(xss(rq.title), 'Title');
             validateStringInput(xss(rq.description), 'Description');
             validatePriority(xss(rq.priority));
+            //TODO validate dueDate and reminderDate
             validateDate(xss(rq.dueDate), 'Due Date');
             validateDate(xss(rq.reminderDate), 'Reminder Date');
             validateStatus(xss(rq.status));

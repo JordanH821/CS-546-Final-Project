@@ -117,6 +117,23 @@ function validateDependencies(dependencies) {
     return dependencies;
 }
 
+function validateDueDate(dueDate) {
+    let today = new Date();
+    let dueDateConv = new Date(dueDate);
+    if (dueDateConv < today)
+        throw `Due date cannot be before today's date. Please set due date to a future date`;
+}
+
+function validateReminderDate(reminderDate, dueDate) {
+    let today = new Date();
+    let dueDateConv = new Date(dueDate);
+    let reminderDateConv = new Date(reminderDate);
+    if (reminderDateConv < today)
+        throw "Reminder date cannot be before today's date. Please set reminder date to a future date";
+    if (reminderDateConv > dueDateConv)
+        throw 'Reminder date cannot be after or on due date. Please set reminder date to be before due date';
+}
+
 module.exports = {
     validateStringInput,
     validateEmail,
@@ -128,4 +145,6 @@ module.exports = {
     validateTags,
     validateSubtasks,
     validateDependencies,
+    validateDueDate,
+    validateReminderDate,
 };
