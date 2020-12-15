@@ -59,6 +59,8 @@ router.post(
     if (!updatedTask) {
       // TO DO : Alert user that moving task failed
       res.status(500).redirect('/archive');
+    } else {
+        res.status(400);
     }
   }
 );

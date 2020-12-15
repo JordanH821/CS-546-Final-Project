@@ -22,6 +22,12 @@ module.exports = [
                 tags: ['Pets', 'Exercise'],
                 subtasks: ['Get Randle in the car'],
                 dependencies: [],
+                comments: [
+                    {
+                        datePosted: '2020-12-14',
+                        comment:"Remember to bring the frisbee!!"
+                    }
+                ]
             },
             {
                 dueDate: '2021-01-08',
