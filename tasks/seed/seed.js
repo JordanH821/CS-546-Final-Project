@@ -2,8 +2,6 @@ const dbConnection = require('../../config/mongoConnection');
 const { users, tasks, comments } = require('../../data');
 
 const userList = require('./users');
-const taskList = require('./tasks');
-const commentList = require('./comments');
 
 async function main() {
     console.log('Starting seed task...');
@@ -11,7 +9,6 @@ async function main() {
     await db.dropDatabase();
 
     // create users
-    let createdUsers = [];
     try {
         for (const user of userList) {
             let u = await users.seedUser(
@@ -23,7 +20,6 @@ async function main() {
                 user.phone.home,
                 user.phone.work
             );
-            createdUsers.push(u);
 
             // create taskes for user
             const tasksForUser = taskList[0];
@@ -42,12 +38,74 @@ async function main() {
                     task.subtasks
                 );
 
-                // add tags // TODO: probably add tags when creating task
-                for (const tag of task.tags) {
-                    await tasks.addTagToTask(t._id, tag);
-                }
+                    // add tags
+                    if ('tags' in task) {
+                        for (const tag of task.tags) {
+                            await tasks.addTagToTask(t._id, tag);
+                        }
+                    }
 
-                await users.addTaskToUser(u._id, t._id);
+                    // add comments
+                    if ('comments' in task) {
+                        for (const comment of task.comments) {
+                            let c = await comments.addComment(
+                                u._id.toString(), 
+                                comment.datePosted, 
+                                t._id, 
+                                comment.comment
+                            );
+                            await tasks.addCommentToTask(t._id, c._id);
+                        }
+                    }
+
+                    // add dependencies
+                    if ('dependencies' in task) {
+                        for (const dependency in task.dependencies) {
+                            await tasks.addDependencyToTask(t._id, task.dependencies[dependency]);
+                        }
+                    }
+
+                    // add subTasks
+                    if ('subTasks' in task) {
+                        for (const subTask of task.subTasks) {
+                            let st = await tasks.addTask(
+                                u._id.toString(),
+                                subTask.title,
+                                subTask.description,
+                                subTask.priority,
+                                subTask.dueDate,
+                                subTask.reminderDate,
+                                subTask.status,
+                                u.firstName,
+                                subTask.tags.join(', ')
+                            );
+                            if ('tags' in subTask) {
+                                for (const tag of subTask.tags) {
+                                    await tasks.addTagToTask(st._id, tag);
+                                }
+                            }
+                            if ('comments' in subTask) {
+                                for (const comment of subTask.comments) {
+                                    let c = await comments.addComment(
+                                        u._id.toString(), 
+                                        comment.datePosted, 
+                                        st._id, 
+                                        comment.comment
+                                    );
+                                    await tasks.addCommentToTask(st._id, c._id);
+                                }
+                            }
+                            if ('dependencies' in subTask) {
+                                for (const dependency in subTask.depencies) {
+                                    await tasks.addDependencyToTask(st._id, dependency);
+                                }
+                            }
+                            await tasks.addSubTaskToTask(t._id, st._id);
+                        }
+                    }
+
+                    await users.addTaskToUser(u._id, t._id);
+                }
             }
         }
     } catch (e) {
@@ -55,73 +113,6 @@ async function main() {
         db.serverConfig.close();
         return;
     }
-
-    // create tasks
-    // let createdTasks = [];
-    // let i = 0;
-    // try {
-    //     for (const task of taskList) {
-    //         const userId = createdUsers[i + 1]._id;
-    //         let t = await tasks.addTask(
-    //             createdUsers[i]._id,
-    //             task.dueDate,
-    //             task.priority,
-    //             task.title,
-    //             task.description,
-    //             task.reminderDate,
-    //             task.status,
-    //             userId
-    //         );
-    //         createdTasks.push(t);
-
-    //         // add task to user
-    //         users.addTaskToUser(userId, t._id);
-
-    //         // increment user
-    //         i = i + 1;
-    //     }
-    // } catch (e) {
-    //     console.log(`Error adding tasks: ${e}`);
-    //     db.serverConfig.close();
-    //     return;
-    // }
-    // create comments
-    // let createdComments = [];
-    // i = 0;
-    // for (const comment of commentList) {
-    //     let c = await comments.addComment(
-    //         createdUsers[i]._id,
-    //         comment.datePosted,
-    //         createdTasks[i]._id,
-    //         comment.comment
-    //     );
-    //     createdComments.push(c);
-    //     i = i + 1;
-    // }
-
-    // add subTasks to tasks
-    // for (const task of createdTasks.slice(1)) {
-    //     await tasks.addSubTaskToTask(createdTasks[0]._id, task._id);
-    // }
-
-    // add dependencies to tasks
-    // for (const task of createdTasks.slice(1)) {
-    //     await tasks.addDependencyToTask(createdTasks[0]._id, task._id);
-    // }
-
-    // // add tags to tasks
-    // for (const task of createdTasks) {
-    //     await tasks.addTagToTask(task._id, 'Important');
-    //     await tasks.addTagToTask(task._id, 'CS546');
-    //     await tasks.addTagToTask(task._id, 'TaskTrack');
-    // }
-
-    // add comments to tasks
-    // i = 0;
-    // for (const task of createdTasks) {
-    //     await tasks.addCommentToTask(task._id, createdComments[i]._id);
-    //     i = i + 1;
-    // }
 
     await db.serverConfig.close();
     console.log('Seed task completed');
