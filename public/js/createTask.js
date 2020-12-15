@@ -102,11 +102,10 @@ $('#taskForm').on('submit', (event) => {
 $('#addSubtaskButton').on('click', () => {
     clearErrors();
     try {
-        const subtask = validateStringInput(
-            escape($('#subtask').val().trim()),
-            'Subtask'
-        );
-        const listItem = $(`<li>${subtask}</li>`);
+        const escaped = filterXSS($('#subtask').val().trim());
+        const subtask = validateStringInput(escaped, 'Subtask');
+        const listItem = $('<li></li>');
+        listItem.text(escaped);
         $(listItem).on('click', () => {
             $(listItem).remove();
         });
