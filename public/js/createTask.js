@@ -13,7 +13,9 @@ $('#taskForm').on('submit', event => {
     let errString = `Title cannot be empty. Please type in a title for this task`;
     $('#errorDiv').append(`<p>Error: ${errString}</p>`);
     $('#errorDiv').show();
+    return;
   }
+
   try {
     validateStringInput(
       $('#description')
@@ -25,6 +27,7 @@ $('#taskForm').on('submit', event => {
     let errString = `Description cannot be empty. Please type in a description for this task`;
     $('#errorDiv').append(`<p>Error: ${errString}</p>`);
     $('#errorDiv').show();
+    return;
   }
 
   try {
@@ -35,10 +38,12 @@ $('#taskForm').on('submit', event => {
       'Priority'
     );
   } catch (e) {
-    let errString = `Description cannot be empty. Please type in a description for this task`;
+    let errString = `Priority cannot be empty. Please type in a priority for this task`;
     $('#errorDiv').append(`<p>Error: ${errString}</p>`);
     $('#errorDiv').show();
+    return;
   }
+
   try {
     validateDate(
       $('#dueDate')
@@ -50,7 +55,9 @@ $('#taskForm').on('submit', event => {
     let errString = `Check Due date`;
     $('#errorDiv').append(`<p>Error: ${errString}</p>`);
     $('#errorDiv').show();
+    return;
   }
+
   try {
     validateDate(
       $('#reminderDate')
@@ -62,7 +69,9 @@ $('#taskForm').on('submit', event => {
     let errString = `Check Reminder date`;
     $('#errorDiv').append(`<p>Error: ${errString}</p>`);
     $('#errorDiv').show();
+    return;
   }
+
   try {
     validateSelect(
       $('#status')
@@ -74,7 +83,9 @@ $('#taskForm').on('submit', event => {
     let errString = `Check status`;
     $('#errorDiv').append(`<p>Error: ${errString}</p>`);
     $('#errorDiv').show();
+    return;
   }
+
   try {
     validateStringInput(
       $('#assignee')
@@ -86,7 +97,9 @@ $('#taskForm').on('submit', event => {
     let errString = `Assignee cannot be empty. Please type in an assignee for this task`;
     $('#errorDiv').append(`<p>Error: ${errString}</p>`);
     $('#errorDiv').show();
+    return;
   }
+
   try {
     validateTags(
       $('#tags')
@@ -97,6 +110,7 @@ $('#taskForm').on('submit', event => {
     let errString = `Tags field cannot be empty. Please type in tags for this task`;
     $('#errorDiv').append(`<p>Error: ${errString}</p>`);
     $('#errorDiv').show();
+    return;
   }
 });
 

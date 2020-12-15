@@ -6,10 +6,9 @@
     <input class="wideInput" id="title" name="title" type="text" value="{{task.title}}"><br><br>
 
     <label for="description">Description:</label><br>
-    <textarea id="description" name="description" type="text" rows="4"
-        columns="50">{{task.description}}</textarea><br><br>
+    <textarea id="description" name="description" rows="4">{{task.description}}</textarea><br><br>
 
-    <label for=" priority">Priority:</label><br>
+    <label for="priority">Priority:</label><br>
     <select name="priority" id="priority">
         <option value="1" {{#ifEquals "1" task.priority}}selected{{/ifEquals}}>1</option>
         <option value="2" {{#ifEquals "2" task.priority}}selected{{/ifEquals}}>2</option>
