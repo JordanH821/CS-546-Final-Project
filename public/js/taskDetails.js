@@ -1,15 +1,57 @@
-let title, description, priority, dueDate, reminderDate, status, assignee, tags;
+let title,
+    description,
+    priority,
+    dueDate,
+    reminderDate,
+    status,
+    assignee,
+    tags,
+    subtasks;
+
+function removeSubtaskListener() {
+    $('#subtaskList li').each((index, subtask) => {
+        $(subtask).off();
+    });
+}
+
+function setSubtaskListener() {
+    $('#subtaskList li').each((index, subtask) => {
+        $(subtask).on('click', () => {
+            $(subtask).remove();
+        });
+    });
+}
+
+function getSubtaskList() {
+    let subtaskList = [];
+    $('#subtaskList li').each((index, subtask) => {
+        subtaskList.push($(subtask).text());
+    });
+    subtasks = subtaskList;
+    return subtasks;
+}
+
+function resetSubtasks() {
+    $('#subtaskList').empty();
+    for (let subtask of subtasks) {
+        $('#subtaskList').append(`<li>${subtask}</li>`);
+    }
+}
 
 function disableInput() {
     $('input').attr('disabled', true);
     $('select').attr('disabled', true);
     $('textarea').attr('disabled', true);
+    $('#subtaskCreation').hide();
+    removeSubtaskListener();
 }
 
 function enableInput() {
     $('input').attr('disabled', false);
     $('select').attr('disabled', false);
     $('textarea').attr('disabled', false);
+    $('#subtaskCreation').show();
+    setSubtaskListener();
 }
 
 function disableForm() {
@@ -37,6 +79,7 @@ function getOriginalTaskInfo() {
     status = $('#status').val().trim();
     assignee = $('#assignee').val().trim();
     tags = $('#tags').val().trim();
+    getSubtaskList();
 }
 
 function cancelTaskUpdate() {
@@ -48,6 +91,7 @@ function cancelTaskUpdate() {
     $('#status').val(status);
     $('#assignee').val(assignee);
     $('#tags').val(tags);
+    resetSubtasks();
     clearErrors();
     disableForm();
 }
@@ -76,6 +120,7 @@ function getFormValues() {
         status: $('#status').val().trim(),
         assignee: $('#assignee').val().trim(),
         tags: $('#tags').val().trim(),
+        subtasks: getSubtaskList(),
     };
 }
 
@@ -92,6 +137,19 @@ function clearErrors() {
     $('#errorDiv').hide();
 }
 
+function setNotificationTimeout() {
+    setTimeout(() => {
+        $('#notificationDiv').empty();
+    }, 5000);
+}
+
+function alertUserUpdateSuccess() {
+    $('#notificationDiv').append(
+        '<p class="notification">Task updated successfully!</p>'
+    );
+    setNotificationTimeout();
+}
+
 function updateTaskWithAJAX() {
     const id = $('#taskId').val().trim();
     const requestConfig = {
@@ -104,9 +162,9 @@ function updateTaskWithAJAX() {
         error: handleAJAXError,
     };
 
-    $.ajax(requestConfig).then(function(res) {
+    $.ajax(requestConfig).then(function (res) {
         if (res.updated && res.updated == true) {
-            $('#updatedTaskText').show();
+            alertUserUpdateSuccess();
         }
     });
 }
@@ -128,3 +186,23 @@ $('#updateTaskButton').on('click', (event) => {
 });
 
 $('#cancelEditButton').on('click', cancelTaskUpdate);
+
+$('#addSubtaskButton').on('click', () => {
+    clearErrors();
+    try {
+        const subtask = validateStringInput(
+            $('#subtask').val().trim(),
+            'Subtask'
+        );
+        const listItem = $(`<li>${subtask}</li>`);
+        $(listItem).on('click', () => {
+            $(listItem).remove();
+        });
+        $('#subtaskList').append(listItem);
+        $('#subtask').val('');
+    } catch (e) {
+        displayError(e);
+    }
+});
+
+$(setNotificationTimeout);

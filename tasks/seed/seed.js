@@ -27,7 +27,7 @@ async function main() {
 
             // create taskes for user
             const tasksForUser = taskList[0];
-            console.log(tasksForUser);
+            // console.log(tasksForUser);
             for (const task of tasksForUser) {
                 let t = await tasks.addTask(
                     u._id.toString(),
@@ -38,7 +38,8 @@ async function main() {
                     task.reminderDate,
                     task.status,
                     u.firstName,
-                    task.tags.join(', ')
+                    task.tags.join(', '),
+                    task.subtasks
                 );
 
                 // add tags // TODO: probably add tags when creating task
