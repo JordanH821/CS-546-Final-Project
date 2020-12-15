@@ -211,7 +211,8 @@ async function updateTask(
     status,
     assignee,
     tags,
-    subtasks
+    subtasks,
+    dependencies
 ) {
     validateObjectId(creatorId);
     validateObjectId(taskId);
@@ -224,6 +225,8 @@ async function updateTask(
     assignee = validateStringInput(assignee, 'Assignee');
     tags = validateTags(tags);
     validateSubtasks(subtasks);
+    validateDependencies(dependencies);
+    console.log(dependencies);
     let updateTask = {
         dateModified: new Date(Date.now()),
         creatorId: new mongoDB.ObjectID(creatorId),
@@ -236,6 +239,7 @@ async function updateTask(
         assignee: assignee,
         tags: tags,
         subtasks: subtasks,
+        dependencies: dependencies,
     };
     const taskCollection = await tasks();
     const updateInfo = await taskCollection.updateOne(

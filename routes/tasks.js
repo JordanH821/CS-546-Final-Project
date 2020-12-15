@@ -144,6 +144,13 @@ router.post(
             validateStatus(xss(rq.status));
             validateStringInput(xss(rq.assignee), 'Assignee');
             rq.subtasks = validateSubtasks(rq.subtasks);
+            if (xss(rq.dependencies) === '') {
+                rq.dependencies = validateDependencies(xss(rq.dependencies));
+            } else {
+                for (let i = 0; i < rq.dependencies.length; i++) {
+                    rq.dependencies[i] = xss(rq.dependencies[i]);
+                }
+            }
             for (let i = 0; i < rq.tags.length; i++) {
                 rq.tags[i] = xss(rq.tags[i]);
             }
@@ -163,7 +170,8 @@ router.post(
                 xss(rq.status),
                 xss(rq.assignee),
                 xss(rq.tags),
-                rq.subtasks
+                rq.subtasks,
+                rq.dependencies
             );
             res.json({ updated: true });
         } catch (e) {
