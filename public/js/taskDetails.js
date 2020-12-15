@@ -119,7 +119,7 @@ function getFormValues() {
         status: $('#status').val().trim(),
         assignee: $('#assignee').val().trim(),
         tags: $('#tags').val().trim(),
-        subtasks: getSubtaskList().join(';'),
+        subtasks: getSubtaskList(),
     };
 }
 
@@ -173,7 +173,7 @@ $('#addSubtaskButton').on('click', () => {
     clearErrors();
     try {
         const subtask = validateStringInput(
-            $('#subtask').val().trim().replace(/\;/g, ''),
+            $('#subtask').val().trim(),
             'Subtask'
         );
         const listItem = $(`<li>${subtask}</li>`);

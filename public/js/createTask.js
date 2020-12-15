@@ -40,7 +40,7 @@ $('#addSubtaskButton').on('click', () => {
     clearErrors();
     try {
         const subtask = validateStringInput(
-            $('#subtask').val().trim().replace(/\;/g, ''),
+            $('#subtask').val().trim(),
             'Subtask'
         );
         const listItem = $(`<li>${subtask}</li>`);

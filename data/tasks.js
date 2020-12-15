@@ -172,7 +172,7 @@ async function addTask(
     validateStatus(status);
     assignee = validateStringInput(assignee, 'Assignee');
     tags = validateTags(tags);
-    subtasks = validateSubtasks(subtasks);
+    validateSubtasks(subtasks);
     let newTask = {
         dateModified: new Date(Date.now()),
         creatorId: new mongoDB.ObjectID(creatorId),
@@ -219,7 +219,7 @@ async function updateTask(
     validateStatus(status);
     assignee = validateStringInput(assignee, 'Assignee');
     tags = validateTags(tags);
-    subtasks = validateSubtasks(subtasks);
+    validateSubtasks(subtasks);
     let updateTask = {
         dateModified: new Date(Date.now()),
         creatorId: new mongoDB.ObjectID(creatorId),

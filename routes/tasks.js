@@ -28,7 +28,6 @@ router.post(
     '/new',
     authenticationCheckRedirect('/users/login', true),
     async (req, res) => {
-        console.log(req.body);
         try {
             const rq = req.body;
             validateStringInput(xss(rq.title), 'Title');
@@ -41,6 +40,9 @@ router.post(
             for (let i = 0; i < rq.tags.length; i++) {
                 rq.tags[i] = xss(rq.tags[i]);
             }
+            for (let i = 0; i < rq.subtasks.length; i++) {
+                rq.subtasks[i] = xss(rq.subtasks[i]);
+            }
             validateTags(rq.tags);
             validateSubtasks(rq.subtasks);
             const newTask = await tasksData.addTask(
@@ -52,8 +54,8 @@ router.post(
                 xss(rq.reminderDate),
                 xss(rq.status),
                 xss(rq.assignee),
-                xss(rq.tags),
-                xss(rq.subtasks)
+                rq.tags,
+                rq.subtasks
             );
             await users.addTaskToUser(req.session.user._id, newTask._id);
             res.redirect(`/tasks/${newTask._id}`);
@@ -109,6 +111,9 @@ router.post(
             for (let i = 0; i < rq.tags.length; i++) {
                 rq.tags[i] = xss(rq.tags[i]);
             }
+            for (let i = 0; i < rq.subtasks.length; i++) {
+                rq.subtasks[i] = xss(rq.subtasks[i]);
+            }
             validateTags(rq.tags);
             validateSubtasks(rq.subtasks);
             const newTask = await tasksData.updateTask(
@@ -122,7 +127,7 @@ router.post(
                 xss(rq.status),
                 xss(rq.assignee),
                 xss(rq.tags),
-                xss(rq.subtasks)
+                rq.subtasks
             );
             res.json({ updated: true });
         } catch (e) {
