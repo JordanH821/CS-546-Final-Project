@@ -10,6 +10,7 @@ const {
     validateTags,
     validateObjectId,
     validateSubtasks,
+    validateDependencies,
 } = require('../inputValidation');
 
 const validateFullTask = function (task) {
@@ -160,7 +161,9 @@ async function addTask(
     reminderDate,
     status,
     assignee,
-    tags
+    tags,
+    subtasks,
+    dependencies
 ) {
     validateObjectId(creatorId);
     title = validateStringInput(title, 'Title');
@@ -171,7 +174,8 @@ async function addTask(
     validateStatus(status);
     assignee = validateStringInput(assignee, 'Assignee');
     tags = validateTags(tags);
-
+    validateSubtasks(subtasks);
+    dependencies = validateDependencies(dependencies);
     let newTask = {
         dateModified: new Date(Date.now()),
         creatorId: new mongoDB.ObjectID(creatorId),
@@ -183,8 +187,8 @@ async function addTask(
         status: status,
         assignee: assignee,
         tags: tags,
-        subtasks: [],
-        dependencies: [],
+        subtasks: subtasks,
+        dependencies: dependencies,
         comments: [],
     };
 
@@ -206,7 +210,8 @@ async function updateTask(
     status,
     assignee,
     tags,
-    subtasks
+    subtasks,
+    dependencies
 ) {
     validateObjectId(creatorId);
     validateObjectId(taskId);
@@ -219,6 +224,7 @@ async function updateTask(
     assignee = validateStringInput(assignee, 'Assignee');
     tags = validateTags(tags);
     validateSubtasks(subtasks);
+    validateDependencies(dependencies);
     let updateTask = {
         dateModified: new Date(Date.now()),
         creatorId: new mongoDB.ObjectID(creatorId),
@@ -231,6 +237,7 @@ async function updateTask(
         assignee: assignee,
         tags: tags,
         subtasks: subtasks,
+        dependencies: dependencies,
     };
     const taskCollection = await tasks();
     const updateInfo = await taskCollection.updateOne(
@@ -406,6 +413,36 @@ async function getTaskNotificationsForUser(userId) {
         .toArray();
 }
 
+async function getActiveTasksForUser(userId) {
+    const tasksCollection = await tasks();
+    return await tasksCollection
+        .find({
+            creatorId: mongoDB.ObjectID(userId),
+            status: { $nin: ['Done', 'Archived'] },
+        })
+        .toArray();
+}
+
+async function getTasksInList(idList) {
+    const tasksCollection = await tasks();
+    return await tasksCollection
+        .find({
+            _id: { $in: idList },
+        })
+        .toArray();
+}
+
+async function getActiveNonDependenciesForUser(userId, dependencies) {
+    const tasksCollection = await tasks();
+    return await tasksCollection
+        .find({
+            _id: { $nin: dependencies },
+            creatorId: mongoDB.ObjectID(userId),
+            status: { $nin: ['Done', 'Archived'] },
+        })
+        .toArray();
+}
+
 module.exports = {
     getAlltasks,
     getTaskById,
@@ -421,4 +458,7 @@ module.exports = {
     searchUsersTasks,
     getUsersTasksByTag,
     getTaskNotificationsForUser,
+    getActiveTasksForUser,
+    getTasksInList,
+    getActiveNonDependenciesForUser,
 };

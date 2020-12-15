@@ -67,7 +67,7 @@
     </div>
 
     <div id="subtasksDiv" class="marginTop16">
-        <p class="bold" >Subtasks: (Click item to remove)</p>
+        <p class="bold">Subtasks: (Click item to remove)</p>
         <ul id="subtaskList">
             {{#each task.subtasks}}
             <li>{{this}}</li>
@@ -78,6 +78,24 @@
     <div id="subtaskCreation">
         <input type="text" name="subtask" id="subtask">
         <button id="addSubtaskButton" type="button">Add Subtask</button>
+    </div>
+
+    <div class="marginTop16" id="dependenciesDiv">
+        <p class="bold">Dependencies: (Click item to remove)</p>
+        <ul id="dependenciesList">
+        </ul>
+    </div>
+
+    <div>
+        <select id="dependenciesSelect">
+            <option id="default" value="default">Select Dependency Tasks</option>
+            {{#each allTasks}}
+            <option id="{{this._id}}" value="{{this._id}}">{{concat title ' (' status ') '}}</option>
+            {{/each}}
+            {{#each dependencies}}
+            <option class="dependency" id="{{this._id}}" value="{{this._id}}">{{concat title ' (' status ') '}}</option>
+            {{/each}}
+        </select>
     </div>
 
     <div class="marginTop16">
