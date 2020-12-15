@@ -13,7 +13,7 @@ const validateComment = function(comment) {
 
   if (
     !comment.datePosted ||
-    typeof comment.datePosted != 'object' ||
+    typeof comment.datePosted != 'string' ||
     !Date.parse(comment.datePosted)
   ) {
     throw 'You must provide a valid datePosted';
@@ -32,7 +32,8 @@ let exportedMethods = {
   // GET /comment
   async getAllcomments() {
     const commentCollection = await comments();
-    return await commentCollection.find({}).toArray();
+    const commentList = await commentCollection.find({}).toArray();
+    return commentList;
   },
 
   // GET /comment/{id}
@@ -47,6 +48,20 @@ let exportedMethods = {
     });
     if (!comment) throw 'Comment cannot be found';
     return comment;
+  },
+
+  async getAllCommentsForTask(taskId) {
+    if (!taskId || !mongoDB.ObjectID.isValid(String(taskId))) {
+      throw 'You must provide a valid task id';
+    }
+
+    const commentCollection = await comments();
+    let commentsList = await commentCollection.find({
+      taskId:taskId
+    });
+
+    if (!commentsList) throw "no comments found";
+    return commentsList.toArray();
   },
 
   // POST /comment

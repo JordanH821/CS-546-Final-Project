@@ -11,7 +11,7 @@
 
     <div>
         <label class="bold" for="title">Title:</label>
-        <input class="wideInput" id="title" name="title" type="text" value="{{task.title}}">
+        <input class="wideInput" id="title" name="title" type="text" value="{{task.title}}" placeholder="Enter a title for this task...">
     </div>
 
     <div class="marginTop16">
@@ -19,7 +19,7 @@
             <label class="bold" for="description">Description:</label>
         </div>
         <div>
-            <textarea id="description" name="description" rows="4">{{task.description}}</textarea>
+            <textarea id="description" name="description" rows="4" placeholder="What is this task about?">{{task.description}}</textarea>
         </div>
     </div>
 
@@ -63,7 +63,7 @@
 
     <div class="marginTop16">
         <label class="bold" for="assignee">Assignee:</label>
-        <input class="wideInput" id="assignee" name="assignee" type="text" value="{{task.assignee}}">
+        <input class="wideInput" id="assignee" name="assignee" type="text" value="{{task.assignee}}" placeholder="Who is doing this task?">
     </div>
 
     <div id="subtasksDiv" class="marginTop16">
@@ -76,7 +76,7 @@
     </div>
 
     <div id="subtaskCreation">
-        <input type="text" name="subtask" id="subtask">
+        <input type="text" name="subtask" id="subtask" placeholder="Enter subtask here...">
         <button id="addSubtaskButton" type="button">Add Subtask</button>
     </div>
 
@@ -103,7 +103,7 @@
             <label class="bold" for="tags">Tags: (Single words separated with commas)</label>
         </div>
         <div>
-            <input class="wideInput" id="tags" name="tags" type="text" value="{{task.tags}}">
+            <input class="wideInput" id="tags" name="tags" type="text" value="{{task.tags}}" placeholder="Car, Money, Home, ...">
         </div>
     </div>
 
@@ -114,16 +114,22 @@
     </div>
 
 </form>
+
 {{#ifEquals title "Task Details"}}
 <button id="editTaskButton">Edit Task</button>
 <button id="updateTaskButton">Update Task</button>
 <button id="cancelEditButton">Cancel</button>
 
 <div id="commentsContainer">
-    <form method="POST" id="commentsForm">
+    <form id="commentsForm">
         <label class="bold" for="commentTextArea">Comments:</label>
+        <ul id="commentList">
+            {{#each comments}}
+            <li>{{this.comment}}</li>
+            {{/each}}
+        </ul>
         <div>
-            <textarea id="commentTextArea" name="commentTextArea" rows="4"></textarea>
+            <textarea id="commentTextArea" name="commentTextArea" rows="4" placeholder="Type in a comment here..." ></textarea>
         </div>
         <button id="addCommentButton" type="button">Add Comment</button>
     </form>

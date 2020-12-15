@@ -52,7 +52,7 @@ async function main() {
                                 let c = await comments.addComment(
                                     u._id.toString(),
                                     comment.datePosted,
-                                    t._id,
+                                    t._id.toString(),
                                     comment.comment
                                 );
                                 await tasks.addCommentToTask(t._id, c._id);

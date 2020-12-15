@@ -76,7 +76,7 @@ function disableInput() {
     removeSubtaskListener();
 
     // comments always active
-    $('#commentTextArea').attr('disabled',false);
+    $('#commentTextArea').attr('disabled', false);
 }
 
 function enableInput() {
@@ -201,7 +201,6 @@ function getFormValues() {
 }
 
 function handleAJAXError(error) {
-    console.log(error);
     $('#errorDiv').append(
         `<p>There was an error while updating your Task. Please try again later.</p>`
     );
@@ -312,7 +311,38 @@ $('#addSubtaskButton').on('click', () => {
     }
 });
 
+$('#addCommentButton').on('click', () => {
+
+    const comment = $('#commentTextArea').val();
+
+    if (comment.length > 0 && comment.trim().length > 0) {
+        var requestConfig = {
+            method: 'POST',
+            url: '/tasks/comment',
+            data: {
+                taskId: $('#taskId').val().trim(),
+                comment: comment
+            },
+        };
+
+        $.ajax(requestConfig).then(function (res) {
+            if (res.comment) {
+                const commentLI = $('<li>' + res.comment.comment + '</li>');
+                $('#commentList').append(commentLI);
+                $('#commentTextArea').val('')
+            } else {
+                alert('Could not add comment at this time');
+            }
+        });
+    }
+});
+
 $(setNotificationTimeout);
 $(setDependencySelectListener);
 $(clickDependencies);
+$('#dependenciesSelect').on('change', () => {
+    const id = $('#dependenciesSelect').val();
+    $(`#${id}`).trigger('click');
+    $('#dependenciesSelect').val('default');
+});
 $(disableForm);
