@@ -11,9 +11,9 @@ const {
     validateStatus,
     validatePriority,
     validateTags,
-    validateObjectId
+    validateObjectId,
+    validateSubtasks,
 } = require('../inputValidation');
-//const alert = require('alert');
 
 router.get(
     '/new',
@@ -24,7 +24,6 @@ router.get(
 );
 
 router.post(
-
     '/new',
     authenticationCheckRedirect('/users/login', true),
     async (req, res) => {
@@ -40,7 +39,11 @@ router.post(
             for (let i = 0; i < rq.tags.length; i++) {
                 rq.tags[i] = xss(rq.tags[i]);
             }
+            for (let i = 0; i < rq.subtasks.length; i++) {
+                rq.subtasks[i] = xss(rq.subtasks[i]);
+            }
             validateTags(rq.tags);
+            validateSubtasks(rq.subtasks);
             const newTask = await tasksData.addTask(
                 xss(req.session.user._id),
                 xss(rq.title),
@@ -50,7 +53,8 @@ router.post(
                 xss(rq.reminderDate),
                 xss(rq.status),
                 xss(rq.assignee),
-                xss(rq.tags)
+                rq.tags,
+                rq.subtasks
             );
             await users.addTaskToUser(req.session.user._id, newTask._id);
             res.redirect(`/tasks/${newTask._id}?newTask=true`);
@@ -71,15 +75,23 @@ router.get(
     async (req, res) => {
         try {
             // check if task belongs to logged in user
-            const tasksForUser = await users.getAllTasksForUser(req.session.user._id);
-            const task = tasksForUser.find(t => t._id.toString() === req.params.id);
+            const tasksForUser = await users.getAllTasksForUser(
+                req.session.user._id
+            );
+            const task = tasksForUser.find(
+                (t) => t._id.toString() === req.params.id
+            );
             if (!task) {
-                throw "Invalid Task Id";
+                throw 'Invalid Task Id';
             }
 
             // if task is found, render details
             const newTask = req.query.newTask ? req.query.newTask : false;
-            res.render('tasks/taskView', { title: 'Task Details', task: task, newTask: newTask });
+            res.render('tasks/taskView', {
+                title: 'Task Details',
+                task: task,
+                newTask: newTask,
+            });
         } catch (e) {
             res.status(404).json({ error: `${e}: Task not found` });
         }
@@ -103,7 +115,11 @@ router.post(
             for (let i = 0; i < rq.tags.length; i++) {
                 rq.tags[i] = xss(rq.tags[i]);
             }
+            for (let i = 0; i < rq.subtasks.length; i++) {
+                rq.subtasks[i] = xss(rq.subtasks[i]);
+            }
             validateTags(rq.tags);
+            validateSubtasks(rq.subtasks);
             const newTask = await tasksData.updateTask(
                 xss(req.session.user._id),
                 xss(req.params.id),
@@ -114,7 +130,8 @@ router.post(
                 xss(rq.reminderDate),
                 xss(rq.status),
                 xss(rq.assignee),
-                xss(rq.tags)
+                xss(rq.tags),
+                rq.subtasks
             );
             res.json({ updated: true });
         } catch (e) {

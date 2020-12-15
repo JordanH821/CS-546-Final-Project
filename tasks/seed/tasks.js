@@ -8,6 +8,10 @@ module.exports = [
             reminderDate: '2020-12-12',
             status: 'To Do',
             tags: ['tag1'],
+            subtasks: [
+                'Do something before',
+                'Do another thing before this task',
+            ],
         },
         {
             dueDate: '2020-12-29',
@@ -17,6 +21,10 @@ module.exports = [
             reminderDate: '2020-12-19',
             status: 'To Do',
             tags: ['tag1', 'tag2'],
+            subtasks: [
+                'Do something before',
+                'Do another thing before this task',
+            ],
         },
         {
             dueDate: '2020-12-17',
@@ -26,6 +34,7 @@ module.exports = [
             reminderDate: '2020-12-11',
             status: 'To Do',
             tags: ['tag1', 'tag2', 'tag3'],
+            subtasks: ['Go to the bank'],
         },
         {
             dueDate: '2020-12-20',
@@ -35,6 +44,7 @@ module.exports = [
             reminderDate: '2020-12-19',
             status: 'In Progress',
             tags: ['tag1', 'tag2'],
+            subtasks: ['Go to taco bell'],
         },
         {
             dueDate: '2020-12-17',
@@ -44,6 +54,7 @@ module.exports = [
             reminderDate: '2020-12-16',
             status: 'In Progress',
             tags: ['tag2'],
+            subtasks: ['Eat a burrito'],
         },
         {
             dueDate: '2020-12-19',
@@ -53,6 +64,7 @@ module.exports = [
             reminderDate: '2020-12-18',
             status: 'Done',
             tags: ['tag1'],
+            subtasks: [],
         },
         {
             dueDate: '2020-12-12',
@@ -62,6 +74,10 @@ module.exports = [
             reminderDate: '2020-12-02',
             status: 'Archived',
             tags: ['tag1'],
+            subtasks: [
+                'Do something before',
+                'Do another thing before this task',
+            ],
         },
         {
             dueDate: '2020-12-12',
@@ -71,6 +87,7 @@ module.exports = [
             reminderDate: '2020-12-02',
             status: 'Archived',
             tags: ['tag1'],
+            subtasks: [],
         },
         {
             dueDate: '2020-12-12',
@@ -80,6 +97,7 @@ module.exports = [
             reminderDate: '2020-12-02',
             status: 'Archived',
             tags: ['tag1'],
+            subtasks: [],
         },
         {
             dueDate: '2020-12-12',
@@ -89,6 +107,10 @@ module.exports = [
             reminderDate: '2020-12-02',
             status: 'Archived',
             tags: ['tag1'],
+            subtasks: [
+                'Do something before',
+                'Do another thing before this task',
+            ],
         },
         {
             dueDate: '2020-12-12',
@@ -98,6 +120,7 @@ module.exports = [
             reminderDate: '2020-12-02',
             status: 'Archived',
             tags: ['tag1'],
+            subtasks: [],
         },
         {
             dueDate: '2020-12-12',
@@ -107,6 +130,7 @@ module.exports = [
             reminderDate: '2020-12-02',
             status: 'Archived',
             tags: ['tag1'],
+            subtasks: ['Do that thing', 'Do this thing'],
         },
         {
             dueDate: '2020-12-12',
@@ -116,6 +140,7 @@ module.exports = [
             reminderDate: '2020-12-02',
             status: 'Archived',
             tags: ['tag1'],
+            subtasks: ['Do that thing', 'Do this thing'],
         },
         {
             dueDate: '2020-12-12',
@@ -125,6 +150,7 @@ module.exports = [
             reminderDate: '2020-12-02',
             status: 'Archived',
             tags: ['tag1'],
+            subtasks: [],
         },
         {
             dueDate: '2020-12-12',
@@ -134,6 +160,7 @@ module.exports = [
             reminderDate: '2020-12-02',
             status: 'Archived',
             tags: ['tag1'],
+            subtasks: ['Do that thing', 'Do this thing'],
         },
         {
             dueDate: '2020-12-12',
@@ -143,6 +170,7 @@ module.exports = [
             reminderDate: '2020-12-02',
             status: 'Archived',
             tags: ['tag1'],
+            subtasks: [],
         },
         {
             dueDate: '2020-12-12',
@@ -152,6 +180,7 @@ module.exports = [
             reminderDate: '2020-12-02',
             status: 'Archived',
             tags: ['tag1'],
+            subtasks: ['Do that thing', 'Do this thing'],
         },
         {
             dueDate: '2020-12-12',
@@ -161,6 +190,7 @@ module.exports = [
             reminderDate: '2020-12-02',
             status: 'Archived',
             tags: ['tag1'],
+            subtasks: ['Do that thing', 'Do this thing'],
         },
     ],
 ];

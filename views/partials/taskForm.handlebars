@@ -1,4 +1,9 @@
 <form method="POST" id="taskForm">
+    <div id="notificationDiv">
+        {{#if newTask}}
+        <p class="notification">New task created successfully!</p>
+        {{/if}}
+    </div>
     {{#ifEquals title "Task Details"}}
     <input id="taskId" value="{{task._id}}" hidden>
     {{/ifEquals}}
@@ -41,18 +46,27 @@
     <label for="assignee">Assignee:</label><br>
     <input class="wideInput" id="assignee" name="assignee" type="text" value="{{task.assignee}}"><br><br>
 
-    <label for="tags">Tags:(For tags, separate names with commas)</label><br>
+    <div id="subtasksDiv">
+        <p>Subtasks: (Click to delete when editing)</p>
+        <ul id="subtaskList">
+            {{#each task.subtasks}}
+            <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </div>
+    <div id="subtaskCreation">
+        <label for="subtask">Subtask:</label><br>
+        <input type="text" name="subtask" id="subtask"><br>
+        <button id="addSubtaskButton" type="button">Add Subtask</button><br><br>
+    </div>
+
+    <label for="tags">Tags: (Single words separated with commas)</label><br>
     <input class="wideInput" id="tags" name="tags" type="text" value="{{task.tags}}"><br><br>
 
     {{#ifEquals title "Create Task"}}
     <button id="submitButton" type="submit" class="btn btn-primary">Create Task</button>
     {{/ifEquals}}
 
-    {{#if newTask}}
-    <p id="newTaskText">New task created successfully!</p>
-    {{/if}}
-
-    <p id="updatedTaskText" hidden>Updated task created successfully!</p>
 </form>
 {{#ifEquals title "Task Details"}}
 <button id="editTaskButton">Edit Task</button>
