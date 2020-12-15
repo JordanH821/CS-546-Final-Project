@@ -67,6 +67,7 @@ function enableForm() {
     $('#updateTaskButton').show();
     $('#editTaskButton').hide();
     $('#cancelEditButton').show();
+    $('#newTaskText').hide();
 }
 
 function getOriginalTaskInfo() {
@@ -148,7 +149,11 @@ function updateTaskWithAJAX() {
         error: handleAJAXError,
     };
 
-    $.ajax(requestConfig);
+    $.ajax(requestConfig).then(function(res) {
+        if (res.updated && res.updated == true) {
+            $('#updatedTaskText').show();
+        }
+    });
 }
 
 $(disableForm);

@@ -6,11 +6,12 @@ const tasksData = require('../data/tasks');
 const { updateTask } = require('../data/tasks');
 const users = require('../data/users');
 const {
-    validateStringInput,
-    replaceQueryStringSpaces,
+  validateStringInput,
+  replaceQueryStringSpaces
 } = require('../inputValidation');
 
 router.get(
+
     '/',
     authenticationCheckRedirect('/users/login', true),
     async (req, res) => {
@@ -44,21 +45,22 @@ router.get(
             ),
             searchTerm: searchTerm,
         });
+
     }
 );
 
 router.post(
-    '/updateTaskStatus',
-    authenticationCheckRedirect('/users/login', true),
-    async (req, res) => {
-        // update task with status
-        const taskId = req.body.taskId;
-        const updatedTask = tasksData.updateTaskStatus(taskId, req.body.status);
-        if (!updatedTask) {
-            // TO DO : Alert user that moving task failed
-            res.status(500).redirect('/archive');
-        }
+  '/updateTaskStatus',
+  authenticationCheckRedirect('/users/login', true),
+  async (req, res) => {
+    // update task with status
+    const taskId = req.body.taskId;
+    const updatedTask = tasksData.updateTaskStatus(taskId, req.body.status);
+    if (!updatedTask) {
+      // TO DO : Alert user that moving task failed
+      res.status(500).redirect('/archive');
     }
+  }
 );
 
 module.exports = router;

@@ -14,7 +14,7 @@ const {
 
 const validateFullTask = function (task) {
     if (!task || typeof task != 'object') {
-        throw 'You must provide valid task';
+        throw 'You must provide a valid task';
     }
 
     if (
@@ -63,17 +63,17 @@ const validateFullTask = function (task) {
         throw 'You must provide a valid assignee';
     }
     if (!task.tags || typeof task.tags != 'object') {
-        throw 'You must provide a valid tags';
+        throw 'You must provide valid tags';
     }
 
     if (!task.creatorId || !mongoDB.ObjectID.isValid(String(task.creatorId))) {
-        throw 'You must provide valid creatorId';
+        throw 'You must provide a valid creatorId';
     }
 };
 
 const validatePartialTask = function (task) {
     if (!task || typeof task != 'object') {
-        throw 'You must provide valid task';
+        throw 'You must provide a valid task';
     }
 
     if (
@@ -122,11 +122,11 @@ const validatePartialTask = function (task) {
         throw 'You must provide a valid assignee';
     }
     if (!task.tags || typeof task.tags != 'object') {
-        throw 'You must provide a valid tags';
+        throw 'You must provide valid tags';
     }
 
     if (!task.creatorId || !mongoDB.ObjectID.isValid(String(task.creatorId))) {
-        throw 'You must provide valid creatorId';
+        throw 'You must provide a valid creatorId';
     }
 };
 
@@ -247,7 +247,7 @@ async function updateTask(
 // DELETE /task/{id}
 async function removeTask(id) {
     if (!id || !mongoDB.ObjectID.isValid(String(id))) {
-        throw 'You must provide valid id';
+        throw 'You must provide a valid task id';
     }
 
     const taskCollection = await tasks();
@@ -262,11 +262,11 @@ async function removeTask(id) {
 
 async function addSubTaskToTask(taskId, subtaskId) {
     if (!taskId || !mongoDB.ObjectID.isValid(String(taskId))) {
-        throw 'You must provide valid taskId';
+        throw 'You must provide a valid taskId';
     }
 
     if (!subtaskId || !mongoDB.ObjectID.isValid(String(subtaskId))) {
-        throw 'You must provide valid subtaskId';
+        throw 'You must provide a valid subtaskId';
     }
 
     let subtask = this.getTaskById(subtaskId);
@@ -285,11 +285,11 @@ async function addSubTaskToTask(taskId, subtaskId) {
 
 async function addDependencyToTask(taskId, dependencyId) {
     if (!taskId || !mongoDB.ObjectID.isValid(String(taskId))) {
-        throw 'You must provide valid taskId';
+        throw 'You must provide a valid taskId';
     }
 
     if (!dependencyId || !mongoDB.ObjectID.isValid(String(dependencyId))) {
-        throw 'You must provide valid subtaskId';
+        throw 'You must provide a valid subtaskId';
     }
 
     let dependency = this.getTaskById(dependencyId);

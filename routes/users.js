@@ -3,18 +3,18 @@ var xss = require("xss");
 const router = express.Router();
 const { createUser, authenticateUser, updateUser } = require('../data/users');
 const {
-    validateStringInput,
-    validatePhoneNumber,
-    validateEmail,
+  validateStringInput,
+  validatePhoneNumber,
+  validateEmail
 } = require('../inputValidation');
 const { authenticationCheckRedirect } = require('./middleware');
 
 router.get(
-    '/signup',
-    authenticationCheckRedirect('/users/profile', false),
-    async (req, res) => {
-        res.render('users/signup');
-    }
+  '/signup',
+  authenticationCheckRedirect('/users/profile', false),
+  async (req, res) => {
+    res.render('users/signup');
+  }
 );
 
 router.post('/signup', async (req, res) => {
@@ -44,14 +44,15 @@ router.post('/signup', async (req, res) => {
     } catch (e) {
         res.render('users/signup', { user: req.body, error: e });
     }
+
 });
 
 router.get(
-    '/profile',
-    authenticationCheckRedirect('/users/login', true),
-    async (req, res) => {
-        res.render('users/profile', { user: req.session.user });
-    }
+  '/profile',
+  authenticationCheckRedirect('/users/login', true),
+  async (req, res) => {
+    res.render('users/profile', { user: req.session.user });
+  }
 );
 
 router.post(
@@ -82,15 +83,17 @@ router.post(
             console.log(e);
             res.status(500).json({ updated: false, error: e });
         }
+
     }
+  
 );
 
 router.get(
-    '/login',
-    authenticationCheckRedirect('/users/profile', false),
-    async (req, res) => {
-        res.render('users/login');
-    }
+  '/login',
+  authenticationCheckRedirect('/users/profile', false),
+  async (req, res) => {
+    res.render('users/login');
+  }
 );
 
 router.post('/login', async (req, res) => {
@@ -104,11 +107,12 @@ router.post('/login', async (req, res) => {
     } catch (e) {
         res.render('users/login', { error: e, user: req.body });
     }
+
 });
 
 router.get('/logout', async (req, res) => {
-    req.session.destroy();
-    res.redirect('/');
+  req.session.destroy();
+  res.redirect('/');
 });
 
 module.exports = router;

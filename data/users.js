@@ -31,7 +31,7 @@ async function createUser(
     let usersCollection = await users();
     const emailInUse = await usersCollection.findOne({ email: email });
     if (emailInUse)
-        throw `There is already an account with that email address (${email})`;
+        throw `There is already an account with the email address: (${email})`;
     const insertedInfo = await usersCollection.insertOne({
         firstName: firstName,
         lastName: lastName,
@@ -63,7 +63,7 @@ async function seedUser(
     let usersCollection = await users();
     const emailInUse = await usersCollection.findOne({ email: email });
     if (emailInUse)
-        throw `There is already an account with that email address (${email})`;
+        throw `There is already an account with this email address: (${email})`;
     const insertedInfo = await usersCollection.insertOne({
         firstName: firstName,
         lastName: lastName,
@@ -93,7 +93,7 @@ async function updateUser(
     let usersCollection = await users();
     const userExists = await usersCollection.findOne({ _id: userId });
     if (!userExists)
-        throw `There is no user with the given id (${userId.toString()})`;
+        throw `There is no user with the given id: (${userId.toString()})`;
     const updatedInfo = await usersCollection.updateOne(
         { _id: userId },
         {
@@ -120,7 +120,7 @@ async function getUserById(id) {
     if (user) {
         return user;
     } else {
-        throw `no use exists with id (${id})`;
+        throw `No user exists with id: (${id})`;
     }
 }
 
@@ -132,14 +132,17 @@ async function getUserByEmail(email) {
         return user;
     } else {
         // TODO change to generic invalid username / password
-        throw `no use exists with email (${email})`;
+        throw `No use exists with email: (${email})`;
     }
 }
 
 async function authenticateUser(email, password) {
     try {
         let user = await getUserByEmail(email);
-        let compare = await comparePasswordToHash(password, user.hashedPassword);
+        let compare = await comparePasswordToHash(
+            password,
+            user.hashedPassword
+        );
         if (compare) {
             return user;
         } else {
@@ -161,7 +164,7 @@ async function addTaskToUser(userId, taskId) {
     let usersCollection = await users();
     const updateUser = await usersCollection.replaceOne({ _id: userId }, user);
 
-    if (updateUser.modifiedCount === 0) throw 'could not update user!';
+    if (updateUser.modifiedCount === 0) throw 'Could not update user!';
 
     return await getUserById(userId);
 }
