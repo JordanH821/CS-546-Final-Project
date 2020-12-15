@@ -59,6 +59,21 @@
         <button id="addSubtaskButton" type="button">Add Subtask</button><br><br>
     </div>
 
+    <div id="dependenciesDiv">
+        <p>Dependencies: (Click item to remove)</p>
+        <ul id="dependenciesList">
+            {{#each dependencies}}
+            <li>{{this.title}}</li>
+            {{/each}}
+        </ul>
+    </div>
+    <select id="dependencies">
+        <option id="default" value="default">Select Dependency Tasks</option>
+        {{#each allTasks}}
+        <option value="{{this._id}}">{{this.title}}</option>
+        {{/each}}
+    </select><br><br>
+
     <label for="tags">Tags: (Single words separated with commas)</label><br>
     <input class="wideInput" id="tags" name="tags" type="text" value="{{task.tags}}"><br><br>
 

@@ -410,6 +410,16 @@ async function getTaskNotificationsForUser(userId) {
         .toArray();
 }
 
+async function getActiveTasksForUser(userId) {
+    const tasksCollection = await tasks();
+    return await tasksCollection
+        .find({
+            creatorId: mongoDB.ObjectID(userId),
+            status: { $nin: ['Done', 'Archived'] },
+        })
+        .toArray();
+}
+
 module.exports = {
     getAlltasks,
     getTaskById,
@@ -425,4 +435,5 @@ module.exports = {
     searchUsersTasks,
     getUsersTasksByTag,
     getTaskNotificationsForUser,
+    getActiveTasksForUser,
 };

@@ -19,7 +19,8 @@ router.get(
     '/new',
     authenticationCheckRedirect('/users/login', true),
     async (req, res) => {
-        res.render('tasks/taskView', { title: 'Create Task' });
+        const tasks = await users.getActiveTasksForUser(req.session.user._id);
+        res.render('tasks/taskView', { title: 'Create Task', allTasks: tasks });
     }
 );
 
