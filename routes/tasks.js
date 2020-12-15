@@ -27,6 +27,7 @@ router.post(
     '/new',
     authenticationCheckRedirect('/users/login', true),
     async (req, res) => {
+        console.log(req.body);
         try {
             const rq = req.body;
             validateStringInput(xss(rq.title), 'Title');
@@ -36,14 +37,16 @@ router.post(
             validateDate(xss(rq.reminderDate), 'Reminder Date');
             validateStatus(xss(rq.status));
             validateStringInput(xss(rq.assignee), 'Assignee');
+            validateTags(rq.tags);
+            console.log('In route beofre');
+            rq.subtasks = validateSubtasks(rq.subtasks);
+            console.log('In route after');
             for (let i = 0; i < rq.tags.length; i++) {
                 rq.tags[i] = xss(rq.tags[i]);
             }
             for (let i = 0; i < rq.subtasks.length; i++) {
                 rq.subtasks[i] = xss(rq.subtasks[i]);
             }
-            validateTags(rq.tags);
-            validateSubtasks(rq.subtasks);
             const newTask = await tasksData.addTask(
                 xss(req.session.user._id),
                 xss(rq.title),
@@ -112,6 +115,7 @@ router.post(
             validateDate(xss(rq.reminderDate), 'Reminder Date');
             validateStatus(xss(rq.status));
             validateStringInput(xss(rq.assignee), 'Assignee');
+            rq.subtasks = validateSubtasks(rq.subtasks);
             for (let i = 0; i < rq.tags.length; i++) {
                 rq.tags[i] = xss(rq.tags[i]);
             }
