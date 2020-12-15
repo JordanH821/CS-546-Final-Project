@@ -3,7 +3,7 @@
 
 <div id="dashboardBackground" class="back">
     <div id='dashboardHeader'>
-        <img id="headerLogo" src="/public/img/header_logo.png"
+        <img alt="task track logo" id="headerLogo" src="/public/img/header_logo.png"
             class="marginLeft12 marginRight12 marginTop12 marginBottom12">
         <div class="dashboardNav_V_Divider marginLeft12 marginRight12"></div>
 
@@ -44,15 +44,15 @@
         </div>
 
     </div>
-
+    
     <div id='tagsContainer'>
         <a id='tagsTitle'>Tags:</a>
         {{#each tags}}
-        <button class="tagButton" id="{{this}}"><a class="tagLink" href="/dashboard?tag={{this}}">{{this}}</a></button>
+        <a id="{{this}}" class="tagLink" href="/dashboard?tag={{this}}">{{this}}</a>
         {{/each}}
         {{#with tag}}
         |
-        <button class="tagButton"><a class="tagLink" href="/dashboard">Back To All Tags</a></button>
+        <a class="tagLink" href="/dashboard">Back To All Tags</a>
         {{/with}}
     </div>
 
@@ -60,23 +60,27 @@
 
     <div id="columnsContainer" class="marginBottom16">
         <div class="row">
-            <div class="column c1" id="toDoColumn" ondragover="dashboardAllowDrop(event)"
+            <div class="column c1" ondragover="dashboardAllowDrop(event)"
                 ondrop="dashboardOnDrop(event)">
                 <h3 class="columnHeader marginLeft12 marginRight12">To Do:</h3>
                 <div id="toDoColumn" class="columnScrollView">
                     {{#each toDoCards}}
-                    <div data-taskid="{{this._id}}" draggable="true" ondragstart="dashboardOnDrag(event)" onclick="taskClicked(event)" onmouseover="taskOnMouseOver(event)" onmouseout="taskOnMouseExit(event)">
+                    <div data-taskid="{{this._id}}" draggable="true" ondragstart="dashboardOnDrag(event)"
+                        onclick="taskClicked(event)" onmouseover="taskOnMouseOver(event)"
+                        onmouseout="taskOnMouseExit(event)">
                         {{> 'taskCard' this}}
                     </div>
                     {{/each}}
                 </div>
-                </div>
-                <div class="column c2" ondragover="dashboardAllowDrop(event)" ondrop="dashboardOnDrop(event)">
-                    <h3 class="columnHeader marginLeft12 marginRight12">In Progress:</h3>
-                    <div id="inProgressColumn" class="columnScrollView">
-                        {{#each inProgressCards}}
-                        <div data-taskid="{{this._id}}" draggable="true" ondragstart="dashboardOnDrag(event)" onclick="taskClicked(event)" onmouseover="taskOnMouseOver(event)" onmouseout="taskOnMouseExit(event)">
-                            {{> 'taskCard' this}}
+            </div>
+            <div class="column c2" ondragover="dashboardAllowDrop(event)" ondrop="dashboardOnDrop(event)">
+                <h3 class="columnHeader marginLeft12 marginRight12">In Progress:</h3>
+                <div id="inProgressColumn" class="columnScrollView">
+                    {{#each inProgressCards}}
+                    <div data-taskid="{{this._id}}" draggable="true" ondragstart="dashboardOnDrag(event)"
+                        onclick="taskClicked(event)" onmouseover="taskOnMouseOver(event)"
+                        onmouseout="taskOnMouseExit(event)">
+                        {{> 'taskCard' this}}
                     </div>
                     {{/each}}
                 </div>
@@ -86,7 +90,9 @@
             <h3 class="columnHeader marginLeft12 marginRight12">Done:</h3>
             <div id="doneColumn" class="columnScrollView">
                 {{#each doneCards}}
-                <div data-taskid={{this._id}} draggable="true" ondragstart="dashboardOnDrag(event)" onclick="taskClicked(event)" onmouseover="taskOnMouseOver(event)" onmouseout="taskOnMouseExit(event)">
+                <div data-taskid={{this._id}} draggable="true" ondragstart="dashboardOnDrag(event)"
+                    onclick="taskClicked(event)" onmouseover="taskOnMouseOver(event)"
+                    onmouseout="taskOnMouseExit(event)">
                     {{> 'taskCard' this}}
                 </div>
                 {{/each}}

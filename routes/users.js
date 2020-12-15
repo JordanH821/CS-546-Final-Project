@@ -13,7 +13,7 @@ router.get(
   '/signup',
   authenticationCheckRedirect('/users/profile', false),
   async (req, res) => {
-    res.render('users/signup');
+    res.render('users/signup', {title: 'TaskTrack'});
   }
 );
 
@@ -42,7 +42,7 @@ router.post('/signup', async (req, res) => {
         delete req.session.user.tasks; // delete tasks so they are not passed around unnecessarily
         res.redirect('/dashboard');
     } catch (e) {
-        res.render('users/signup', { user: req.body, error: e });
+        res.render('users/signup', {title: 'TaskTrack', user: req.body, error: e });
     }
 
 });
@@ -51,7 +51,7 @@ router.get(
   '/profile',
   authenticationCheckRedirect('/users/login', true),
   async (req, res) => {
-    res.render('users/profile', { user: req.session.user });
+    res.render('users/profile', {title:"Profile", user: req.session.user });
   }
 );
 
@@ -92,7 +92,7 @@ router.get(
   '/login',
   authenticationCheckRedirect('/users/profile', false),
   async (req, res) => {
-    res.render('users/login');
+    res.render('users/login', {title: 'TaskTrack'});
   }
 );
 

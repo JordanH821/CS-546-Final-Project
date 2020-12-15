@@ -104,7 +104,7 @@ $('#addSubtaskButton').on('click', () => {
     try {
         const escaped = filterXSS($('#subtask').val().trim());
         const subtask = validateStringInput(escaped, 'Subtask');
-        const listItem = $('<li></li>');
+        const listItem = $('<li class="subtaskItem"></li>');
         listItem.text(escaped);
         $(listItem).on('click', () => {
             $(listItem).remove();
