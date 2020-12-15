@@ -103,9 +103,12 @@ router.get(
             // let tasks = await users.getActiveTasksForUser(req.session.user._id);
             let tasks = await users.getActiveNonDependenciesForUser(
                 req.session.user._id,
-                task.dependencies
+                task.dependencies,
+                task._id
             );
-
+            tasks = tasks.filter(
+                (t) => t._id.toString() !== task._id.toString()
+            );
             console.log(`Tasks w/o depenedencies:`);
             console.log(tasks);
 
