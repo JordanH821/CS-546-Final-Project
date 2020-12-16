@@ -121,7 +121,7 @@
 
 {{#ifEquals title "Task Details"}}
 <button id="editTaskButton">Edit Task</button>
-<form class="inline" id="deleteTaskButton" method="POST" action="/tasks/delete/{{task._id}}">
+<form class="inline" id="deleteTaskForm" method="POST" action="/tasks/delete/{{task._id}}">
     <button class="loginProfileButton" type="submit">Delete</button>
 </form>
 <button id="updateTaskButton">Update Task</button>
