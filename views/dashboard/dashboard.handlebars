@@ -28,6 +28,9 @@
             {{/with}}
         </form>
     </div>
+
+
+    {{#if taskNotifications.length}}
     <div class="clearPageDivider marginTop16 marginLeft16 marginRight16 marginBottom16"></div>
 
     <div id='dashboardNotificationContainer'>
@@ -42,8 +45,8 @@
                 {{/each}}
             </div>
         </div>
-
     </div>
+    {{/if}}
     
     <div id='tagsContainer'>
         <a id='tagsTitle'>Tags:</a>
