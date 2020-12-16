@@ -58,7 +58,8 @@ button {
 
 #errorDiv {
   color: red;
-  border: 5px solid red;
+  border: 2px solid red;
+  padding: 8px;
 }
 
 h1 {
