@@ -257,19 +257,30 @@ async function updateTask(
 }
 
 // DELETE /task/{id}
-async function removeTask(id) {
-    if (!id || !mongoDB.ObjectID.isValid(String(id))) {
+async function removeTask(userId, taskId) {
+    if (!taskId || !mongoDB.ObjectID.isValid(String(taskId))) {
         throw 'You must provide a valid task id';
     }
-
+    if (!userId || !mongoDB.ObjectID.isValid(String(userId))) {
+        throw 'You must provide a valid task id';
+    }
+    // delete task only if the user is the creator
     const taskCollection = await tasks();
     const deletionInfo = await taskCollection.removeOne({
-        _id: mongoDB.ObjectID(String(id)),
+        _id: mongoDB.ObjectID(String(taskId)),
+        creatorId: mongoDB.ObjectID(String(userId)),
     });
+
     if (deletionInfo.deletedCount === 0) {
         throw `Could not delete task with id of ${id}`;
     }
-    return { taskId: String(id), deleted: true };
+
+    // delete dependencies to task
+    await taskCollection.updateMany(
+        {},
+        { $pull: { dependencies: mongoDB.ObjectID(String(taskId)) } }
+    );
+    return { taskId: String(taskId), deleted: true };
 }
 
 async function addSubTaskToTask(taskId, subtaskId) {

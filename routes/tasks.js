@@ -230,9 +230,12 @@ router.post(
     '/delete/:id',
     authenticationCheckRedirect('/users/login', true),
     async (req, res) => {
-        console.log('here');
-        console.log(req.params.id);
-        res.redirect('users/login');
+        try {
+            await users.removeTask(req.session.user._id, xss(req.params.id));
+        } catch (e) {
+            console.log(e);
+        }
+        res.redirect('/dashboard');
     }
 );
 
