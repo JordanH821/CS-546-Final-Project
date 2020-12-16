@@ -82,7 +82,6 @@ router.post(
         const taskId = req.body.taskId;
         const updatedTask = await tasksData.updateTaskStatus(taskId, req.body.status);
         if (!updatedTask) {
-            // TO DO : Alert user that moving task failed
             res.status(500).redirect('/dashboard');
         }
     }
