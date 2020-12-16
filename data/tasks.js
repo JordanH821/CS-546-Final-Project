@@ -368,8 +368,8 @@ async function updateTaskStatus(taskId, status) {
         {
             $set: {
                 status: status,
-                dateModified: Date.now()
-            }
+                dateModified: Date.now(),
+            },
         }
     );
     if (!updateInfo.matchedCount && !updateInfo.modifiedCount)
@@ -414,10 +414,11 @@ async function getUsersTasksByTag(userId, tag) {
 async function getTaskNotificationsForUser(userId) {
     const tasksCollection = await tasks();
     const today = new Date();
+    today.setHours(0, 0, 0, 0);
     return await tasksCollection
         .find({
             creatorId: mongoDB.ObjectID(userId),
-            reminderDate: { $lt: today },
+            reminderDate: { $lte: today },
             status: { $ne: 'Done' },
             status: { $ne: 'Archived' },
         })
