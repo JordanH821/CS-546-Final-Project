@@ -25,6 +25,7 @@ function validateEmail(email) {
 function validatePhoneNumber(phoneNumber, type) {
     if (phoneNumber === null || phoneNumber === undefined)
         throw `${type} Phone Number cannot be null or undefined`;
+    phoneNumber = filterXSS(phoneNumber);
     const re = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
     if (!re.test(phoneNumber)) {
         throw `${type} Phone Number (${phoneNumber}) is not valid. Please enter a valid 10-digit phone number without separators or separated by spaces, dashes, or periods`;
