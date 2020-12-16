@@ -47,8 +47,9 @@ function validateObjectId(id) {
 function validateDate(date, name) {
     const error = `${name} is not a valid date`;
     try {
-        validateStringInput(date, name);
+        validateStringInput(String(date), name);
     } catch (e) {
+        console.log(e)
         throw error;
     }
     date = new Date(date);
@@ -120,7 +121,7 @@ function validateDependencies(dependencies) {
 function validateDueDate(dueDate) {
     let today = new Date();
     today.setHours(0, 0, 0, 0);
-    let dL = dueDate.split('-');
+    let dL = String(dueDate).split('-');
     let dueDateConv = new Date(dL);
     dueDateConv.setHours(0, 0, 0, 0);
     if (dueDateConv < today)

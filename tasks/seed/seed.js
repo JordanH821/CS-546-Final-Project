@@ -34,12 +34,14 @@ async function main() {
                     // date_i is how many days ahead of now each task will be.
                     // 0 will make first 2 tasks show in notification bar
                     // if you want to test no tasks in notification bar, use 3 or higher.
-                    let date_i = 0;
+                    let date_i = 1;
                     for (const task of user.tasks) {
                         
                         // build dynamic dates for seed so they are valid as of today
                         let dueDate = new Date();
                         dueDate.setDate(dueDate.getDate() + date_i);
+                        dueDate.setHours(0, 0, 0, 0);
+                        console.log(dueDate)
                         let reminderDate = new Date();
                         reminderDate.setDate(reminderDate.getDate() + date_i - 1);
 
