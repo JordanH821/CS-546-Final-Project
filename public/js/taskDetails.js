@@ -172,17 +172,96 @@ function cancelTaskUpdate() {
 }
 
 function validateTaskUpdates() {
-    $('#errorDiv').hide();
-    $('#errorDiv').empty();
-    validateStringInput($('#title').val().trim(), 'Title');
-    validateStringInput($('#description').val().trim(), 'Description');
-    validateSelect($('#priority').val().trim(), 'Priority');
-    validateDate($('#dueDate').val().trim(), 'Due Date');
-    validateDate($('#reminderDate').val().trim(), 'Reminder Date');
-    validateSelect($('#status').val().trim(), 'Status');
-    validateStringInput($('#assignee').val().trim(), 'Assignee');
+    clearErrors();
+    let valid = true;
+    try {
+        validateStringInput($('#title').val().trim(), 'Title');
+    } catch (e) {
+        event.preventDefault();
+        valid = false;
+        displayError(
+            'Title cannot be empty. Please type in a title for this task'
+        );
+    }
+    try {
+        validateStringInput($('#description').val().trim(), 'Description');
+    } catch (e) {
+        event.preventDefault();
+        valid = false;
+        displayError(
+            'Description cannot be empty. Please type in a description for this task'
+        );
+    }
+    try {
+        validateSelect($('#priority').val().trim(), 'Priority');
+    } catch (e) {
+        event.preventDefault();
+        valid = false;
+        displayError(
+            'Description cannot be empty. Please type in a description for this task'
+        );
+    }
+    try {
+        validateDate($('#dueDate').val().trim(), 'Due Date');
+    } catch (e) {
+        event.preventDefault();
+        valid = false;
+        displayError('Please select a Due date');
+    }
+    try {
+        validateDueDate($('#dueDate').val().trim());
+    } catch (e) {
+        event.preventDefault();
+        valid = false;
+        displayError('Please check Due date. It cannot be before today');
+    }
+    try {
+        validateDate($('#reminderDate').val().trim(), 'Reminder Date');
+    } catch (e) {
+        event.preventDefault();
+        valid = false;
+        displayError('Please select a Reminder date');
+    }
+    try {
+        validateReminderDate(
+            $('#reminderDate').val().trim(),
+            $('#dueDate').val().trim()
+        );
+    } catch (e) {
+        event.preventDefault();
+        valid = false;
+        displayError(
+            'Please check Reminder date. It cannot be after Due date and cannot be before today'
+        );
+    }
+    try {
+        validateSelect($('#status').val().trim(), 'Status');
+    } catch (e) {
+        event.preventDefault();
+        valid = false;
+        displayError('Check status');
+    }
+    try {
+        validateStringInput($('#assignee').val().trim(), 'Assignee');
+    } catch (e) {
+        event.preventDefault();
+        valid = false;
+        displayError(
+            'Assignee cannot be empty. Please type in an assignee for this task'
+        );
+    }
+    try {
+        validateTags($('#tags').val().trim());
+    } catch (e) {
+        event.preventDefault();
+        valid = false;
+        displayError(
+            'Tags field cannot be empty. Please type in tags for this task'
+        );
+    }
     let strippedTags = validateTags($('#tags').val().trim());
     $('#tags').val(strippedTags.join(', '));
+    if (!valid) throw `Problems in form`;
 }
 
 function getFormValues() {
@@ -288,7 +367,7 @@ $('#updateTaskButton').on('click', (event) => {
         // disableForm();
         updateTaskWithAJAX();
     } catch (e) {
-        displayError(e);
+        // displayError(e);
     }
 });
 
@@ -312,7 +391,6 @@ $('#addSubtaskButton').on('click', () => {
 });
 
 $('#addCommentButton').on('click', () => {
-
     const comment = $('#commentTextArea').val();
 
     if (comment.length > 0 && comment.trim().length > 0) {
@@ -321,7 +399,7 @@ $('#addCommentButton').on('click', () => {
             url: '/tasks/comment',
             data: {
                 taskId: $('#taskId').val().trim(),
-                comment: comment
+                comment: comment,
             },
         };
 
@@ -329,7 +407,7 @@ $('#addCommentButton').on('click', () => {
             if (res.comment) {
                 const commentLI = $('<li>' + res.comment.comment + '</li>');
                 $('#commentList').append(commentLI);
-                $('#commentTextArea').val('')
+                $('#commentTextArea').val('');
             } else {
                 alert('Could not add comment at this time');
             }
