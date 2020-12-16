@@ -44,7 +44,9 @@ router.get(
             tasks = await usersData.getAllTasksForUser(req.session.user._id);
         }
 
-        tasks.filter((task) => task.status != 'Archived').map((task) => task.tags.map((t) => tagSet.add(t)));
+        tasks
+            .filter((task) => task.status != 'Archived')
+            .map((task) => task.tags.map((t) => tagSet.add(t)));
         tags = Array.from(tagSet);
 
         let taskNotifications = await getTaskNotificationsForUser(
@@ -80,7 +82,10 @@ router.post(
     async (req, res) => {
         // update task with status
         const taskId = req.body.taskId;
-        const updatedTask = await tasksData.updateTaskStatus(taskId, req.body.status);
+        const updatedTask = await tasksData.updateTaskStatus(
+            taskId,
+            req.body.status
+        );
         if (!updatedTask) {
             res.status(500).redirect('/dashboard');
         }

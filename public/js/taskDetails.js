@@ -77,6 +77,7 @@ function disableInput() {
 
     // comments always active
     $('#commentTextArea').attr('disabled', false);
+    $('#deleteTaskForm').show();
 }
 
 function enableInput() {
@@ -85,6 +86,7 @@ function enableInput() {
     $('textarea').attr('disabled', false);
     $('#subtaskCreation').show();
     setSubtaskListener();
+    $('#deleteTaskForm').hide();
 }
 
 function copyDependenciesBackToOptions() {
