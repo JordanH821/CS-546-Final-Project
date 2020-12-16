@@ -1,6 +1,8 @@
 # CS-546-Final-Project
 ## How to run our application
-- Open a terminal and navigate to the root directory of our project 
+- Open a terminal and navigate to the root directory of our project
+- Install Node packages wiht:
+  - `npm i`
 - Seed the database with:
   - `npm run seed`
 - Start the application with:
