@@ -9,7 +9,7 @@ const hbs = exphbs.create({});
 const { validateDate } = require('./inputValidation');
 
 hbs.handlebars.registerHelper('prettyPrintDate', function (date) {
-    return `${date.toLocaleDateString()} @ ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+    return `${date.toLocaleDateString()}`;
 });
 
 // https://stackoverflow.com/questions/34252817/handlebarsjs-check-if-a-string-is-equal-to-a-value
