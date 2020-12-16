@@ -90,7 +90,7 @@ router.post(
             res.json({ updated: true });
         } catch (e) {
             console.log(e);
-            res.status(500).render('500');
+            res.status(500).render('error/500');
         }
     }
 );
