@@ -11,6 +11,8 @@ const {
     validateObjectId,
     validateSubtasks,
     validateDependencies,
+    validateDueDate,
+    validateReminderDate,
 } = require('../inputValidation');
 
 const validateFullTask = function (task) {
@@ -170,7 +172,9 @@ async function addTask(
     description = validateStringInput(description, 'Description');
     priority = validatePriority(priority);
     validateDate(dueDate, 'Due Date');
+    validateDueDate(dueDate);
     validateDate(reminderDate, 'Reminder Date');
+    validateDueDate(reminderDate, dueDate);
     validateStatus(status);
     assignee = validateStringInput(assignee, 'Assignee');
     tags = validateTags(tags);
@@ -219,7 +223,9 @@ async function updateTask(
     description = validateStringInput(description, 'Description');
     priority = validatePriority(priority);
     validateDate(dueDate, 'Due Date');
+    validateDueDate(dueDate);
     validateDate(reminderDate, 'Reminder Date');
+    validateDueDate(reminderDate, dueDate);
     validateStatus(status);
     assignee = validateStringInput(assignee, 'Assignee');
     tags = validateTags(tags);

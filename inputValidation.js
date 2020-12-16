@@ -5,7 +5,7 @@ function validateStringInput(input, name) {
         throw `${name} is null or undefined, but must be a non-empty string`;
     if (typeof input !== 'string')
         throw `${name} is of type ${typeof input}, but must be a string`;
-    if (!input) throw `${name} cannot be an empty string`;
+    if (!input) throw `${name} cannot be empty`;
     // check for all whitespace
     // https://stackoverflow.com/questions/6623231/remove-all-white-spaces-from-text
     if (input.replace(/\s/g, '').length === 0)
@@ -117,6 +117,29 @@ function validateDependencies(dependencies) {
     return dependencies;
 }
 
+function validateDueDate(dueDate) {
+    let today = new Date();
+    today.setHours(0, 0, 0, 0);
+    let dL = dueDate.split('-');
+    let dueDateConv = new Date(dL);
+    dueDateConv.setHours(0, 0, 0, 0);
+    if (dueDateConv < today)
+        throw `Due date cannot be before today's date. Please set due date to a future date`;
+}
+
+function validateReminderDate(reminderDate, dueDate) {
+    let today = new Date();
+    today.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+    let dueDateConv = new Date(dueDate.split('-'));
+    let reminderDateConv = new Date(reminderDate.split('-'));
+    reminderDateConv.setHours(0, 0, 0, 0);
+    if (reminderDateConv < today)
+        throw "Reminder date cannot be before today's date. Please set reminder date to a future date";
+    if (reminderDateConv > dueDateConv)
+        throw 'Reminder date cannot be after or on due date. Please set reminder date to be before due date';
+}
+
 module.exports = {
     validateStringInput,
     validateEmail,
@@ -128,4 +151,6 @@ module.exports = {
     validateTags,
     validateSubtasks,
     validateDependencies,
+    validateDueDate,
+    validateReminderDate,
 };

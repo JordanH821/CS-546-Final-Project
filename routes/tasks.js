@@ -15,6 +15,8 @@ const {
     validateObjectId,
     validateSubtasks,
     validateDependencies,
+    validateDueDate,
+    validateReminderDate,
 } = require('../inputValidation');
 
 router.get(
@@ -36,7 +38,9 @@ router.post(
             validateStringInput(xss(rq.description), 'Description');
             validatePriority(xss(rq.priority));
             validateDate(xss(rq.dueDate), 'Due Date');
+            validateDueDate(xss(rq.dueDate));
             validateDate(xss(rq.reminderDate), 'Reminder Date');
+            validateDueDate(xss(rq.reminderDate), xss(rq.dueDate));
             validateStatus(xss(rq.status));
             validateStringInput(xss(rq.assignee), 'Assignee');
             validateTags(rq.tags);
@@ -94,9 +98,7 @@ router.post(
             const tasksForUser = await users.getAllTasksForUser(
                 xss(req.session.user._id)
             );
-            const task = tasksForUser.find(
-                (t) => t._id.toString() === taskId
-            );
+            const task = tasksForUser.find((t) => t._id.toString() === taskId);
 
             if (!task) {
                 throw 'Invalid Task Id';
@@ -107,14 +109,15 @@ router.post(
                 req.session.user._id.toString(),
                 new Date().toString(),
                 taskId,
-                comment);
+                comment
+            );
 
             // add comment to task
             await tasksData.addCommentToTask(task._id, newComment._id);
 
-            res.json({ 'comment': newComment });
+            res.json({ comment: newComment });
         } catch (e) {
-            res.status(400).json({ 'error': 'Comment failed to add' });
+            res.status(400).json({ error: 'Comment failed to add' });
         }
     }
 );
@@ -151,7 +154,9 @@ router.get(
                 task.dependencies
             );
 
-            const commentList = await commentsData.getAllCommentsForTask(task._id.toString());
+            const commentList = await commentsData.getAllCommentsForTask(
+                task._id.toString()
+            );
 
             res.render('tasks/taskView', {
                 title: 'Task Details',
@@ -159,7 +164,7 @@ router.get(
                 newTask: newTask,
                 allTasks: tasks,
                 dependencies: dependencies,
-                comments: commentList
+                comments: commentList,
             });
         } catch (e) {
             res.status(404).json({ error: `${e}: Task not found` });
@@ -178,7 +183,9 @@ router.post(
             validateStringInput(xss(rq.description), 'Description');
             validatePriority(xss(rq.priority));
             validateDate(xss(rq.dueDate), 'Due Date');
+            validateDueDate(xss(rq.dueDate));
             validateDate(xss(rq.reminderDate), 'Reminder Date');
+            validateDueDate(xss(rq.reminderDate), xss(rq.dueDate));
             validateStatus(xss(rq.status));
             validateStringInput(xss(rq.assignee), 'Assignee');
             rq.subtasks = validateSubtasks(rq.subtasks);

@@ -57,3 +57,26 @@ function validateTags(tags) {
         throw `Invalid Tag String. You must provide at least one tag, with additional tags separated by a comma.`;
     }
 }
+
+function validateDueDate(dueDate) {
+    let today = new Date();
+    today.setHours(0, 0, 0, 0);
+    let dL = dueDate.split('-');
+    let dueDateConv = new Date(dL);
+    dueDateConv.setHours(0, 0, 0, 0);
+    if (dueDateConv < today)
+        throw `Due date cannot be before today's date. Please set due date to a future date`;
+}
+
+function validateReminderDate(reminderDate, dueDate) {
+    let today = new Date();
+    today.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+    let dueDateConv = new Date(dueDate.split('-'));
+    let reminderDateConv = new Date(reminderDate.split('-'));
+    reminderDateConv.setHours(0, 0, 0, 0);
+    if (reminderDateConv < today)
+        throw "Reminder date cannot be before today's date. Please set reminder date to a future date";
+    if (reminderDateConv > dueDateConv)
+        throw 'Reminder date cannot be after or on due date. Please set reminder date to be before due date';
+}
