@@ -177,7 +177,7 @@ async function addTask(
     validateSubtasks(subtasks);
     dependencies = validateDependencies(dependencies);
     let newTask = {
-        dateModified: new Date(Date.now()),
+        dateModified: Date.now(),
         creatorId: new mongoDB.ObjectID(creatorId),
         title: title,
         description: description,
@@ -226,7 +226,7 @@ async function updateTask(
     validateSubtasks(subtasks);
     validateDependencies(dependencies);
     let updateTask = {
-        dateModified: new Date(Date.now()),
+        dateModified: Date.now(),
         creatorId: new mongoDB.ObjectID(creatorId),
         title: title,
         description: description,
@@ -351,6 +351,7 @@ async function addCommentToTask(taskId, commentId) {
 
     return await this.getTaskById(taskId);
 }
+
 async function updateTaskStatus(taskId, status) {
     validateObjectId(taskId);
     validateStatus(status);
@@ -358,7 +359,12 @@ async function updateTaskStatus(taskId, status) {
     const taskCollection = await tasks();
     const updateInfo = await taskCollection.updateOne(
         { _id: mongoDB.ObjectID(taskId) },
-        { $set: { status: status } }
+        {
+            $set: {
+                status: status,
+                dateModified: Date.now()
+            }
+        }
     );
     if (!updateInfo.matchedCount && !updateInfo.modifiedCount)
         throw 'Task status update failed';
@@ -369,9 +375,9 @@ async function updateTaskStatus(taskId, status) {
 function sortTasksByDate(tasks, inverted) {
     return tasks.sort(function (a, b) {
         if (!inverted) {
-            return new Date(a.dateModified) - new Date(b.dateModified);
+            return a.dateModified - b.dateModified;
         } else {
-            return new Date(b.dateModified) - new Date(a.dateModified);
+            return b.dateModified - a.dateModified;
         }
     });
 }
