@@ -167,7 +167,7 @@ router.get(
                 comments: commentList,
             });
         } catch (e) {
-            res.status(404).render('error/404')
+            res.status(404).render('error/404');
         }
     }
 );
@@ -223,6 +223,16 @@ router.post(
             console.log(`error ${e}`);
             res.status(500).json({ updated: false, error: e });
         }
+    }
+);
+
+router.post(
+    '/delete/:id',
+    authenticationCheckRedirect('/users/login', true),
+    async (req, res) => {
+        console.log('here');
+        console.log(req.params.id);
+        res.redirect('users/login');
     }
 );
 
