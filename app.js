@@ -9,7 +9,22 @@ const hbs = exphbs.create({});
 const { validateDate } = require('./inputValidation');
 
 hbs.handlebars.registerHelper('prettyPrintDate', function (date) {
-    return `${date.toLocaleDateString()}`;
+    if (!date) return;
+    if (typeof date === 'string') {
+        try {
+            console.log(date);
+            validateDate(date);
+            date = new Date(date);
+        } catch (e) {
+            console.log(e);
+            return;
+        }
+    }
+    let dateString = date.toISOString();
+    const cutOff = dateString.indexOf('T');
+    dateString = dateString.slice(0, cutOff);
+    const dLst = dateString.split('-');
+    return dLst[1] + '-' + dLst[2] + '-' + dLst[0];
 });
 
 // https://stackoverflow.com/questions/34252817/handlebarsjs-check-if-a-string-is-equal-to-a-value

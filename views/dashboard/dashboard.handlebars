@@ -47,7 +47,7 @@
         </div>
     </div>
     {{/if}}
-    
+
     <div id='tagsContainer'>
         <a id='tagsTitle'>Tags:</a>
         {{#each tags}}
@@ -63,8 +63,7 @@
 
     <div id="columnsContainer" class="marginBottom16">
         <div class="row">
-            <div class="column c1" ondragover="dashboardAllowDrop(event)"
-                ondrop="dashboardOnDrop(event)">
+            <div class="column c1" ondragover="dashboardAllowDrop(event)" ondrop="dashboardOnDrop(event)">
                 <h3 class="columnHeader marginLeft12 marginRight12">To Do:</h3>
                 <div id="toDoColumn" class="columnScrollView">
                     {{#each toDoCards}}
