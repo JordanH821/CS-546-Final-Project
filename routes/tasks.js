@@ -167,7 +167,7 @@ router.get(
                 comments: commentList,
             });
         } catch (e) {
-            res.status(404).json({ error: `${e}: Task not found` });
+            res.status(404).render('error/404')
         }
     }
 );
