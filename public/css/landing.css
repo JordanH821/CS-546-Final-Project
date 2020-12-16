@@ -44,6 +44,12 @@ input {
     border-style: solid;
 }
 
+textarea[disabled], input[disabled], select[disabled]{
+    color: black;
+    background-color: rgb(230, 230, 230);
+    font-weight: bold;
+}
+
 .loginProfileButton {
     display: block;
     margin:auto;
