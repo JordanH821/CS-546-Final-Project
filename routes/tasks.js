@@ -167,7 +167,7 @@ router.get(
                 comments: commentList,
             });
         } catch (e) {
-            res.status(404).json({ error: `${e}: Task not found` });
+            res.status(404).render('error/404')
         }
     }
 );
@@ -221,7 +221,7 @@ router.post(
             res.json({ updated: true });
         } catch (e) {
             console.log(`error ${e}`);
-            res.status(500).render('error/500');
+            res.status(500).json({ updated: false, error: e });
         }
     }
 );
