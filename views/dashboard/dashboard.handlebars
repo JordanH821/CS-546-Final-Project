@@ -64,7 +64,7 @@
     <div id="columnsContainer" class="marginBottom16">
         <div class="row">
             <div class="column c1" ondragover="dashboardAllowDrop(event)" ondrop="dashboardOnDrop(event)">
-                <h3 class="columnHeader marginLeft12 marginRight12">To Do:</h3>
+                <h1 class="columnHeader marginLeft12 marginRight12">To Do:</h1>
                 <div id="toDoColumn" class="columnScrollView">
                     {{#each toDoCards}}
                     <div data-taskid="{{this._id}}" draggable="true" ondragstart="dashboardOnDrag(event)"
@@ -76,7 +76,7 @@
                 </div>
             </div>
             <div class="column c2" ondragover="dashboardAllowDrop(event)" ondrop="dashboardOnDrop(event)">
-                <h3 class="columnHeader marginLeft12 marginRight12">In Progress:</h3>
+                <h1 class="columnHeader marginLeft12 marginRight12">In Progress:</h1>
                 <div id="inProgressColumn" class="columnScrollView">
                     {{#each inProgressCards}}
                     <div data-taskid="{{this._id}}" draggable="true" ondragstart="dashboardOnDrag(event)"
@@ -89,7 +89,7 @@
             </div>
         </div>
         <div class="column c3" ondragover="dashboardAllowDrop(event)" ondrop="dashboardOnDrop(event)">
-            <h3 class="columnHeader marginLeft12 marginRight12">Done:</h3>
+            <h1 class="columnHeader marginLeft12 marginRight12">Done:</h1>
             <div id="doneColumn" class="columnScrollView">
                 {{#each doneCards}}
                 <div data-taskid={{this._id}} draggable="true" ondragstart="dashboardOnDrag(event)"
