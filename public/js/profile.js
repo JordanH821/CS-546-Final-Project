@@ -38,12 +38,12 @@ function validateProfileUpdates() {
     try {
         validateStringInput($('#firstName').val().trim(), 'First Name');
     } catch {
-        throw 'Please enter your first name in a valid 10 digit format.';
+        throw 'Please enter your first name.';
     }
     try {
         validateStringInput($('#lastName').val().trim(), 'Last Name');
     } catch {
-        throw 'Please enter your last name in a valid 10 digit format.';
+        throw 'Please enter your last name.';
     }
     try {
         validatePhoneNumber($('#mobileNumber').val().trim(), 'Mobile');
