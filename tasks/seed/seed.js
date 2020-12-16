@@ -43,6 +43,9 @@ async function main() {
                         let reminderDate = new Date();
                         reminderDate.setDate(reminderDate.getDate() + date_i - 1);
 
+                        dueDate = dueDate.getFullYear() + '-' + dueDate.getMonth() + '-' + dueDate.getDate();
+                        reminderDate = reminderDate.getFullYear() + '-' + reminderDate.getMonth() + '-' + reminderDate.getDate();
+
                         let t = await tasks.addTask(
                             u._id.toString(),
                             task.title,
