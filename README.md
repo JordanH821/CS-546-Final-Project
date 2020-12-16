@@ -1,1 +1,38 @@
 # CS-546-Final-Project
+## How to run our application
+- Open a terminal and navigate to the root directory of our project 
+- Seed the database
+  - `npm run seed`
+- Start the application
+  - `npm start`
+- Got the landing page in web browser
+  - localhost:3000/
+## Site Map
+- Landing Page
+  - Links to login and signup page
+- Login Page
+  - Allows a user to login to the site
+- Sign Up Page
+  - Allows a user to create an account on the site
+- Dashboard Page
+  - Displays all of a users non-archived tasks
+  - Search tasks by:
+    -  Title
+    -  Description
+    -  Tags
+  - Links to:
+    - Task Details page
+    - Create Task page
+    - Archive page
+    - Profile page
+- Create Task Page
+  - Allows a user to create new tasks
+- Archive Page
+  - Displays all of a users archived tasks
+- Task Details Page
+  - Displays all information about a task
+  - Edit task
+  - Delete task
+- Profile Page
+  - Displays all profile information
+  - Edit profile
