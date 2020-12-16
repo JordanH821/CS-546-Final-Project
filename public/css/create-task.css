@@ -1,103 +1,106 @@
 .taskForm {
-    margin: auto;
-    width: 50%;
+  margin: auto;
+  width: 50%;
 }
 
 textarea {
-    width: 90%;
-    margin-top: 4px;
+  width: 90%;
+  margin-top: 4px;
 }
 
 input {
-    padding: 4px;
-    margin-top: 4px;
+  padding: 4px;
+  margin-top: 4px;
 }
 
-textarea[disabled], input[disabled], select[disabled]{
-    color: rgb(75, 74, 74);
-    background-color: rgb(223, 223, 223);
+textarea[disabled],
+input[disabled],
+select[disabled] {
+  color: rgb(75, 74, 74);
+  background-color: rgb(223, 223, 223);
 }
 
 .wideInput {
-    width: 50%;
+  width: 50%;
 }
 
 select {
-    padding: 4px;
-    margin-top: 4px;
+  padding: 4px;
+  margin-top: 4px;
 }
 
 button {
-    width: 200px;
-    display: block;
-    margin: auto;
-    padding: 4px 24px 4px 24px;
-    font-size: 18px;
-    margin-top: 16px;
-    border-radius: 8px;
-    text-decoration: none;
-    outline: none;
-    background-color: white;
+  width: 200px;
+  display: block;
+  margin: auto;
+  padding: 4px 24px 4px 24px;
+  font-size: 18px;
+  margin-top: 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  outline: none;
+  background-color: white;
 }
 
 .alrignRight {
-    float: right;
+  float: right;
 }
 
 .task-item {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .pop-error {
-    color: red;
-    font-size: 20px;
-    border: 2px solid red;
+  color: red;
+  font-size: 20px;
+  border: 2px solid red;
 }
 
-.error {
-    color: red;
+#errorDiv {
+  color: red;
+  border: 5px solid red;
 }
 
 h1 {
-    padding: 0;
-    margin-top: 0;
-    text-align: center;
+  padding: 0;
+  margin-top: 0;
+  text-align: center;
 }
 
 .taskForm {
-    margin-top: 28px;
-    margin-bottom: 28px;
-    background-color: rgb(230, 230, 230);
-    padding: 48px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  margin-top: 28px;
+  margin-bottom: 28px;
+  background-color: rgb(230, 230, 230);
+  padding: 48px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
 
 main {
-    overflow-y: auto;
+  overflow-y: auto;
 }
 
 .notification {
-    text-align: center;
+  text-align: center;
 }
 
-
 .inlineDiv {
-    display: table;
+  display: table;
 }
 
 #addSubtaskButton {
-    display: inline;
-    font-size: 14px;
-    padding: 4px;
-    margin: 0;
-    width: 100px;
+  display: inline;
+  font-size: 14px;
+  padding: 4px;
+  margin: 0;
+  width: 100px;
 }
 
 .subtaskItem {
-    margin-top: 4px;
+  margin-top: 4px;
 }
 
-#subtaskList, #subtaskCreation {
-    padding-top: 0;
-    margin-top: 0px;
+#subtaskList,
+#subtaskCreation {
+  padding-top: 0;
+  margin-top: 0px;
 }
