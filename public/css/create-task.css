@@ -14,9 +14,8 @@ input {
 }
 
 textarea[disabled], input[disabled], select[disabled]{
-    color: black;
-    background-color: rgb(230, 230, 230);
-    font-weight: bold;
+    color: rgb(75, 74, 74);
+    background-color: rgb(223, 223, 223);
 }
 
 .wideInput {
