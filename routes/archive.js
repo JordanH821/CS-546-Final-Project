@@ -49,20 +49,5 @@ router.get(
     }
 );
 
-router.post(
-  '/updateTaskStatus',
-  authenticationCheckRedirect('/users/login', true),
-  async (req, res) => {
-    // update task with status
-    const taskId = req.body.taskId;
-    const updatedTask = tasksData.updateTaskStatus(taskId, req.body.status);
-    if (!updatedTask) {
-      // TO DO : Alert user that moving task failed
-      res.status(500).redirect('/archive');
-    } else {
-        res.status(400);
-    }
-  }
-);
 
 module.exports = router;

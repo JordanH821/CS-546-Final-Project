@@ -21,64 +21,6 @@ function sizeColumns() {
     }
 }
 
-function dashboardAllowDrop(ev) {
-    ev.preventDefault();
-}
-
-function dashboardOnDrag(ev) {
-    cardCurrentlyDragging = ev.target;
-    columnCurrentlyDragging = findColumnForTaskCard(cardCurrentlyDragging);
-}
-
-function dashboardOnDrop(ev) {
-    const column = findColumnForTaskCard(ev.target);
-
-    // do not re-drag task cards into the column it was already in
-    if (column == columnCurrentlyDragging) {
-        return;
-    }
-
-    // move task to column
-    if (column) {
-        column.appendChild(cardCurrentlyDragging);
-        cardCurrentlyDragging.scrollIntoView();
-    }
-
-    const params = {
-        status: columnMapping[column.id],
-        taskId: cardCurrentlyDragging.dataset.taskid,
-    };
-
-    // update service with moving card
-    var requestConfig = {
-        method: 'POST',
-        url: '/dashboard/updateTaskStatus',
-        data: params,
-    };
-
-    $.ajax(requestConfig).then(function (responseMessage) {
-        var newElement = $(responseMessage);
-        console.log(newElement);
-    });
-}
-
-function findColumnForTaskCard(taskCard) {
-    // find column
-    let current = taskCard;
-
-    // continue to traverse up until we find a column or there is no parent node
-    while (true) {
-        if (current.classList.contains('columnScrollView')) {
-            return current;
-        } else {
-            if (current.parentNode) {
-                current = current.parentNode;
-            } else {
-                return null;
-            }
-        }
-    }
-}
 // calls sizeColumns() on page load
 $(sizeColumns);
 
