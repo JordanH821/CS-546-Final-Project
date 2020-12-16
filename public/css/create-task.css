@@ -13,12 +13,6 @@ input {
     margin-top: 4px;
 }
 
-/* textarea, select {
-    border-width: 1px;
-    border-color: black;
-    border-style: solid;
-} */
-
 textarea[disabled], input[disabled], select[disabled]{
     color: black;
     background-color: rgb(230, 230, 230);;
