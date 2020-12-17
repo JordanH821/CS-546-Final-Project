@@ -3,51 +3,32 @@ const router = express.Router();
 const { authenticationCheckRedirect } = require('./middleware');
 const usersData = require('../data/users');
 const tasksData = require('../data/tasks');
-const { updateTask } = require('../data/tasks');
-const users = require('../data/users');
-const {
-  validateStringInput,
-  replaceQueryStringSpaces
-} = require('../inputValidation');
 
 router.get(
-
     '/',
     authenticationCheckRedirect('/users/login', true),
     async (req, res) => {
         let tasks;
         let searchTerm;
-        if (req.query && req.query.searchTerm) {
-            searchTerm = req.query.searchTerm;
-            try {
-                searchTerm = validateStringInput(searchTerm);
-                tasks = await usersData.searchUsersTasks(
-                    req.session.user._id,
-                    searchTerm
-                );
-                tasks = await tasks.toArray();
-            } catch (e) {
-                console.log(`Error searching tasks: ${e}`);
-                tasks = await usersData.getAllTasksForUser(
-                    req.session.user._id
-                );
-            }
-        } else {
+        try {
             tasks = await usersData.getAllTasksForUser(req.session.user._id);
+            res.render('archive/archive', {
+                title: 'Archive',
+                user: req.session.user,
+                archiveCards: tasksData.sortTasksByDate(
+                    tasks.filter((task) => task.status == 'Archived'),
+                    true
+                ),
+                searchTerm: searchTerm,
+            });
+        } catch (e) {
+            console.log(`Error in /archive route: ${e.toString()}`);
+            res.status(500).render('error/500', {
+                title: 'Server Error',
+                error: 'An error occur while preparing the archive page.',
+            });
         }
-
-        res.render('archive/archive', {
-            title: 'Archive',
-            user: req.session.user,
-            archiveCards: tasksData.sortTasksByDate(
-                tasks.filter((task) => task.status == 'Archived'),
-                true
-            ),
-            searchTerm: searchTerm,
-        });
-
     }
 );
-
 
 module.exports = router;
