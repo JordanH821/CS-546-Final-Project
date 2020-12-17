@@ -14,6 +14,7 @@
   - Links to login and signup pages
 - Login Page
   - Allows a user to log in to the site
+  - To use the seed data use -- username: test@stevens.edu password: JH123 
 - Sign Up Page
   - Allows a user to create an account on the site
 - Dashboard Page

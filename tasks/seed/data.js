@@ -1,12 +1,12 @@
 module.exports = [
     {
-        firstName: 'Jordan',
-        lastName: 'Handwerger',
-        email: 'jhandwer@stevens.edu',
+        firstName: 'John',
+        lastName: 'Snow',
+        email: 'test@stevens.edu',
         phone: {
-            mobile: '7325937411',
-            home: '7325530291',
-            work: '9084232949',
+            mobile: '7325557411',
+            home: '7325550291',
+            work: '9085552949',
         },
         password:
             '$2a$16$hwYeX0iSF5mj3T0CotIaHuTd/5x9dnR6UdlOrgJb7MUBx98UU4gwK',
