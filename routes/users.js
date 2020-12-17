@@ -29,13 +29,13 @@ router.post('/signup', async (req, res) => {
         validatePhoneNumber(xss(rq.homeNumber), 'Home');
         validatePhoneNumber(xss(rq.workNumber), 'Work');
         const newUser = await createUser(
-            firstName,
-            lastName,
-            email,
-            rq.password,
-            rq.mobileNumber,
-            rq.homeNumber,
-            rq.workNumber
+            xss(firstName),
+            xss(lastName),
+            xss(email),
+            xss(rq.password),
+            xss(rq.mobileNumber),
+            xss(rq.homeNumber),
+            xss(rq.workNumber)
         );
         req.session.user = newUser;
         delete req.session.user.hashedPassword; // remove hashedPassword for security
