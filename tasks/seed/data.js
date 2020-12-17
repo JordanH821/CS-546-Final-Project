@@ -118,7 +118,7 @@ module.exports = [
                     'The kids need halloween costumes. So does the dog.',
                 reminderDate: '2021-10-27',
                 status: 'Archived',
-                tags: ['Lawn'],
+                tags: ['Halloween'],
                 subtasks: ['Get crafting supplies out of the basement'],
                 dependencies: [],
             },
