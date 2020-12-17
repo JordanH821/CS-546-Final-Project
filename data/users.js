@@ -150,10 +150,10 @@ async function authenticateUser(email, password) {
         if (compare) {
             return user;
         } else {
-            throw 'Invalid username or password';
+            throw 'Invalid email address or password';
         }
     } catch (e) {
-        throw 'Invalid username or password';
+        throw 'Invalid email adress or password';
     }
 }
 
