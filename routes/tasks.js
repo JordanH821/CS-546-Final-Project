@@ -23,8 +23,21 @@ router.get(
     '/new',
     authenticationCheckRedirect('/users/login', true),
     async (req, res) => {
-        const tasks = await users.getActiveTasksForUser(req.session.user._id);
-        res.render('tasks/taskView', { title: 'Create Task', allTasks: tasks });
+        try {
+            const tasks = await users.getActiveTasksForUser(
+                req.session.user._id
+            );
+            res.render('tasks/taskView', {
+                title: 'Create Task',
+                allTasks: tasks,
+            });
+        } catch (e) {
+            console.log(`Error in /tasks/new route: ${e.toString()}`);
+            res.status(500).render('error/500', {
+                title: 'Server Error',
+                error: 'An error occur while preparing the create task page.',
+            });
+        }
     }
 );
 
@@ -117,7 +130,7 @@ router.post(
 
             res.json({ comment: newComment });
         } catch (e) {
-            res.status(400).json({ error: 'Comment failed to add' });
+            res.status(500).json({ error: 'Comment failed to add' });
         }
     }
 );
@@ -126,18 +139,23 @@ router.get(
     '/:id',
     authenticationCheckRedirect('/users/login', true),
     async (req, res) => {
+        let task;
         try {
             // check if task belongs to logged in user
             const tasksForUser = await users.getAllTasksForUser(
                 xss(req.session.user._id)
             );
-            const task = tasksForUser.find(
+            task = tasksForUser.find(
                 (t) => t._id.toString() === xss(req.params.id)
             );
             if (!task) {
                 throw 'Invalid Task Id';
             }
-
+        } catch (e) {
+            res.status(404).render('error/404', { title: 'Task Not Found' });
+            return;
+        }
+        try {
             // if task is found, render details
             const newTask = req.query.newTask ? req.query.newTask : false;
 
@@ -167,7 +185,11 @@ router.get(
                 comments: commentList,
             });
         } catch (e) {
-            res.status(404).render('error/404');
+            console.log(`Error in /tasks/:id route: ${e.toString()}`);
+            res.status(500).render('error/500', {
+                title: 'Server Error',
+                error: 'An error occur while preparing the task details page.',
+            });
         }
     }
 );
@@ -232,10 +254,14 @@ router.post(
     async (req, res) => {
         try {
             await users.removeTask(req.session.user._id, xss(req.params.id));
+            res.redirect('/dashboard');
         } catch (e) {
-            console.log(e);
+            console.log(`Error in /tasks/delete/:id route: ${e.toString()}`);
+            res.status(500).render('error/500', {
+                title: 'Server Error',
+                error: 'An error occur while deleting the task page.',
+            });
         }
-        res.redirect('/dashboard');
     }
 );
 
