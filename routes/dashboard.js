@@ -76,7 +76,7 @@ router.get(
                 taskNotifications: taskNotifications,
             });
         } catch (e) {
-            console.log(e.toString());
+            console.log(`Error in /dashboard route: ${e.toString()}`);
             res.status(500).render('error/500', {
                 title: 'Server Error',
                 error: 'An error occur while preparing the dashboard page.',
@@ -89,13 +89,20 @@ router.post(
     '/updateTaskStatus',
     authenticationCheckRedirect('/users/login', true),
     async (req, res) => {
-        // update task with status
-        const taskId = req.body.taskId;
-        const updatedTask = await tasksData.updateTaskStatus(
-            taskId,
-            req.body.status
-        );
-        if (!updatedTask) {
+        try {
+            // update task with status
+            const taskId = req.body.taskId;
+            const updatedTask = await tasksData.updateTaskStatus(
+                taskId,
+                req.body.status
+            );
+            if (!updatedTask) {
+                res.status(500).redirect('/dashboard');
+            }
+        } catch (e) {
+            console.log(
+                `Error in /dashboard/updateTaskStatus route: ${e.toString()}`
+            );
             res.status(500).redirect('/dashboard');
         }
     }
