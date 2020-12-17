@@ -29,13 +29,15 @@ async function createUser(
     validatePhoneNumber(homeNumber, 'Home');
     validatePhoneNumber(workNumber, 'Work');
     let usersCollection = await users();
-    const emailInUse = await usersCollection.findOne({ email: email });
+    const emailInUse = await usersCollection.findOne({
+        email: email.toLowerCase(),
+    });
     if (emailInUse)
         throw `There is already an account with the email address: (${email})`;
     const insertedInfo = await usersCollection.insertOne({
         firstName: firstName,
         lastName: lastName,
-        email: email,
+        email: email.toLowerCase(),
         hashedPassword: await hashPassword(password), // TODO hash
         phone: { mobile: mobileNumber, home: homeNumber, work: workNumber },
         tasks: [],
@@ -61,13 +63,15 @@ async function seedUser(
     validatePhoneNumber(homeNumber, 'Home');
     validatePhoneNumber(workNumber, 'Work');
     let usersCollection = await users();
-    const emailInUse = await usersCollection.findOne({ email: email });
+    const emailInUse = await usersCollection.findOne({
+        email: email.toLowerCase(),
+    });
     if (emailInUse)
         throw `There is already an account with this email address: (${email})`;
     const insertedInfo = await usersCollection.insertOne({
         firstName: firstName,
         lastName: lastName,
-        email: email,
+        email: email.toLowerCase(),
         hashedPassword: password, // TODO hash
         phone: { mobile: mobileNumber, home: homeNumber, work: workNumber },
         tasks: [],
@@ -127,7 +131,7 @@ async function getUserById(id) {
 async function getUserByEmail(email) {
     email = validateEmail(email);
     let usersCollection = await users();
-    const user = await usersCollection.findOne({ email: email });
+    const user = await usersCollection.findOne({ email: email.toLowerCase() });
     if (user) {
         return user;
     } else {
@@ -146,10 +150,10 @@ async function authenticateUser(email, password) {
         if (compare) {
             return user;
         } else {
-            throw 'Invalid username or password';
+            throw 'Invalid email address or password';
         }
     } catch (e) {
-        throw 'Invalid username or password';
+        throw 'Invalid email adress or password';
     }
 }
 
